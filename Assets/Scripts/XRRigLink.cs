@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -10,13 +9,13 @@ public class TransformLink : MonoBehaviour {
     public SyncType syncType;
 
     private EntityManager _entityManager;
-    
-    void Start() {
+
+    private void Start() {
         _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
     }
-    
-    void Update() {
+
+    private void Update() {
         SyncTarget();
     }
 
@@ -36,6 +35,10 @@ public class TransformLink : MonoBehaviour {
                 });
                 
                 break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
+            
         }
     }
     
