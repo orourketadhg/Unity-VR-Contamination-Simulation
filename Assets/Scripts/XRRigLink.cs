@@ -3,48 +3,52 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-public class TransformLink : MonoBehaviour {
+namespace Com.TUDublin.VRContaminationSimulation {
 
-    public Entity TargetEntity;
-    public SyncType syncType;
+    public class XRRigLink : MonoBehaviour {
 
-    private EntityManager _entityManager;
+        public Entity TargetEntity;
+        public SyncType syncType;
 
-    private void Start() {
-        _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        private EntityManager _entityManager;
 
-    }
+        private void Start() {
+            _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-    private void Update() {
-        SyncTarget();
-    }
-
-    private void SyncTarget() {
-        switch (syncType) {
-            case SyncType.EntityToThis:
-                transform.position = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Position;
-                transform.rotation = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Rotation;
-                break;
-                
-            case SyncType.ThisToEntityLocal:
-                _entityManager.SetComponentData(TargetEntity, new Translation() {
-                    Value = transform.localPosition
-                });
-                _entityManager.SetComponentData(TargetEntity, new Rotation() {
-                    Value = transform.localRotation
-                });
-                
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException();
-            
         }
-    }
+
+        private void Update() {
+            SyncToTarget();
+        }
+
+        private void SyncToTarget() {
+            switch (syncType) {
+                case SyncType.RootEntity:
+                    transform.position = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Position;
+                    transform.rotation = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Rotation;
+                    break;
+            
+                case SyncType.LocalEntity:
+                    _entityManager.SetComponentData(TargetEntity, new Translation() {
+                        Value = transform.localPosition
+                    });
+            
+                    _entityManager.SetComponentData(TargetEntity, new Rotation() {
+                        Value = transform.localRotation
+                    });
+                    break;
+            
+                default:
+                    throw new ArgumentOutOfRangeException();
+                
+            }
+        }
     
-    public enum SyncType {
-        EntityToThis,
-        ThisToEntityLocal
-    }
+        public enum SyncType {
+            RootEntity,
+            LocalEntity
+        }
     
+    }
+
 }

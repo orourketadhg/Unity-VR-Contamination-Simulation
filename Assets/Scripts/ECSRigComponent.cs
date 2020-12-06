@@ -1,13 +1,17 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-public class TransformLinkEntity : MonoBehaviour, IConvertGameObjectToEntity {
+namespace Com.TUDublin.VRContaminationSimulation {
 
-    public XRRigLink xrRigLink;
+    public class ECSRigComponent : MonoBehaviour, IConvertGameObjectToEntity {
+
+        public XRRigLink xrRigLink;
     
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
-        xrRigLink.TargetEntity = entity;
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
+            xrRigLink.TargetEntity = entity;
         
-    }
+        }
     
+    }
+
 }
