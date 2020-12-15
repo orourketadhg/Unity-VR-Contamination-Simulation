@@ -13,21 +13,26 @@ namespace Com.TUDublin.VRContaminationSimulation {
         private EntityManager _entityManager;
 
         private void Start() {
+            // get worlds Entity Manager
             _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
         }
 
         private void Update() {
+            // every frame update the position of the ECS rig
             SyncToTarget();
+            
         }
 
         private void SyncToTarget() {
             switch (syncType) {
+                // sync entities rotation and position to this - ROOT
                 case SyncType.RootEntity:
                     transform.position = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Position;
                     transform.rotation = _entityManager.GetComponentData<LocalToWorld>(TargetEntity).Rotation;
                     break;
             
+                // sync entities local rotation and position to this - child
                 case SyncType.LocalEntity:
                     _entityManager.SetComponentData(TargetEntity, new Translation() {
                         Value = transform.localPosition
@@ -43,7 +48,7 @@ namespace Com.TUDublin.VRContaminationSimulation {
                 
             }
         }
-    
+        
         public enum SyncType {
             RootEntity,
             LocalEntity
