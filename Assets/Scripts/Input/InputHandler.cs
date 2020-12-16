@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation {
+namespace com.TUDublin.VRContaminationSimulation.Input {
 
-    public class InputController : MonoBehaviour {
+    public class InputHandler : MonoBehaviour {
 
         private VRControls _input;
-        public static InputController Instance;
+        public static InputHandler Instance;
 
         [Header("Right XR Controller")]
         public bool rightGrip;
