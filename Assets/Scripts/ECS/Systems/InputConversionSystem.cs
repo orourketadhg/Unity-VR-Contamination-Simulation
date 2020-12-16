@@ -1,15 +1,16 @@
 ﻿using System;
 using com.TUDublin.VRContaminationSimulation.ECS.Components;
+using com.TUDublin.VRContaminationSimulation.Input;
 using Unity.Entities;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
     public class InputConversionSystem : SystemBase {
 
-        private InputController _inputController;
+        private InputHandler _inputController;
 
         protected override void OnStartRunning() {
-            _inputController = InputController.Instance;
+            _inputController = InputHandler.Instance;
         }
 
         protected override void OnUpdate() {
