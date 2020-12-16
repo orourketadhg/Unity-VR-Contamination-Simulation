@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-namespace Com.TUDublin.VRContaminationSimulation {
+namespace com.TUDublin.VRContaminationSimulation.RigConversion {
 
     public class XRRigLink : MonoBehaviour {
 
@@ -21,7 +21,6 @@ namespace Com.TUDublin.VRContaminationSimulation {
         private void Update() {
             // every frame update the position of the ECS rig
             SyncToTarget();
-            
         }
 
         private void SyncToTarget() {
@@ -45,7 +44,6 @@ namespace Com.TUDublin.VRContaminationSimulation {
             
                 default:
                     throw new ArgumentOutOfRangeException();
-                
             }
         }
         
@@ -53,7 +51,6 @@ namespace Com.TUDublin.VRContaminationSimulation {
             RootEntity,
             LocalEntity
         }
-    
     }
 
 }
