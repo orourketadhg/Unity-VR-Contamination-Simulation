@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 629343522953395023}
   - component: {fileID: 2854955280244826885}
   - component: {fileID: 6338504933416657685}
-  - component: {fileID: -3306467434052223817}
-  - component: {fileID: -440463112044823728}
+  - component: {fileID: 5291204330688191775}
+  - component: {fileID: 9206171913669326958}
   m_Layer: 0
   m_Name: Particle
   m_TagString: Untagged
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-3306467434052223817
+--- !u!114 &5291204330688191775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
---- !u!114 &-440463112044823728
+--- !u!114 &9206171913669326958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
