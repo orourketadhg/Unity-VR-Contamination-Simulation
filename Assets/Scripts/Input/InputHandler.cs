@@ -22,12 +22,12 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public Vector2 leftJoystick;
 
         private void Awake() {
-
+            
+            // Singleton 
             if (Instance != null && Instance != this) {
                 Destroy(gameObject);
                 return;
             }
-
             Instance = this;
 
             _input = new VRControls();
