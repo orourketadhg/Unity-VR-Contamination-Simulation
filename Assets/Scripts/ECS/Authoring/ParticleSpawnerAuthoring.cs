@@ -3,7 +3,7 @@ using com.TUDublin.VRContaminationSimulation.ECS.Components;
 using Unity.Entities;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation {
+namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
 
     [AddComponentMenu("VRVTS/Particle Spawner")]
     [ConverterVersion("TOR", 1)]
@@ -21,7 +21,6 @@ namespace com.TUDublin.VRContaminationSimulation {
             };
 
             dstManager.AddComponentData(entity, spawnerData);
-            
         }
     }
 

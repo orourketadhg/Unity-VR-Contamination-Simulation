@@ -28,7 +28,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                         commandBuffer.SetComponent(newParticle, new Translation() {
                             Value = translation.Value
                         });
-                        
                     }
 
                 }).Schedule();

@@ -9,6 +9,7 @@ namespace com.TUDublin.VRContaminationSimulation.RigConversion {
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             xrRigLink.TargetEntity = entity;
+            
         }
     }
 

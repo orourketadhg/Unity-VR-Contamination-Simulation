@@ -11,11 +11,14 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
         protected override void OnStartRunning() {
             _inputController = InputHandler.Instance;
+            
         }
 
         protected override void OnUpdate() {
             
-            Entities.WithoutBurst().ForEach((ref InputData input) => {
+            Entities
+                .WithoutBurst()
+                .ForEach((ref InputData input) => {
                 switch(input.Hand) {
                     case ControllerHand.Left:
                         input.Grip = _inputController.leftGrip;
