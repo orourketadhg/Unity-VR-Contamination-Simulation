@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace com.TUDublin.VRContaminationSimulation.Input {
 
@@ -89,7 +90,6 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
             _input.XRLeft.Joystick.canceled += ctx => leftJoystick = Vector2.zero;
 
             #endregion
-
         }
 
         private void OnEnable() {
