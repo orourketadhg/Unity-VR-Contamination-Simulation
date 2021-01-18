@@ -9,14 +9,16 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
 
         [Header("Right XR Controller")]
         public bool rightGrip;
-        public bool rightTrigger;
+        public bool rightTriggerTouch;
+        public bool rightTriggerPress;
         public bool rightPrimaryBtn;
         public bool rightSecondaryBtn;
         public Vector2 rightJoystick;
         
         [Header("Left XR Controller")]
         public bool leftGrip;
-        public bool leftTrigger;
+        public bool leftTriggerTouch;
+        public bool leftTriggerPress;
         public bool leftPrimaryBtn;
         public bool leftSecondaryBtn;
         public Vector2 leftJoystick;
@@ -32,13 +34,19 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
 
             _input = new VRControls();
 
+            #region Right XR Controller
+
             // Right Grip
             _input.XRRight.Grip.performed += ctx => rightGrip = true;
             _input.XRRight.Grip.canceled += ctx => rightGrip = false;
             
-            // Right Trigger
-            _input.XRRight.Trigger.performed += ctx => rightTrigger = true;
-            _input.XRRight.Trigger.canceled += ctx => rightTrigger = false;
+            // Right Trigger Touch
+            _input.XRRight.TriggerTouch.performed += ctx => rightTriggerTouch = true;
+            _input.XRRight.TriggerTouch.canceled += ctx => rightTriggerTouch = false;
+            
+            // Right Trigger Press
+            _input.XRRight.TriggerPress.performed += ctx => rightTriggerPress = true;
+            _input.XRRight.TriggerPress.canceled += ctx => rightTriggerPress = false;
             
             // Right Primary Button
             _input.XRRight.PrimaryButton.performed += ctx => rightPrimaryBtn = true;
@@ -51,14 +59,22 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
             // Right Joystick
             _input.XRRight.Joystick.performed += ctx => rightJoystick = ctx.ReadValue<Vector2>();
             _input.XRRight.Joystick.canceled += ctx => rightJoystick = Vector2.zero;
-            
+
+            #endregion
+
+            #region Left XR Controller
+
             // Left Grip
             _input.XRLeft.Grip.performed += ctx => leftGrip = true;
             _input.XRLeft.Grip.canceled += ctx => leftGrip = false;
             
-            // Left Trigger
-            _input.XRLeft.Trigger.performed += ctx => leftTrigger = true;
-            _input.XRLeft.Trigger.canceled += ctx => leftTrigger = false;
+            // Left Trigger Touch
+            _input.XRLeft.TriggerTouch.performed += ctx => leftTriggerTouch = true;
+            _input.XRLeft.TriggerTouch.canceled += ctx => leftTriggerTouch = false;
+            
+            // Left Trigger Press
+            _input.XRLeft.TriggerPress.performed += ctx => leftTriggerPress = true;
+            _input.XRLeft.TriggerPress.canceled += ctx => leftTriggerPress = false;
             
             // Left Primary Button
             _input.XRLeft.PrimaryButton.performed += ctx => leftPrimaryBtn = true;
@@ -71,6 +87,8 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
             // Left Joystick
             _input.XRLeft.Joystick.performed += ctx => leftJoystick = ctx.ReadValue<Vector2>();
             _input.XRLeft.Joystick.canceled += ctx => leftJoystick = Vector2.zero;
+
+            #endregion
 
         }
 

@@ -22,7 +22,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                 .WithName("ParticleSpawner")
                 .ForEach((in ParticleSpawnerData spawner, in InputData inputData, in Translation translation) => {
 
-                    if (inputData.Trigger) {
+                    if (inputData.TriggerPress) {
                         // create the new particle entity
                         Entity newParticle = commandBuffer.Instantiate(spawner.Entity);
                         commandBuffer.SetComponent(newParticle, new Translation() {

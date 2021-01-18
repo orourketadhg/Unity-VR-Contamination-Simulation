@@ -27,10 +27,18 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Trigger"",
+                    ""name"": ""TriggerPress"",
                     ""type"": ""Button"",
                     ""id"": ""96263056-11a4-4e38-bad9-ae35ff0d4c1f"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TriggerTouch"",
+                    ""type"": ""Value"",
+                    ""id"": ""855d564f-2732-4841-9429-c5d5599d1a95"",
+                    ""expectedControlType"": ""Analog"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -78,7 +86,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Trigger"",
+                    ""action"": ""TriggerPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -114,6 +122,17 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""464f6409-9852-4545-be18-c8259e491047"",
+                    ""path"": ""<XRController>{RightHand}/triggerTouched"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -130,9 +149,17 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Trigger"",
+                    ""name"": ""TriggerTouch"",
+                    ""type"": ""Value"",
+                    ""id"": ""3a9f6cb7-b703-4756-9d02-11a2cfc90841"",
+                    ""expectedControlType"": ""Analog"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TriggerPress"",
                     ""type"": ""Button"",
-                    ""id"": ""686fc10d-f17b-4cf6-8aac-bb969f4093e7"",
+                    ""id"": ""06b748bf-5b89-4adc-8717-20941c22b5a9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -176,17 +203,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""28d6ccdd-ad96-440e-9ad2-6c5e285ba7d8"",
-                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Trigger"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""844d8fb2-79b0-496b-a2ef-3ae4e835cbbf"",
                     ""path"": ""<XRController>{LeftHand}/primaryButton"",
                     ""interactions"": """",
@@ -217,6 +233,28 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03104bf7-c85c-40d0-aaef-d447e23923be"",
+                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b8a7cf4-17cc-44f9-9598-57a8b5983671"",
+                    ""path"": ""<XRController>{LeftHand}/triggerTouched"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -226,14 +264,16 @@ public class @VRControls : IInputActionCollection, IDisposable
         // XRRight
         m_XRRight = asset.FindActionMap("XRRight", throwIfNotFound: true);
         m_XRRight_Grip = m_XRRight.FindAction("Grip", throwIfNotFound: true);
-        m_XRRight_Trigger = m_XRRight.FindAction("Trigger", throwIfNotFound: true);
+        m_XRRight_TriggerPress = m_XRRight.FindAction("TriggerPress", throwIfNotFound: true);
+        m_XRRight_TriggerTouch = m_XRRight.FindAction("TriggerTouch", throwIfNotFound: true);
         m_XRRight_PrimaryButton = m_XRRight.FindAction("PrimaryButton", throwIfNotFound: true);
         m_XRRight_SecondaryButton = m_XRRight.FindAction("SecondaryButton", throwIfNotFound: true);
         m_XRRight_Joystick = m_XRRight.FindAction("Joystick", throwIfNotFound: true);
         // XRLeft
         m_XRLeft = asset.FindActionMap("XRLeft", throwIfNotFound: true);
         m_XRLeft_Grip = m_XRLeft.FindAction("Grip", throwIfNotFound: true);
-        m_XRLeft_Trigger = m_XRLeft.FindAction("Trigger", throwIfNotFound: true);
+        m_XRLeft_TriggerTouch = m_XRLeft.FindAction("TriggerTouch", throwIfNotFound: true);
+        m_XRLeft_TriggerPress = m_XRLeft.FindAction("TriggerPress", throwIfNotFound: true);
         m_XRLeft_PrimaryButton = m_XRLeft.FindAction("PrimaryButton", throwIfNotFound: true);
         m_XRLeft_SecondaryButton = m_XRLeft.FindAction("SecondaryButton", throwIfNotFound: true);
         m_XRLeft_Joystick = m_XRLeft.FindAction("Joystick", throwIfNotFound: true);
@@ -287,7 +327,8 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_XRRight;
     private IXRRightActions m_XRRightActionsCallbackInterface;
     private readonly InputAction m_XRRight_Grip;
-    private readonly InputAction m_XRRight_Trigger;
+    private readonly InputAction m_XRRight_TriggerPress;
+    private readonly InputAction m_XRRight_TriggerTouch;
     private readonly InputAction m_XRRight_PrimaryButton;
     private readonly InputAction m_XRRight_SecondaryButton;
     private readonly InputAction m_XRRight_Joystick;
@@ -296,7 +337,8 @@ public class @VRControls : IInputActionCollection, IDisposable
         private @VRControls m_Wrapper;
         public XRRightActions(@VRControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Grip => m_Wrapper.m_XRRight_Grip;
-        public InputAction @Trigger => m_Wrapper.m_XRRight_Trigger;
+        public InputAction @TriggerPress => m_Wrapper.m_XRRight_TriggerPress;
+        public InputAction @TriggerTouch => m_Wrapper.m_XRRight_TriggerTouch;
         public InputAction @PrimaryButton => m_Wrapper.m_XRRight_PrimaryButton;
         public InputAction @SecondaryButton => m_Wrapper.m_XRRight_SecondaryButton;
         public InputAction @Joystick => m_Wrapper.m_XRRight_Joystick;
@@ -312,9 +354,12 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Grip.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGrip;
                 @Grip.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGrip;
                 @Grip.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGrip;
-                @Trigger.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTrigger;
-                @Trigger.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTrigger;
-                @Trigger.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTrigger;
+                @TriggerPress.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerPress;
+                @TriggerPress.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerPress;
+                @TriggerPress.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerPress;
+                @TriggerTouch.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerTouch;
+                @TriggerTouch.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerTouch;
+                @TriggerTouch.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnTriggerTouch;
                 @PrimaryButton.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnPrimaryButton;
                 @PrimaryButton.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnPrimaryButton;
                 @PrimaryButton.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnPrimaryButton;
@@ -331,9 +376,12 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Grip.started += instance.OnGrip;
                 @Grip.performed += instance.OnGrip;
                 @Grip.canceled += instance.OnGrip;
-                @Trigger.started += instance.OnTrigger;
-                @Trigger.performed += instance.OnTrigger;
-                @Trigger.canceled += instance.OnTrigger;
+                @TriggerPress.started += instance.OnTriggerPress;
+                @TriggerPress.performed += instance.OnTriggerPress;
+                @TriggerPress.canceled += instance.OnTriggerPress;
+                @TriggerTouch.started += instance.OnTriggerTouch;
+                @TriggerTouch.performed += instance.OnTriggerTouch;
+                @TriggerTouch.canceled += instance.OnTriggerTouch;
                 @PrimaryButton.started += instance.OnPrimaryButton;
                 @PrimaryButton.performed += instance.OnPrimaryButton;
                 @PrimaryButton.canceled += instance.OnPrimaryButton;
@@ -352,7 +400,8 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_XRLeft;
     private IXRLeftActions m_XRLeftActionsCallbackInterface;
     private readonly InputAction m_XRLeft_Grip;
-    private readonly InputAction m_XRLeft_Trigger;
+    private readonly InputAction m_XRLeft_TriggerTouch;
+    private readonly InputAction m_XRLeft_TriggerPress;
     private readonly InputAction m_XRLeft_PrimaryButton;
     private readonly InputAction m_XRLeft_SecondaryButton;
     private readonly InputAction m_XRLeft_Joystick;
@@ -361,7 +410,8 @@ public class @VRControls : IInputActionCollection, IDisposable
         private @VRControls m_Wrapper;
         public XRLeftActions(@VRControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Grip => m_Wrapper.m_XRLeft_Grip;
-        public InputAction @Trigger => m_Wrapper.m_XRLeft_Trigger;
+        public InputAction @TriggerTouch => m_Wrapper.m_XRLeft_TriggerTouch;
+        public InputAction @TriggerPress => m_Wrapper.m_XRLeft_TriggerPress;
         public InputAction @PrimaryButton => m_Wrapper.m_XRLeft_PrimaryButton;
         public InputAction @SecondaryButton => m_Wrapper.m_XRLeft_SecondaryButton;
         public InputAction @Joystick => m_Wrapper.m_XRLeft_Joystick;
@@ -377,9 +427,12 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Grip.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGrip;
                 @Grip.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGrip;
                 @Grip.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGrip;
-                @Trigger.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTrigger;
-                @Trigger.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTrigger;
-                @Trigger.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTrigger;
+                @TriggerTouch.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerTouch;
+                @TriggerTouch.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerTouch;
+                @TriggerTouch.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerTouch;
+                @TriggerPress.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerPress;
+                @TriggerPress.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerPress;
+                @TriggerPress.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnTriggerPress;
                 @PrimaryButton.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnPrimaryButton;
                 @PrimaryButton.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnPrimaryButton;
                 @PrimaryButton.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnPrimaryButton;
@@ -396,9 +449,12 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Grip.started += instance.OnGrip;
                 @Grip.performed += instance.OnGrip;
                 @Grip.canceled += instance.OnGrip;
-                @Trigger.started += instance.OnTrigger;
-                @Trigger.performed += instance.OnTrigger;
-                @Trigger.canceled += instance.OnTrigger;
+                @TriggerTouch.started += instance.OnTriggerTouch;
+                @TriggerTouch.performed += instance.OnTriggerTouch;
+                @TriggerTouch.canceled += instance.OnTriggerTouch;
+                @TriggerPress.started += instance.OnTriggerPress;
+                @TriggerPress.performed += instance.OnTriggerPress;
+                @TriggerPress.canceled += instance.OnTriggerPress;
                 @PrimaryButton.started += instance.OnPrimaryButton;
                 @PrimaryButton.performed += instance.OnPrimaryButton;
                 @PrimaryButton.canceled += instance.OnPrimaryButton;
@@ -415,7 +471,8 @@ public class @VRControls : IInputActionCollection, IDisposable
     public interface IXRRightActions
     {
         void OnGrip(InputAction.CallbackContext context);
-        void OnTrigger(InputAction.CallbackContext context);
+        void OnTriggerPress(InputAction.CallbackContext context);
+        void OnTriggerTouch(InputAction.CallbackContext context);
         void OnPrimaryButton(InputAction.CallbackContext context);
         void OnSecondaryButton(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
@@ -423,7 +480,8 @@ public class @VRControls : IInputActionCollection, IDisposable
     public interface IXRLeftActions
     {
         void OnGrip(InputAction.CallbackContext context);
-        void OnTrigger(InputAction.CallbackContext context);
+        void OnTriggerTouch(InputAction.CallbackContext context);
+        void OnTriggerPress(InputAction.CallbackContext context);
         void OnPrimaryButton(InputAction.CallbackContext context);
         void OnSecondaryButton(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);

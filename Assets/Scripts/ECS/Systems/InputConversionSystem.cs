@@ -22,7 +22,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                 switch(input.Hand) {
                     case ControllerHand.Left:
                         input.Grip = _inputController.leftGrip;
-                        input.Trigger = _inputController.leftTrigger;
+                        input.TriggerTouch = _inputController.leftTriggerTouch;
+                        input.TriggerPress = _inputController.leftTriggerPress;
                         input.PrimaryButton = _inputController.leftPrimaryBtn;
                         input.SecondaryButton = _inputController.leftSecondaryBtn;
                         input.Joystick = _inputController.leftJoystick;
@@ -30,7 +31,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                     
                     case ControllerHand.Right:
                         input.Grip = _inputController.rightGrip;
-                        input.Trigger = _inputController.rightTrigger;
+                        input.TriggerTouch = _inputController.rightTriggerTouch;
+                        input.TriggerPress = _inputController.rightTriggerPress;
                         input.PrimaryButton = _inputController.rightPrimaryBtn;
                         input.SecondaryButton = _inputController.rightSecondaryBtn;
                         input.Joystick = _inputController.rightJoystick;
