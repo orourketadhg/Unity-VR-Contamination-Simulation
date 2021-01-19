@@ -6,17 +6,17 @@
             "id": "3c8fd46a-0dc1-42e7-b076-29d6379b444a",
             "actions": [
                 {
-                    "name": "Grip",
-                    "type": "Button",
-                    "id": "9ad36a68-dd80-4e97-bc7b-16758b465398",
-                    "expectedControlType": "Button",
+                    "name": "GripTouch",
+                    "type": "Value",
+                    "id": "2208c8af-df2c-484f-9f33-7422a92eb60f",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "TriggerPress",
+                    "name": "GripPress",
                     "type": "Button",
-                    "id": "96263056-11a4-4e38-bad9-ae35ff0d4c1f",
+                    "id": "9ad36a68-dd80-4e97-bc7b-16758b465398",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -30,7 +30,23 @@
                     "interactions": ""
                 },
                 {
-                    "name": "PrimaryButton",
+                    "name": "TriggerPress",
+                    "type": "Button",
+                    "id": "96263056-11a4-4e38-bad9-ae35ff0d4c1f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PrimaryTouch",
+                    "type": "Button",
+                    "id": "27b42b5b-e02a-4b66-a63b-9aaa6d7e08ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PrimaryPress",
                     "type": "Button",
                     "id": "92ebd2ba-9586-4c3c-b749-0bb6029cc134",
                     "expectedControlType": "Button",
@@ -38,9 +54,25 @@
                     "interactions": ""
                 },
                 {
-                    "name": "SecondaryButton",
+                    "name": "SecondaryTouch",
+                    "type": "Button",
+                    "id": "995032b6-a141-4f0e-8fe1-1da4290021da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SecondaryPress",
                     "type": "Button",
                     "id": "c661fd39-7835-4b14-b9d7-e420b295bc3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "JoystickTouch",
+                    "type": "Button",
+                    "id": "2b5d784e-5f32-45c3-961c-158509f91298",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -62,7 +94,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grip",
+                    "action": "GripPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -84,7 +116,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryButton",
+                    "action": "PrimaryPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -95,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecondaryButton",
+                    "action": "SecondaryPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -107,6 +139,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Joystick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f30590ce-e1e8-4f3a-b359-5c48be216995",
+                    "path": "<XRController>{RightHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GripTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a51618d-b5b2-48c7-9926-0ef507fe3a3b",
+                    "path": "<XRController>{RightHand}/primaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "daf2528f-5ce4-42e7-96f3-3fddbd559d65",
+                    "path": "<XRController>{RightHand}/secondaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a8cc10d-373d-405f-aaae-f3b699c7d170",
+                    "path": "<XRController>{RightHand}/thumbstickTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JoystickTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -128,7 +204,15 @@
             "id": "4038f130-7b63-408f-8bc4-1b309c58f744",
             "actions": [
                 {
-                    "name": "Grip",
+                    "name": "GripTouch",
+                    "type": "Value",
+                    "id": "d279b5bc-b51d-40ce-9204-08a9b9d7855b",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GripPress",
                     "type": "Button",
                     "id": "29b18b20-c062-4374-806c-e0e434fcf59b",
                     "expectedControlType": "Button",
@@ -152,7 +236,15 @@
                     "interactions": ""
                 },
                 {
-                    "name": "PrimaryButton",
+                    "name": "PrimaryTouch",
+                    "type": "Button",
+                    "id": "d9c9dbc3-3849-4d9f-a985-47e7d9989527",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PrimaryPress",
                     "type": "Button",
                     "id": "c047c9c4-fda5-4944-ae57-cb028ac351b3",
                     "expectedControlType": "Button",
@@ -160,9 +252,25 @@
                     "interactions": ""
                 },
                 {
-                    "name": "SecondaryButton",
+                    "name": "SecondaryTouch",
+                    "type": "Button",
+                    "id": "7cd5c785-f540-4b2c-bcad-0023f393f081",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SecondaryPress",
                     "type": "Button",
                     "id": "131318dd-3899-4617-bcee-098bbeee6420",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "JoystickTouch",
+                    "type": "Button",
+                    "id": "39617e23-7f34-4030-834c-e63bf51215f0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -184,7 +292,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grip",
+                    "action": "GripPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -195,7 +303,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryButton",
+                    "action": "PrimaryPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -206,7 +314,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecondaryButton",
+                    "action": "SecondaryPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -240,6 +348,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "TriggerTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d04ee08-5aa8-4fca-8416-6bc2b8377890",
+                    "path": "<XRController>{LeftHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GripTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "469a5214-b200-47bd-a2bd-c3f0ec21c6d0",
+                    "path": "<XRController>{LeftHand}/primaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cc28634-53cc-4c3f-b6b8-2c25d5f66db9",
+                    "path": "<XRController>{LeftHand}/secondaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c9c3d64-1389-42bf-b2ac-b1c9647291fd",
+                    "path": "<XRController>{LeftHand}/thumbstickTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JoystickTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

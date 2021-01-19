@@ -21,20 +21,28 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                 .ForEach((ref InputData input) => {
                 switch(input.Hand) {
                     case ControllerHand.Left:
-                        input.Grip = _inputController.leftGrip;
+                        input.GripTouch = _inputController.leftGripTouch;
+                        input.GripPress = _inputController.leftGripPress;
                         input.TriggerTouch = _inputController.leftTriggerTouch;
                         input.TriggerPress = _inputController.leftTriggerPress;
-                        input.PrimaryButton = _inputController.leftPrimaryBtn;
-                        input.SecondaryButton = _inputController.leftSecondaryBtn;
+                        input.PrimaryTouch = _inputController.leftPrimaryTouch;
+                        input.PrimaryPress = _inputController.leftPrimaryPress;
+                        input.SecondaryTouch = _inputController.leftSecondaryTouch;
+                        input.SecondaryPress = _inputController.leftSecondaryPress;
+                        input.JoystickTouch = _inputController.leftJoystickTouch;
                         input.Joystick = _inputController.leftJoystick;
                         break;
                     
                     case ControllerHand.Right:
-                        input.Grip = _inputController.rightGrip;
+                        input.GripTouch = _inputController.rightGripTouch;
+                        input.GripPress = _inputController.rightGripPress;
                         input.TriggerTouch = _inputController.rightTriggerTouch;
                         input.TriggerPress = _inputController.rightTriggerPress;
-                        input.PrimaryButton = _inputController.rightPrimaryBtn;
-                        input.SecondaryButton = _inputController.rightSecondaryBtn;
+                        input.PrimaryTouch = _inputController.rightPrimaryTouch;
+                        input.PrimaryPress = _inputController.rightPrimaryPress;
+                        input.SecondaryTouch = _inputController.rightSecondaryTouch;
+                        input.SecondaryPress = _inputController.rightSecondaryPress;
+                        input.JoystickTouch = _inputController.rightJoystickTouch;
                         input.Joystick = _inputController.rightJoystick;
                         break;
                     

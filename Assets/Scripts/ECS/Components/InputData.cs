@@ -9,11 +9,15 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
 
         public ControllerHand Hand;
         
-        public bool Grip;
+        public bool GripTouch;
+        public bool GripPress;
         public bool TriggerTouch;
         public bool TriggerPress;
-        public bool PrimaryButton;
-        public bool SecondaryButton;
+        public bool PrimaryTouch;
+        public bool PrimaryPress;
+        public bool SecondaryTouch;
+        public bool SecondaryPress;
+        public bool JoystickTouch;
         public float2 Joystick;
         
     }
