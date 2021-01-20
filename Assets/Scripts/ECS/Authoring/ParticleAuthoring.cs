@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
     
+    [AddComponentMenu("VRCS/Authoring/ParticleData")]
     [ConverterVersion("TOR", 1)]
-    public class ParticleSpawnerAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity {
+    public class ParticleAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity {
 
         public GameObject particlePrefab;
 
@@ -15,11 +16,11 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
         }
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
-            ParticleSpawnerData spawnerData = new ParticleSpawnerData() {
+            ParticleData data = new ParticleData() {
                 Entity = conversionSystem.GetPrimaryEntity(particlePrefab),
             };
 
-            dstManager.AddComponentData(entity, spawnerData);
+            dstManager.AddComponentData(entity, data);
         }
     }
 
