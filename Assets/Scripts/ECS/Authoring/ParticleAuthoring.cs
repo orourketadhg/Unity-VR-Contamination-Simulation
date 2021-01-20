@@ -4,8 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
-
-    [AddComponentMenu("VRVTS/Particle Spawner")]
+    
     [ConverterVersion("TOR", 1)]
     public class ParticleSpawnerAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity {
 

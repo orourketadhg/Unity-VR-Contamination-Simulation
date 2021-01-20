@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 165871bb4fa915847973b6955c7a670d
+guid: d0c255d07fd68f14b94e55d388e7e6bb
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -77,9 +77,15 @@ ModelImporter:
     second: hands:b_r_thumb_ignore
   - first:
       1: 100048
-    second: hands:r_hand_world
+    second: hands:hands_geom
   - first:
       1: 100050
+    second: hands:r_hand_world
+  - first:
+      1: 100052
+    second: hands:Rhand
+  - first:
+      1: 100054
     second: //RootNode
   - first:
       4: 400000
@@ -155,22 +161,48 @@ ModelImporter:
     second: hands:b_r_thumb_ignore
   - first:
       4: 400048
-    second: hands:r_hand_world
+    second: hands:hands_geom
   - first:
       4: 400050
+    second: hands:r_hand_world
+  - first:
+      4: 400052
+    second: hands:Rhand
+  - first:
+      4: 400054
     second: //RootNode
   - first:
+      21: 2100000
+    second: default1
+  - first:
+      21: 2100002
+    second: unnamed1
+  - first:
+      43: 4300000
+    second: hands:Rhand
+  - first:
       74: 7400000
-    second: r_hand_pinch_anim
+    second: Take 001
+  - first:
+      74: 7400002
+    second: r_hand_skeletal_lowres
   - first:
       95: 9500000
     second: //RootNode
-  externalObjects: {}
+  - first:
+      137: 13700000
+    second: hands:Rhand
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed1
+    second: {fileID: 2100000, guid: 3637b758ff163493f8bb8b6d7e96d7ae, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -192,88 +224,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: r_hand_pinch_anim
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 4
-      lastFrame: 5
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: hands:r_hand_world
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_grip
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_hand_ignore
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_index1
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_index1/hands:b_r_index2
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_index1/hands:b_r_index2/hands:b_r_index3
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_index1/hands:b_r_index2/hands:b_r_index3/hands:b_r_index_ignore
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_middle1
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_middle1/hands:b_r_middle2
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_middle1/hands:b_r_middle2/hands:b_r_middle3
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_middle1/hands:b_r_middle2/hands:b_r_middle3/hands:b_r_middle_ignore
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_pinky0
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_pinky0/hands:b_r_pinky1
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_pinky0/hands:b_r_pinky1/hands:b_r_pinky2
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_pinky0/hands:b_r_pinky1/hands:b_r_pinky2/hands:b_r_pinky3
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_pinky0/hands:b_r_pinky1/hands:b_r_pinky2/hands:b_r_pinky3/hands:b_r_pinky_ignore
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_ring1
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_ring1/hands:b_r_ring2
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_ring1/hands:b_r_ring2/hands:b_r_ring3
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_ring1/hands:b_r_ring2/hands:b_r_ring3/hands:b_r_ring_ignore
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_thumb1
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_thumb1/hands:b_r_thumb2
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_thumb1/hands:b_r_thumb2/hands:b_r_thumb3
-        weight: 1
-      - path: hands:r_hand_world/hands:b_r_hand/hands:b_r_thumb1/hands:b_r_thumb2/hands:b_r_thumb3/hands:b_r_thumb_ignore
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -282,10 +233,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -298,7 +249,7 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     meshOptimizationFlags: -1
-    indexFormat: 1
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -310,8 +261,8 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
-    normalCalculationMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
