@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
     
+    public struct ParticleData : IComponentData {
+        public Entity virusParticle;
+    }
+    
     [AddComponentMenu("VRCS/Authoring/ParticleData")]
     [ConverterVersion("TOR", 1)]
     public class ParticleAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity {
@@ -17,7 +21,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             ParticleData data = new ParticleData() {
-                Entity = conversionSystem.GetPrimaryEntity(particlePrefab),
+                virusParticle = conversionSystem.GetPrimaryEntity(particlePrefab),
             };
 
             dstManager.AddComponentData(entity, data);
