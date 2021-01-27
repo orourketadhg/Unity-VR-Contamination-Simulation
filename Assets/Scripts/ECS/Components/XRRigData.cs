@@ -6,8 +6,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
     [GenerateAuthoringComponent]
     public struct XRRigData : IComponentData{
         public RigHardwareType Type;
-        
-        
     }
     
 }

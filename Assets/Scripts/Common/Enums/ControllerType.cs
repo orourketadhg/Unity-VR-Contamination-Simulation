@@ -1,4 +1,4 @@
-﻿namespace com.TUDublin.VRContaminationSimulation.Input {
+﻿namespace com.TUDublin.VRContaminationSimulation.Common.Enums {
 
     public enum ControllerType {
         LeftHand,

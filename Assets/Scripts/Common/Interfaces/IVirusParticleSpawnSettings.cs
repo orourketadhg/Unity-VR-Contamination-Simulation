@@ -1,7 +1,6 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
+namespace com.TUDublin.VRContaminationSimulation.Common.Interfaces {
 
     public interface IVirusParticleSpawnSettings {
 

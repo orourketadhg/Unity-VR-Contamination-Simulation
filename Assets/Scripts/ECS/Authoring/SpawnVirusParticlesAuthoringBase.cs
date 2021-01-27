@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using com.TUDublin.VRContaminationSimulation.ECS.Components;
+using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
 using Unity.Entities;
 using UnityEngine;
 

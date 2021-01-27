@@ -1,4 +1,5 @@
-﻿using com.TUDublin.VRContaminationSimulation.Input;
+﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
+using com.TUDublin.VRContaminationSimulation.Input;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;

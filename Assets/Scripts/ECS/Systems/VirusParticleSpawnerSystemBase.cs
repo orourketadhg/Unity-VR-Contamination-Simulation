@@ -1,4 +1,5 @@
-﻿using com.TUDublin.VRContaminationSimulation.ECS.Components;
+﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
+using com.TUDublin.VRContaminationSimulation.ECS.Components;
 using Unity.Entities;
 using Unity.Physics.Systems;
 
