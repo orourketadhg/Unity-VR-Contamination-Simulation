@@ -19,31 +19,13 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
             Entities
                 .WithoutBurst()
                 .ForEach((ref InputData input) => {
-                switch(input.Hand) {
-                    case ControllerHand.Left:
-                        input.GripTouch = _inputController.leftGripTouch;
-                        input.GripPress = _inputController.leftGripPress;
-                        input.TriggerTouch = _inputController.leftTriggerTouch;
-                        input.TriggerPress = _inputController.leftTriggerPress;
-                        input.PrimaryTouch = _inputController.leftPrimaryTouch;
-                        input.PrimaryPress = _inputController.leftPrimaryPress;
-                        input.SecondaryTouch = _inputController.leftSecondaryTouch;
-                        input.SecondaryPress = _inputController.leftSecondaryPress;
-                        input.JoystickTouch = _inputController.leftJoystickTouch;
-                        input.Joystick = _inputController.leftJoystick;
+                switch(input.type) {
+                    case ControllerType.LeftHand:
+                        UpdateLeftController(ref input);
                         break;
                     
-                    case ControllerHand.Right:
-                        input.GripTouch = _inputController.rightGripTouch;
-                        input.GripPress = _inputController.rightGripPress;
-                        input.TriggerTouch = _inputController.rightTriggerTouch;
-                        input.TriggerPress = _inputController.rightTriggerPress;
-                        input.PrimaryTouch = _inputController.rightPrimaryTouch;
-                        input.PrimaryPress = _inputController.rightPrimaryPress;
-                        input.SecondaryTouch = _inputController.rightSecondaryTouch;
-                        input.SecondaryPress = _inputController.rightSecondaryPress;
-                        input.JoystickTouch = _inputController.rightJoystickTouch;
-                        input.Joystick = _inputController.rightJoystick;
+                    case ControllerType.RightHand:
+                        UpdateRightController(ref input);
                         break;
                     
                     default:
@@ -53,6 +35,32 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
             }).Run();
 
         }
+
+        private void UpdateLeftController(ref InputData input) {
+            input.GripTouch = _inputController.leftGripTouch;
+            input.GripPress = _inputController.leftGripPress;
+            input.TriggerTouch = _inputController.leftTriggerTouch;
+            input.TriggerPress = _inputController.leftTriggerPress;
+            input.PrimaryTouch = _inputController.leftPrimaryTouch;
+            input.PrimaryPress = _inputController.leftPrimaryPress;
+            input.SecondaryTouch = _inputController.leftSecondaryTouch;
+            input.SecondaryPress = _inputController.leftSecondaryPress;
+            input.JoystickTouch = _inputController.leftJoystickTouch;
+            input.Joystick = _inputController.leftJoystick;
+        }
+        private void UpdateRightController(ref InputData input) {
+            input.GripTouch = _inputController.rightGripTouch;
+            input.GripPress = _inputController.rightGripPress;
+            input.TriggerTouch = _inputController.rightTriggerTouch;
+            input.TriggerPress = _inputController.rightTriggerPress;
+            input.PrimaryTouch = _inputController.rightPrimaryTouch;
+            input.PrimaryPress = _inputController.rightPrimaryPress;
+            input.SecondaryTouch = _inputController.rightSecondaryTouch;
+            input.SecondaryPress = _inputController.rightSecondaryPress;
+            input.JoystickTouch = _inputController.rightJoystickTouch;
+            input.Joystick = _inputController.rightJoystick;
+        } 
+        
     }
 
 }

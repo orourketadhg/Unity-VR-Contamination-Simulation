@@ -1,16 +1,13 @@
-﻿using Unity.Entities;
+﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
+using Unity.Entities;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
 
     [GenerateAuthoringComponent]
     public struct XRRigData : IComponentData{
-        public TargetType Type;
+        public RigHardwareType Type;
         
-        public enum TargetType {
-            Headset,
-            RightController,
-            LeftController
-        }
+        
     }
     
 }

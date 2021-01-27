@@ -12,7 +12,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
         
         protected override void OnCreate() {
             _rig = Object.FindObjectsOfType<RigType>();
-            
         }
 
         protected override void OnUpdate() {
@@ -27,12 +26,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
                         translation.Value = t.transform.position;
                         rotation.Value = t.transform.rotation;
-                        
                     }
                 }).Run();
-
         }
-        
     }
-
 }

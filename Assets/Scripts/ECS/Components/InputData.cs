@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using com.TUDublin.VRContaminationSimulation.Input;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
     [GenerateAuthoringComponent]
     public struct InputData : IComponentData {
 
-        public ControllerHand Hand;
+        public ControllerType type;
         
         public bool GripTouch;
         public bool GripPress;
@@ -20,11 +21,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
         public bool JoystickTouch;
         public float2 Joystick;
         
-    }
-
-    public enum ControllerHand {
-        Left,
-        Right
     }
 
 }
