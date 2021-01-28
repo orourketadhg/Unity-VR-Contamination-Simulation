@@ -99,7 +99,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
                 LeftSecondaryPress = _leftSecondaryPress,
                 LeftJoystickTouch = _leftJoystickTouch,
                 LeftJoystick = _leftJoystick
-                
             });
         }
     }
