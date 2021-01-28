@@ -222,8 +222,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147303547}
-  - component: {fileID: 1147303549}
-  - component: {fileID: 1147303548}
   m_Layer: 0
   m_Name: Mouth
   m_TagString: Untagged
@@ -245,34 +243,6 @@ Transform:
   m_Father: {fileID: 1793472320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1147303548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147303546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fc7ba8113e449159d2563f2afa98f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
-  scale: {x: 0.001, y: 0.003}
-  emissionForce: {x: 0.25, y: 1}
---- !u!114 &1147303549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147303546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c11a435609b4ef3a80eaa66d150b9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsBreathing: 0
 --- !u!1 &1314829232
 GameObject:
   m_ObjectHideFlags: 0
