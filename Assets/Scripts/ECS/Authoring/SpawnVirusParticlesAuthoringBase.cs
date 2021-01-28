@@ -9,8 +9,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
     public abstract class SpawnVirusParticlesAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs where T: struct, IComponentData, IVirusParticleSettings {
 
         public GameObject prefab;
-        [Min(0.001f)] public float2 scale;
-        [Min(0.001f)] public float2 emissionForce;
+        [Min(0.001f)] public Vector2 scale;
+        [Min(0.001f)] public Vector2 emissionForce;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             var spawnSettings = new T {
