@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
@@ -28,7 +27,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
         public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => referencedPrefabs.Add(prefab);
 
         protected virtual void Configure(ref T spawnSettings) { }
-
     }
 
 }

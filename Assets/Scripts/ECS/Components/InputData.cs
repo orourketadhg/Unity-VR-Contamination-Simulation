@@ -5,22 +5,29 @@ using Unity.Mathematics;
 using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.ECS.Components {
-
-    [GenerateAuthoringComponent]
+    
     public struct InputData : IComponentData {
-
-        public ControllerType type;
+        public bool RightGripTouch;
+        public bool RightGripPress;
+        public bool RightTriggerTouch;
+        public bool RightTriggerPress;
+        public bool RightPrimaryTouch;
+        public bool RightPrimaryPress;
+        public bool RightSecondaryTouch;
+        public bool RightSecondaryPress;
+        public bool RightJoystickTouch;
+        public float2 RightJoystick;
         
-        public bool GripTouch;
-        public bool GripPress;
-        public bool TriggerTouch;
-        public bool TriggerPress;
-        public bool PrimaryTouch;
-        public bool PrimaryPress;
-        public bool SecondaryTouch;
-        public bool SecondaryPress;
-        public bool JoystickTouch;
-        public float2 Joystick;
+        public bool LeftGripTouch;
+        public bool LeftGripPress;
+        public bool LeftTriggerTouch;
+        public bool LeftTriggerPress;
+        public bool LeftPrimaryTouch;
+        public bool LeftPrimaryPress;
+        public bool LeftSecondaryTouch;
+        public bool LeftSecondaryPress;
+        public bool LeftJoystickTouch;
+        public float2 LeftJoystick;
         
     }
 
