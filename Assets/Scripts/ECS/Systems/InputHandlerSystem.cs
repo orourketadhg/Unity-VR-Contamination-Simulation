@@ -7,7 +7,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
     [AlwaysUpdateSystem]
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public class InputConversionSystem : SystemBase, VRControls.IXRRightActions, VRControls.IXRLeftActions {
+    public class InputHandlerSystem : SystemBase, VRControls.IXRRightActions, VRControls.IXRLeftActions {
         
         private VRControls _input;
         private EntityQuery _inputDataQuery;
@@ -73,7 +73,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
             if (_inputDataQuery.CalculateEntityCount() == 0) {
                 EntityManager.CreateEntity(typeof(InputData));
             }
-
+            
+            // update Input Data component on found singleton entity; 
             _inputDataQuery.SetSingleton(new InputData() {
                 
                 // Right Controller Input

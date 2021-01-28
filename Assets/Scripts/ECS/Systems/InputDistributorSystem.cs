@@ -7,7 +7,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
     [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     [UpdateAfter(typeof(InputHandlerSystem))]
-    public class InputDistributerSystem : SystemBase {
+    public class InputDistributorSystem : SystemBase {
 
         private EntityQuery _inputDataQuery;
 
