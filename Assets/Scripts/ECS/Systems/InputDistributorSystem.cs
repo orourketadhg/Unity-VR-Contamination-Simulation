@@ -20,7 +20,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
             if (_inputDataQuery.CalculateEntityCount() == 0) {
                 Debug.LogError("Failed to find DOTS Input Handler Entity");
-                
             }
             
         }
