@@ -1,10 +1,9 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
-using Unity.Animation;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
+namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Particles {
 
     [AddComponentMenu("VR CS/Particles/Active Light Particle Data")]
     [ConverterVersion("TOR", 1)]

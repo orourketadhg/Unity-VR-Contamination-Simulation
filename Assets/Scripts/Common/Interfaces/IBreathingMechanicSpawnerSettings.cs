@@ -4,10 +4,10 @@ using Unity.Mathematics;
 
 namespace com.TUDublin.VRContaminationSimulation.Common.Interfaces {
 
-    public interface IVirusParticleSpawnerSettings {
-        float2 SpawnerDurationRange { get; set; }
+    public interface IBreathingMechanicSpawnerSettings {
+        float2 SpawnerDuration { get; set; }
         float2 SpawnRange { get; set; }
-        BlobAssetReference<AnimationCurveBlob> SpawnerRangeCurve { get; set; }
+        BlobAssetReference<AnimationCurveBlob> SpawnRangeCurve { get; set; }
         BlobAssetReference<AnimationCurveBlob> ParticleSpawnVolumeCurve { get; set; }
         bool EnableDecayingVirusParticles { get; set; }
         

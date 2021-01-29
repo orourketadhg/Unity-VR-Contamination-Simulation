@@ -1,4 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.ECS.Components;
+using com.TUDublin.VRContaminationSimulation.ECS.Components.Input;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -52,7 +53,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
         
         protected override void OnCreate() {
             _inputDataQuery = GetEntityQuery(typeof(InputData));
-            _breathDataQuery = GetEntityQuery(typeof(BreathInputData));
+            _breathDataQuery = GetEntityQuery(typeof(MouthBreathInputData));
             
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -97,10 +98,10 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
             // update BreathInputData component on found singleton entity; 
             if (_breathDataQuery.CalculateEntityCount() == 0) {
-                EntityManager.CreateEntity(typeof(BreathInputData));
+                EntityManager.CreateEntity(typeof(MouthBreathInputData));
             }
             
-            _breathDataQuery.SetSingleton(new BreathInputData() {
+            _breathDataQuery.SetSingleton(new MouthBreathInputData() {
                 Value = _breath
             });
             
