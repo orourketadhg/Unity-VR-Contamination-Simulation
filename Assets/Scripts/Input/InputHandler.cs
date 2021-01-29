@@ -33,7 +33,10 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public Vector2 leftJoystick;
 
         [Header("Additional Input")] 
-        public bool breath;
+        public bool mouthBreath;
+        public bool noseBreath;
+        public bool sneeze;
+        public bool cough;
 
         private void Awake() => _input = new VRControls();
         private void OnEnable() => _input.Enable();
@@ -70,8 +73,22 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         #endregion
 
         #region Additional Input Bindings
+        
+        public void OnMouthBreath(InputAction.CallbackContext context) {
+            if (context.performed) mouthBreath = !mouthBreath;
+        }
 
-        public void OnBreath(InputAction.CallbackContext context) { if (context.performed) breath = !breath; }
+        public void OnNoseBreath(InputAction.CallbackContext context) {
+            if (context.performed) noseBreath = !noseBreath;
+        }
+
+        public void OnSneeze(InputAction.CallbackContext context) {
+            if (context.performed) sneeze = !sneeze;
+        }
+
+        public void OnCough(InputAction.CallbackContext context) {
+            if (context.performed) cough = !cough;
+        }
 
         #endregion
         

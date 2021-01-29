@@ -11,7 +11,10 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
     public class InputHandlerSystem : SystemBase, VRControls.IXRRightActions, VRControls.IXRLeftActions {
         
         private EntityQuery _inputDataQuery;
-        private EntityQuery _breathDataQuery;
+        private EntityQuery _mouthBreathInputDataQuery;
+        private EntityQuery _noseBreathInputDataQuery;
+        private EntityQuery _sneezeInputDataQuery;
+        private EntityQuery _coughInputDataQuery;
 
         private VRControls _input;
         
@@ -47,13 +50,19 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
 
         #region Additional Input Binding Variables
 
-        private bool _breath;
+        private bool _mouthBreath;
+        private bool _noseBreath;
+        private bool _sneeze;
+        private bool _cough;
 
         #endregion
         
         protected override void OnCreate() {
             _inputDataQuery = GetEntityQuery(typeof(InputData));
-            _breathDataQuery = GetEntityQuery(typeof(MouthBreathInputData));
+            _mouthBreathInputDataQuery = GetEntityQuery(typeof(MouthBreathInputData));
+            _noseBreathInputDataQuery = GetEntityQuery(typeof(NoseBreathInputData));
+            _sneezeInputDataQuery = GetEntityQuery(typeof(SneezeInputData));
+            _coughInputDataQuery = GetEntityQuery(typeof(CoughBreathInput));
             
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -97,13 +106,41 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
             });
 
             // update BreathInputData component on found singleton entity; 
-            if (_breathDataQuery.CalculateEntityCount() == 0) {
+            if (_mouthBreathInputDataQuery.CalculateEntityCount() == 0) {
                 EntityManager.CreateEntity(typeof(MouthBreathInputData));
             }
             
-            _breathDataQuery.SetSingleton(new MouthBreathInputData() {
-                Value = _breath
+            _mouthBreathInputDataQuery.SetSingleton(new MouthBreathInputData() {
+                Value = _mouthBreath
             });
+            
+            // update BreathInputData component on found singleton entity; 
+            if (_noseBreathInputDataQuery.CalculateEntityCount() == 0) {
+                EntityManager.CreateEntity(typeof(NoseBreathInputData));
+            }
+            
+            _noseBreathInputDataQuery.SetSingleton(new NoseBreathInputData() {
+                Value = _mouthBreath
+            });
+            
+            // update BreathInputData component on found singleton entity; 
+            if (_sneezeInputDataQuery.CalculateEntityCount() == 0) {
+                EntityManager.CreateEntity(typeof(SneezeInputData));
+            }
+            
+            _sneezeInputDataQuery.SetSingleton(new SneezeInputData() {
+                Value = _mouthBreath
+            });
+            
+            // update BreathInputData component on found singleton entity; 
+            if (_coughInputDataQuery.CalculateEntityCount() == 0) {
+                EntityManager.CreateEntity(typeof(CoughBreathInput));
+            }
+            
+            _coughInputDataQuery.SetSingleton(new CoughBreathInput() {
+                Value = _mouthBreath
+            });
+            
             
         }
         
@@ -141,7 +178,21 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
         
         #region Additional Input Bindings
 
-        public void OnBreath(InputAction.CallbackContext context) { if (context.performed) _breath = !_breath; }
+        public void OnMouthBreath(InputAction.CallbackContext context) {
+            if (context.performed) _mouthBreath = !_mouthBreath;
+        }
+
+        public void OnNoseBreath(InputAction.CallbackContext context) {
+            if (context.performed) _noseBreath = !_noseBreath;
+        }
+
+        public void OnSneeze(InputAction.CallbackContext context) {
+            if (context.performed) _sneeze = !_sneeze;
+        }
+
+        public void OnCough(InputAction.CallbackContext context) {
+            if (context.performed) _cough = !_cough;
+        }
 
         #endregion
 

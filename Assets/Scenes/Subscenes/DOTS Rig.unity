@@ -222,6 +222,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147303547}
+  - component: {fileID: 1147303549}
+  - component: {fileID: 1147303548}
   m_Layer: 0
   m_Name: Mouth
   m_TagString: Untagged
@@ -243,6 +245,60 @@ Transform:
   m_Father: {fileID: 1793472320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1147303548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147303546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f64475dda846b4808be07595cc5774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration: {x: 0, y: 0}
+  spawnRange: {x: 0, y: 0}
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+--- !u!114 &1147303549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147303546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe64a4771f4449b9a8ebbbf2db285a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration: {x: 0, y: 0}
+  spawnRange: {x: 0, y: 0}
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
 --- !u!1 &1314829232
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314829233}
+  - component: {fileID: 1314829235}
   - component: {fileID: 1314829234}
   m_Layer: 0
   m_Name: Nose
@@ -286,9 +343,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c897679e24ac453aaa2e7fd410e3bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerDurationRange: {x: 0, y: 0}
+  spawnerDuration: {x: 0, y: 0}
   spawnRange: {x: 0, y: 0}
-  spawnerRangeCurve:
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+--- !u!114 &1314829235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314829232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c222281ab75413d8eb0febbf7529083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration: {x: 0, y: 0}
+  spawnRange: {x: 0, y: 0}
+  spawnRangeCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2

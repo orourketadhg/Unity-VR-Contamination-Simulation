@@ -86,7 +86,15 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Breath",
+                    "name": "MouthBreath",
+                    "type": "Button",
+                    "id": "c0239089-5457-41bb-8a9c-48616e05ee30",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "NoseBreath",
                     "type": "Button",
                     "id": "8376e6ea-12ef-46dc-84d9-130acc60aa8a",
                     "expectedControlType": "Button",
@@ -208,11 +216,22 @@
                 {
                     "name": "",
                     "id": "51f54382-9b3b-4faf-ac18-3ae771b250a5",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoseBreath",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a19e742-f86c-4186-a9be-04d62880bd4e",
                     "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "MultiTap",
                     "processors": "",
                     "groups": "",
-                    "action": "Breath",
+                    "action": "MouthBreath",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -299,6 +318,22 @@
                     "type": "Value",
                     "id": "42601efe-ee76-4997-ad97-878c546c53ae",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Sneeze",
+                    "type": "Button",
+                    "id": "12d64471-3aa4-4811-9e75-f589becd159d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cough",
+                    "type": "Button",
+                    "id": "a6d1a456-bfeb-4856-99a8-e456da499e75",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -411,6 +446,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "JoystickTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33e886de-6548-4b14-b0d8-baa736dfad22",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sneeze",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae8d2e04-c4dc-4b1e-9480-0459af5c445f",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cough",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
