@@ -17,8 +17,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
         public Entity Prefab { get; set; }
         public float2 Scale { get; set; }
         public float2 InitialEmissionForce { get; set; }
-        
-        public BlobAssetReference<AnimationCurveBlob> EmissionCurve { get; set; }
 
     }
 

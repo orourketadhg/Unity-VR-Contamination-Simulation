@@ -9,7 +9,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
     [AddComponentMenu("VR CS/Particles/Passive Light Particle Data")]
     [ConverterVersion("TOR", 1)]
     public class PassiveLightParticleAuthoring : SpawnVirusParticlesAuthoringBase<PassiveLightParticleData> {
-        
     }
     
     public struct PassiveLightParticleData : IComponentData, IVirusParticleSettings {
@@ -17,8 +16,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
         public Entity Prefab { get; set; }
         public float2 Scale { get; set; }
         public float2 InitialEmissionForce { get; set; }
-        
-        public BlobAssetReference<AnimationCurveBlob> EmissionCurve { get; set; }
 
     }
 
