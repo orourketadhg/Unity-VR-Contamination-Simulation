@@ -9,14 +9,13 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
     [AddComponentMenu("VR CS/Particles/Active Heavy Particle Data")]
     [ConverterVersion("TOR", 1)]
     public class ActiveHeavyParticleAuthoring : SpawnVirusParticlesAuthoringBase<ActiveHeavyParticleData> {
-        
     }
     
     public struct ActiveHeavyParticleData : IComponentData, IVirusParticleSettings {
 
         public Entity Prefab { get; set; }
-        public float2 Scale { get; set; }
-        public float2 InitialEmissionForce { get; set; }
+        public float2 ParticleScaleRange { get; set; }
+        public float2 InitialEmissionForceRange { get; set; }
 
     }
 

@@ -8,8 +8,8 @@ namespace com.TUDublin.VRContaminationSimulation.Common.Interfaces {
     public interface IVirusParticleSettings {
 
         Entity Prefab { get; set; }
-        float2 Scale { get; set; }
-        float2 InitialEmissionForce { get; set; }
+        float2 ParticleScaleRange { get; set; }
+        float2 InitialEmissionForceRange { get; set; }
 
     }
 
