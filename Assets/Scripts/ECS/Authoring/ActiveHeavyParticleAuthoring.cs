@@ -1,4 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
+using Unity.Animation;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Authoring {
         public float2 Scale { get; set; }
         public float2 InitialEmissionForce { get; set; }
         
+        public BlobAssetReference<AnimationCurveBlob> EmissionCurve { get; set; }
+
     }
 
 }

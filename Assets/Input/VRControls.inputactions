@@ -84,6 +84,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Breath",
+                    "type": "Button",
+                    "id": "8376e6ea-12ef-46dc-84d9-130acc60aa8a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -194,6 +202,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "TriggerTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51f54382-9b3b-4faf-ac18-3ae771b250a5",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Breath",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

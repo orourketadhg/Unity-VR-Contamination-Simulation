@@ -97,6 +97,14 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Breath"",
+                    ""type"": ""Button"",
+                    ""id"": ""8376e6ea-12ef-46dc-84d9-130acc60aa8a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -207,6 +215,17 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TriggerTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51f54382-9b3b-4faf-ac18-3ae771b250a5"",
+                    ""path"": ""<XRController>{RightHand}/primaryButton"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Breath"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -425,6 +444,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRRight_SecondaryPress = m_XRRight.FindAction("SecondaryPress", throwIfNotFound: true);
         m_XRRight_JoystickTouch = m_XRRight.FindAction("JoystickTouch", throwIfNotFound: true);
         m_XRRight_Joystick = m_XRRight.FindAction("Joystick", throwIfNotFound: true);
+        m_XRRight_Breath = m_XRRight.FindAction("Breath", throwIfNotFound: true);
         // XRLeft
         m_XRLeft = asset.FindActionMap("XRLeft", throwIfNotFound: true);
         m_XRLeft_GripTouch = m_XRLeft.FindAction("GripTouch", throwIfNotFound: true);
@@ -496,6 +516,7 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputAction m_XRRight_SecondaryPress;
     private readonly InputAction m_XRRight_JoystickTouch;
     private readonly InputAction m_XRRight_Joystick;
+    private readonly InputAction m_XRRight_Breath;
     public struct XRRightActions
     {
         private @VRControls m_Wrapper;
@@ -510,6 +531,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryPress => m_Wrapper.m_XRRight_SecondaryPress;
         public InputAction @JoystickTouch => m_Wrapper.m_XRRight_JoystickTouch;
         public InputAction @Joystick => m_Wrapper.m_XRRight_Joystick;
+        public InputAction @Breath => m_Wrapper.m_XRRight_Breath;
         public InputActionMap Get() { return m_Wrapper.m_XRRight; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -549,6 +571,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
+                @Breath.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnBreath;
+                @Breath.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnBreath;
+                @Breath.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnBreath;
             }
             m_Wrapper.m_XRRightActionsCallbackInterface = instance;
             if (instance != null)
@@ -583,6 +608,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
+                @Breath.started += instance.OnBreath;
+                @Breath.performed += instance.OnBreath;
+                @Breath.canceled += instance.OnBreath;
             }
         }
     }
@@ -704,6 +732,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         void OnSecondaryPress(InputAction.CallbackContext context);
         void OnJoystickTouch(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
+        void OnBreath(InputAction.CallbackContext context);
     }
     public interface IXRLeftActions
     {

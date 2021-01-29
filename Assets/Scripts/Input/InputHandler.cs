@@ -32,20 +32,14 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public bool leftJoystickTouch;
         public Vector2 leftJoystick;
 
+        [Header("Additional Input")] 
+        public bool breath;
+
         private void Awake() => _input = new VRControls();
         private void OnEnable() => _input.Enable();
         private void OnDisable() => _input.Disable();
-        
-        void VRControls.IXRLeftActions.OnGripTouch(InputAction.CallbackContext context) => leftGripTouch = context.performed;
-        void VRControls.IXRLeftActions.OnGripPress(InputAction.CallbackContext context) => leftGripPress = context.performed;
-        void VRControls.IXRLeftActions.OnTriggerTouch(InputAction.CallbackContext context) => leftTriggerTouch = context.performed;
-        void VRControls.IXRLeftActions.OnTriggerPress(InputAction.CallbackContext context) => leftTriggerPress = context.performed;
-        void VRControls.IXRLeftActions.OnPrimaryTouch(InputAction.CallbackContext context) => leftPrimaryTouch = context.performed;
-        void VRControls.IXRLeftActions.OnPrimaryPress(InputAction.CallbackContext context) => leftPrimaryPress = context.performed;
-        void VRControls.IXRLeftActions.OnSecondaryTouch(InputAction.CallbackContext context) => leftSecondaryTouch = context.performed;
-        void VRControls.IXRLeftActions.OnSecondaryPress(InputAction.CallbackContext context) => leftSecondaryPress = context.performed;
-        void VRControls.IXRLeftActions.OnJoystickTouch(InputAction.CallbackContext context) => leftJoystickTouch = context.performed;
-        void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => leftJoystick = context.ReadValue<Vector2>();
+
+        #region Right XR Controller
 
         void VRControls.IXRRightActions.OnGripTouch(InputAction.CallbackContext context) => rightGripTouch = context.performed;
         void VRControls.IXRRightActions.OnGripPress(InputAction.CallbackContext context) => rightGripPress = context.performed;
@@ -57,6 +51,29 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         void VRControls.IXRRightActions.OnSecondaryPress(InputAction.CallbackContext context) => rightSecondaryPress = context.performed;
         void VRControls.IXRRightActions.OnJoystickTouch(InputAction.CallbackContext context) => rightJoystickTouch = context.performed;
         void VRControls.IXRRightActions.OnJoystick(InputAction.CallbackContext context) => rightJoystick = context.ReadValue<Vector2>();
+
+        #endregion
+        
+        #region Left XR Controller
+
+        void VRControls.IXRLeftActions.OnGripTouch(InputAction.CallbackContext context) => leftGripTouch = context.performed;
+        void VRControls.IXRLeftActions.OnGripPress(InputAction.CallbackContext context) => leftGripPress = context.performed;
+        void VRControls.IXRLeftActions.OnTriggerTouch(InputAction.CallbackContext context) => leftTriggerTouch = context.performed;
+        void VRControls.IXRLeftActions.OnTriggerPress(InputAction.CallbackContext context) => leftTriggerPress = context.performed;
+        void VRControls.IXRLeftActions.OnPrimaryTouch(InputAction.CallbackContext context) => leftPrimaryTouch = context.performed;
+        void VRControls.IXRLeftActions.OnPrimaryPress(InputAction.CallbackContext context) => leftPrimaryPress = context.performed;
+        void VRControls.IXRLeftActions.OnSecondaryTouch(InputAction.CallbackContext context) => leftSecondaryTouch = context.performed;
+        void VRControls.IXRLeftActions.OnSecondaryPress(InputAction.CallbackContext context) => leftSecondaryPress = context.performed;
+        void VRControls.IXRLeftActions.OnJoystickTouch(InputAction.CallbackContext context) => leftJoystickTouch = context.performed;
+        void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => leftJoystick = context.ReadValue<Vector2>();
+
+        #endregion
+
+        #region Additional Input Bindings
+
+        public void OnBreath(InputAction.CallbackContext context) { if (context.performed) breath = !breath; }
+
+        #endregion
         
     }
 

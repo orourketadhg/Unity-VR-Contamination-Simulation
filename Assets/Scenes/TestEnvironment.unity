@@ -172,6 +172,7 @@ MonoBehaviour:
   leftSecondaryPress: 0
   leftJoystickTouch: 0
   leftJoystick: {x: 0, y: 0}
+  breath: 0
 --- !u!4 &433285099
 Transform:
   m_ObjectHideFlags: 0
