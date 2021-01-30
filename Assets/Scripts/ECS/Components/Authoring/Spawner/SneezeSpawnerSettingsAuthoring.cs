@@ -12,7 +12,6 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Spawne
         public float2 SpawnRange { get; set; }
         public float2 SpawnCount { get; set; }
         public BlobAssetReference<AnimationCurveBlob> SpawnRangeCurve { get; set; }
-        //public DynamicBuffer<ParticleData> VirusParticles { get; set; }
         public BlobAssetReference<AnimationCurveBlob> ParticleSpawnVolumeCurve { get; set; }
         public bool EnableDecayingVirusParticles { get; set; }
     }
