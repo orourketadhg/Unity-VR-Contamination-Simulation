@@ -15,6 +15,7 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Partic
         public Entity Prefab { get; set; }
         public float2 ParticleScaleRange { get; set; }
         public float2 InitialEmissionForceRange { get; set; }
+        public int2 ParticleSpawnCount { get; set; }
 
     }
 

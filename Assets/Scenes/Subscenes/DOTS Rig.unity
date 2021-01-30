@@ -222,8 +222,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147303547}
-  - component: {fileID: 1147303549}
-  - component: {fileID: 1147303548}
   m_Layer: 0
   m_Name: Mouth
   m_TagString: Untagged
@@ -241,64 +239,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.25, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2014296552}
+  - {fileID: 1443684127}
   m_Father: {fileID: 1793472320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1147303548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147303546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f64475dda846b4808be07595cc5774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerDuration: {x: 0, y: 0}
-  spawnRange: {x: 0, y: 0}
-  spawnRangeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  particleSpawnVolumeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  enableDecayingVirusParticles: 0
---- !u!114 &1147303549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147303546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fe64a4771f4449b9a8ebbbf2db285a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerDuration: {x: 0, y: 0}
-  spawnRange: {x: 0, y: 0}
-  spawnRangeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  particleSpawnVolumeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  enableDecayingVirusParticles: 0
 --- !u!1 &1314829232
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,8 +254,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314829233}
-  - component: {fileID: 1314829235}
-  - component: {fileID: 1314829234}
   m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
@@ -327,64 +271,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1952702992}
+  - {fileID: 1586562309}
   m_Father: {fileID: 1793472320}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1314829234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314829232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c897679e24ac453aaa2e7fd410e3bf75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerDuration: {x: 0, y: 0}
-  spawnRange: {x: 0, y: 0}
-  spawnRangeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  particleSpawnVolumeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  enableDecayingVirusParticles: 0
---- !u!114 &1314829235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314829232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c222281ab75413d8eb0febbf7529083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerDuration: {x: 0, y: 0}
-  spawnRange: {x: 0, y: 0}
-  spawnRangeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  particleSpawnVolumeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  enableDecayingVirusParticles: 0
 --- !u!1001 &1351373619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -517,6 +409,270 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400054, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
   m_PrefabInstance: {fileID: 1362797161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1443684126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1443684127}
+  - component: {fileID: 1443684128}
+  m_Layer: 0
+  m_Name: Breath Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1443684127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443684126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1147303547}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443684128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443684126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe64a4771f4449b9a8ebbbf2db285a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration:
+    x: 0
+    y: 0
+  spawnRange:
+    x: 0
+    y: 0
+  spawnCount:
+    x: 0
+    y: 0
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+  virusParticles:
+  - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+--- !u!1 &1586562308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1586562309}
+  - component: {fileID: 1586562310}
+  m_Layer: 0
+  m_Name: Breath Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1586562309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586562308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1314829233}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1586562310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586562308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c222281ab75413d8eb0febbf7529083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration:
+    x: 0
+    y: 0
+  spawnRange:
+    x: 0
+    y: 0
+  spawnCount:
+    x: 0
+    y: 0
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+  virusParticles:
+  - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
 --- !u!1 &1623901148
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,3 +816,267 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793472319}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1952702991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1952702992}
+  - component: {fileID: 1952702993}
+  m_Layer: 0
+  m_Name: Sneeze Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1952702992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952702991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1314829233}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1952702993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952702991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897679e24ac453aaa2e7fd410e3bf75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration:
+    x: 0
+    y: 0
+  spawnRange:
+    x: 0
+    y: 0
+  spawnCount:
+    x: 0
+    y: 0
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+  virusParticles:
+  - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+--- !u!1 &2014296551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014296552}
+  - component: {fileID: 2014296553}
+  m_Layer: 0
+  m_Name: CoughSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2014296552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014296551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1147303547}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2014296553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014296551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f64475dda846b4808be07595cc5774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerDuration:
+    x: 0
+    y: 0
+  spawnRange:
+    x: 0
+    y: 0
+  spawnCount:
+    x: 0
+    y: 0
+  spawnRangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particleSpawnVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enableDecayingVirusParticles: 0
+  virusParticles:
+  - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
+  - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    particleScaleRange:
+      x: 0
+      y: 0
+    initialEmissionForceRange:
+      x: 0
+      y: 0
+    particleSpawnCount:
+      x: 0
+      y: 0
