@@ -465,7 +465,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""33e886de-6548-4b14-b0d8-baa736dfad22"",
-                    ""path"": ""<XRController>{RightHand}/primaryButton"",
+                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
                     ""interactions"": ""MultiTap"",
                     ""processors"": """",
                     ""groups"": """",
@@ -476,7 +476,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ae8d2e04-c4dc-4b1e-9480-0459af5c445f"",
-                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""path"": ""<XRController>{LeftHand}/secondaryButton"",
                     ""interactions"": ""MultiTap"",
                     ""processors"": """",
                     ""groups"": """",

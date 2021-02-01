@@ -3,8 +3,8 @@ using Unity.Entities;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
     
-    public struct NoseBreathInputData : IComponentData, IBreathingMechanismInput {
-        public bool Value { get; set; }
+    public struct NoseBreathInputData : IComponentData {
+        public bool Input;
     }
 
 }
