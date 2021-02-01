@@ -99,7 +99,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 LeftJoystick = _leftJoystick
             });
             
-            // update BreathInputData component on found singleton entity; 
+            // update Breathing Mechanic Input components on found Input entity; 
             if (_breathingMechanicInputDataQuery.CalculateEntityCount() == 0) {
                 EntityManager.CreateEntity(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughBreathInputData));
             }
