@@ -1,5 +1,4 @@
-﻿using com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Particles;
-using Unity.Animation;
+﻿using Unity.Animation;
 using Unity.Entities;
 using Unity.Mathematics;
 

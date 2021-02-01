@@ -1,13 +1,12 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
-using com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Particles;
 using Unity.Animation;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Spawner {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner {
     
-    public struct NoseBreathSpawnerSettingsData : IComponentData, IBreathingMechanicSpawnerSettings {
+    public struct MouthBreathSpawnerSettingsData : IComponentData, IBreathingMechanicSpawnerSettings {
         public float2 SpawnerDuration { get; set; }
         public float2 SpawnRange { get; set; }
         public float2 SpawnCount { get; set; }
@@ -17,9 +16,9 @@ namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Spawne
         public bool EnableDecayingVirusParticles { get; set; }
     }
 
-    [AddComponentMenu("VR CS/Spawners/Nose Breath Spawner Settings Data")]
+    [AddComponentMenu("VR CS/Spawners/Mouth Breath Spawner Settings Data")]
     [ConverterVersion("TOR", 1)]
-    public class NoseBreathSpawnerSettingsAuthoring : BreathingMechanicSpawnerSettingsAuthoringBase<NoseBreathSpawnerSettingsData> {
+    public class MouthBreathSpawnerSettingsAuthoring : BreathingMechanicSpawnerSettingsAuthoringBase<MouthBreathSpawnerSettingsData> {
         
     }
 

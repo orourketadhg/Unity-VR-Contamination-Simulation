@@ -1,12 +1,10 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
-using com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Particles;
 using Unity.Animation;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Authoring.Spawner {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner {
     
     public struct CoughSpawnerSettingsData : IComponentData, IBreathingMechanicSpawnerSettings {
         public float2 SpawnerDuration { get; set; }

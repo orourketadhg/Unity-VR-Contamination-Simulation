@@ -1,10 +1,10 @@
-﻿using com.TUDublin.VRContaminationSimulation.ECS.Components;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.Rig;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     public class RigConversionSystem : SystemBase {
 

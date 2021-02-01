@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Components.Input {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
     
     public struct InputData : IComponentData {
         public bool RightGripTouch;

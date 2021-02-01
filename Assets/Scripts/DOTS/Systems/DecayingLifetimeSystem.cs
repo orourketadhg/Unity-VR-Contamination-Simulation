@@ -1,8 +1,7 @@
-﻿using com.TUDublin.VRContaminationSimulation.ECS.Components;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using Unity.Entities;
-using Unity.Rendering;
 
-namespace com.TUDublin.VRContaminationSimulation.ECS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     public class DecayingLifetimeSystem : SystemBase {
 
