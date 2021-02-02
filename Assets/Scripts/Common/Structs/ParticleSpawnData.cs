@@ -7,6 +7,7 @@ namespace com.TUDublin.VRContaminationSimulation.Common.Structs {
     public struct ParticleSpawnData {
         public Entity particle;
         public Translation position;
+        public Scale scale;
         public PhysicsVelocity initialVelocity;
     }
 

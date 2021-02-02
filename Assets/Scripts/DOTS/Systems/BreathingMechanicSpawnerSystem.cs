@@ -2,11 +2,13 @@
 using com.TUDublin.VRContaminationSimulation.Common.Structs;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Physics.Systems;
+using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -21,7 +23,17 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
 
-            _spawnerQuery = GetEntityQuery(typeof(MouthBreathSpawnerSettingsData));
+            // query spawner entities
+            var spawnerSettingsQueryDesc = new EntityQueryDesc() {
+                All = new[] {
+                    ComponentType.ReadOnly<Translation>(),  
+                    ComponentType.ReadOnly<VirusParticleData>(),
+                },
+                Any = new[] {
+                    ComponentType.ReadOnly<MouthBreathSpawnerSettingsData>()
+                }
+            };
+            _spawnerQuery = GetEntityQuery(spawnerSettingsQueryDesc);
 
         }
 
@@ -32,40 +44,42 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             // create a queue to store new particleSpawnData
             var particleSpawnDataQueue = new NativeQueue<ParticleSpawnData>(Allocator.Temp);
             
-            // create the job to generate the spawn data
-            var job = new GenerateVirusParticleSpawnData<MouthBreathSpawnerSettingsData>() {
-                particleSpawnData = particleSpawnDataQueue.AsParallelWriter()
-            };
-
-            // schedule and complete the spawn data generation
-            job.ScheduleParallel(_spawnerQuery, 1, Dependency).Complete();
-
-            // check if any data was generated
-            if (!particleSpawnDataQueue.IsEmpty()) {
-
-                // convert native queue to native array
-                var particleData = particleSpawnDataQueue.ToArray(Allocator.Temp);
-                var particleEntities = new NativeQueue<Entity>(Allocator.Temp);
-                
-            }
         }
         
         [BurstCompile]
-        private struct GenerateVirusParticleSpawnData<TSpawnerSettings> : IJobEntityBatch {
+        private struct GenerateVirusParticleSpawnData: IJobEntityBatch {
 
-            // Store generated data for new particles
+            [ReadOnly] public ComponentTypeHandle<Translation> spawnerTranslationHandle;
+            [ReadOnly] public BufferTypeHandle<VirusParticleData> virusParticleBufferHandle;
+
+
+            // OUTPUT - Store generated data for new particles
             [WriteOnly] public NativeQueue<ParticleSpawnData>.ParallelWriter particleSpawnData;
-
-
+            
             public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
-                var newParticle = new ParticleSpawnData() {
-                    
-                };
+                var spawnerPosition = batchInChunk.GetNativeArray(spawnerTranslationHandle);
+                var virusParticlesBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
 
-                particleSpawnData.Enqueue(newParticle);
             }
         }
-        
+
+
+        [BurstCompile]
+        private struct SetVirusParticleData : IJobEntityBatch {
+
+            [WriteOnly] public ComponentTypeHandle<Translation> translationHandle;
+            [WriteOnly] public ComponentTypeHandle<PhysicsVelocity> velocityHandle;
+            [WriteOnly] public ComponentTypeHandle<Scale> scaleHandle;
+
+            public NativeArray<Entity> virusParticles;
+
+            public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
+                var translations = batchInChunk.GetNativeArray(translationHandle);
+                var velocities = batchInChunk.GetNativeArray(velocityHandle);
+                var scales = batchInChunk.GetNativeArray(scaleHandle);
+                
+            }
+        }
     }
 
     

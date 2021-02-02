@@ -36,9 +36,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             foreach (VirusParticleSettings particle in virusParticles) {
                 virusParticleBuffer.Add(new VirusParticleData() {
                     Prefab = conversionSystem.GetPrimaryEntity(particle.prefab),
-                    ParticleScaleRange = particle.particleScaleRange,
+                    ParticleScaleMin = Vector3.one * particle.particleScaleRange.x,
+                    ParticleScaleMax = Vector3.one * particle.particleScaleRange.y,
+                    InitialEmissionForceMin = Vector3.one * particle.initialEmissionForceRange.x,
+                    InitialEmissionForceMax = Vector3.one * particle.initialEmissionForceRange.y,
                     ParticleSpawnCount = particle.particleSpawnCount,
-                    InitialEmissionForceRange = particle.initialEmissionForceRange
+                    
                 });
             }
             
