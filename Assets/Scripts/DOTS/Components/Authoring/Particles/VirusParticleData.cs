@@ -6,11 +6,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Parti
 
     public struct VirusParticleData : IBufferElementData, IVirusParticleSettings {
         public Entity Prefab { get; set; }
-        public float3 ParticleScaleMin { get; set; }
-        public float3 ParticleScaleMax { get; set; }
-        public float3 InitialEmissionForceMin { get; set; }
-        public float3 InitialEmissionForceMax { get; set; }
-        public int2 ParticleSpawnCount { get; set; }
+        public float2 ParticleScale { get; set; }
+        public float2 InitialEmissionForce { get; set; }
+
     }
 
 }
