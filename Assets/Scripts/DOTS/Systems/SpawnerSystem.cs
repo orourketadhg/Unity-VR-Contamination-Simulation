@@ -48,9 +48,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             
         }
         
-        /**
-         * 
-         */
         [BurstCompile]
         private struct GenerateVirusParticleSpawnDataJob: IJobEntityBatch {
             [NativeSetThreadIndex]

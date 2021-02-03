@@ -13,22 +13,21 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     public abstract class BreathingMechanicSpawnerSettingsAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs where T : struct, IComponentData, IBreathingMechanicSpawnerSettings {
 
         [SerializeField] private float2 spawnerDuration;
-        [SerializeField] private float2 spawnRange;
-        [SerializeField] private float2 spawnCount;
         [SerializeField] private AnimationCurve spawnRangeCurve;
-        [SerializeField] private AnimationCurve particleSpawnVolumeCurve;
-        [SerializeField] private bool enableDecayingVirusParticles;
+        [SerializeField] private bool looping;
+        [SerializeField] private bool randomDecayingParticles;
+        [SerializeField] private bool totalDecayingParticles;
         public VirusParticleSettings[] virusParticles;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             
             var spawnerSettings = new T {
                 SpawnerDuration = spawnerDuration,
-                SpawnRange = spawnRange,
-                SpawnCount = spawnCount,
-                SpawnRangeCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
-                ParticleSpawnVolumeCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(particleSpawnVolumeCurve),
-                EnableDecayingVirusParticles = enableDecayingVirusParticles,
+                SpawnerStartTime = 0,
+                SpawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
+                BreathingMechanicLooping = looping,
+                RandomDecayingVirusParticles = randomDecayingParticles,
+                TotalDecayingVirusParticles = totalDecayingParticles,
             };
             
             var virusParticleBuffer = dstManager.AddBuffer<VirusParticleData>(entity);
