@@ -16,7 +16,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
-    public class SpawnerSystem: SystemBase {
+    public class ParticleSpawnerSystem: SystemBase {
         
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
         
@@ -24,19 +24,17 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
-
-            // query spawner entities
+            
             var spawnerSettingsQueryDesc = new EntityQueryDesc() {
                 All = new[] {
                     ComponentType.ReadOnly<Translation>(),  
-                    ComponentType.ReadOnly<VirusParticleData>(),
+                    ComponentType.ReadOnly<ActiveHeavyParticleAuthoring>(),
                 },
-                Any = new[] {
-                    ComponentType.ReadOnly<MouthBreathSpawnerSettingsData>()
-                }
+                // Any = new[] {
+                //     ComponentType.ReadOnly<MouthBreathSpawnerSettingsData>()
+                // }
             };
             _spawnerQuery = GetEntityQuery(spawnerSettingsQueryDesc);
-
         }
 
         protected override void OnUpdate() {
@@ -45,56 +43,44 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             
             // create a queue to store new particleSpawnData
             var particleSpawnDataQueue = new NativeQueue<ParticleSpawnData>(Allocator.Temp);
-            
+
+            var job = new GenerateVirusParticlesJob() {
+                randomArray = randomArray,
+            };
         }
         
         [BurstCompile]
-        private struct GenerateVirusParticleSpawnDataJob: IJobEntityBatch {
+        private struct GenerateVirusParticlesJob: IJobEntityBatch {
             [NativeSetThreadIndex]
             private int _nativeThreadIndex;
-
             public NativeArray<Random> randomArray;
             
             [ReadOnly] public ComponentTypeHandle<Translation> spawnerTranslationHandle;
-            [ReadOnly] public BufferTypeHandle<VirusParticleData> virusParticleBufferHandle;
+            [ReadOnly] public ComponentTypeHandle<ActiveHeavyParticleAuthoring> virusParticleBufferHandle;
             [WriteOnly] public NativeQueue<ParticleSpawnData>.ParallelWriter particleSpawnData;
             
             public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
                 // get thread safe random for this thread
-                Random random = randomArray[_nativeThreadIndex];
-                
-                var spawnerPosition = batchInChunk.GetNativeArray(spawnerTranslationHandle);
-                var virusParticlesBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
-                
+                var random = randomArray[_nativeThreadIndex];
+
                 // return random to randomArray
                 randomArray[_nativeThreadIndex] = random;
             }
 
+            private float3 CalculateParticlePosition() {
+                throw new NotImplementedException();
+            }
+            
             private float3 CalculateParticleScale(Random random, float minValue, float maxValue) {
                 return new float3(1, 1, 1) * random.NextFloat(minValue, maxValue);
             }
 
-            private float3 CalculateInitialForce(Random random, float minValue, float maxValue) {
+            private float3 CalculateInitialParticleLinearForce(Random random, float minValue, float maxValue) {
                 throw new NotImplementedException();
             }
             
         }
         
-        /**
-         * Assign virus particle components the generated  
-         */
-        [BurstCompile]
-        private struct SetParticleDataJob : IJobEntityBatch {
-            [WriteOnly] public ComponentTypeHandle<Translation> translationHandle;
-            [WriteOnly] public ComponentTypeHandle<PhysicsVelocity> velocityHandle;
-            [WriteOnly] public ComponentTypeHandle<Scale> scaleHandle;
-
-            public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
-                var translations = batchInChunk.GetNativeArray(translationHandle);
-                var velocities = batchInChunk.GetNativeArray(velocityHandle);
-                var scales = batchInChunk.GetNativeArray(scaleHandle);
-            }
-        }
     }
 
     
