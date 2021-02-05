@@ -1,4 +1,5 @@
 ﻿using System;
+using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
 using com.TUDublin.VRContaminationSimulation.Common.Structs;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
@@ -10,6 +11,7 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine.Profiling;
 using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
@@ -17,53 +19,57 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
     public class ParticleSpawnerSystem: SystemBase {
+
+        private EntityQuery _activeHeavyParticleQuery;
         
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
-        
-        private EntityQuery _spawnerQuery;
-        
+
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
-            
-            var spawnerSettingsQueryDesc = new EntityQueryDesc() {
+
+            var activeHeavyParticleQueryDesc = new EntityQueryDesc() {
                 All = new[] {
-                    ComponentType.ReadOnly<Translation>(),  
-                    ComponentType.ReadOnly<ActiveHeavyParticleAuthoring>(),
-                },
-                // Any = new[] {
-                //     ComponentType.ReadOnly<MouthBreathSpawnerSettingsData>()
-                // }
+                    ComponentType.ReadOnly<Translation>(),
+                    ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
+                    ComponentType.ReadOnly<ActiveHeavyParticleData>()
+                }
             };
-            _spawnerQuery = GetEntityQuery(spawnerSettingsQueryDesc);
+            _activeHeavyParticleQuery = GetEntityQuery(activeHeavyParticleQueryDesc);
         }
 
         protected override void OnUpdate() {
             var ecb = _entityCommandBuffer.CreateCommandBuffer().AsParallelWriter();
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-            
-            // create a queue to store new particleSpawnData
-            var particleSpawnDataQueue = new NativeQueue<ParticleSpawnData>(Allocator.Temp);
 
-            var job = new GenerateVirusParticlesJob() {
+            var job = new GenerateVirusParticlesJob<ActiveHeavyParticleData>() {
                 randomArray = randomArray,
+                ecb = ecb,
+                spawnerTranslationHandle = GetComponentTypeHandle<Translation>(),
+                spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(),
+                virusParticleDataHandle = GetComponentTypeHandle<ActiveHeavyParticleData>()
             };
+
         }
         
-        [BurstCompile]
-        private struct GenerateVirusParticlesJob: IJobEntityBatch {
+        private struct GenerateVirusParticlesJob<T>: IJobEntityBatch 
+            where T : struct, IComponentData, IVirusParticleSettings {
+            
             [NativeSetThreadIndex]
             private int _nativeThreadIndex;
             public NativeArray<Random> randomArray;
-            
+            public EntityCommandBuffer.ParallelWriter ecb;
+
             [ReadOnly] public ComponentTypeHandle<Translation> spawnerTranslationHandle;
-            [ReadOnly] public ComponentTypeHandle<ActiveHeavyParticleAuthoring> virusParticleBufferHandle;
-            [WriteOnly] public NativeQueue<ParticleSpawnData>.ParallelWriter particleSpawnData;
+            [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
+            [ReadOnly] public ComponentTypeHandle<T> virusParticleDataHandle;
             
             public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
-                // get thread safe random for this thread
+                // get components from handles
+                var spawnerTranslations = batchInChunk.GetNativeArray(spawnerTranslationHandle);
+                var virusParticles = batchInChunk.GetNativeArray(virusParticleDataHandle);
+                
                 var random = randomArray[_nativeThreadIndex];
 
-                // return random to randomArray
                 randomArray[_nativeThreadIndex] = random;
             }
 
@@ -72,17 +78,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             }
             
             private float3 CalculateParticleScale(Random random, float minValue, float maxValue) {
-                return new float3(1, 1, 1) * random.NextFloat(minValue, maxValue);
+                throw new NotImplementedException();
             }
 
             private float3 CalculateInitialParticleLinearForce(Random random, float minValue, float maxValue) {
                 throw new NotImplementedException();
             }
-            
         }
-        
     }
-
-    
     
 }

@@ -7,6 +7,8 @@ namespace com.TUDublin.VRContaminationSimulation.Common.Interfaces {
 
         Entity Prefab { get; set; }
         public float2 ParticleScale { get; set; }
+
+        public int2 ParticleCount { get; set; }
         public float2 InitialLinearEmissionForce { get; set; }
 
     }

@@ -14,6 +14,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Parti
     public struct ActiveHeavyParticleData : IComponentData, IVirusParticleSettings {
         public Entity Prefab { get; set; }
         public float2 ParticleScale { get; set; }
+        public int2 ParticleCount { get; set; }
         public float2 InitialLinearEmissionForce { get; set; }
     }
 

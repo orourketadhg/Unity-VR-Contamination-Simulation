@@ -11,6 +11,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Parti
 
         [SerializeField] private GameObject prefab;
         [SerializeField] private float2 particleScaleRange;
+        [SerializeField] private float2 particleCountRange;
         [SerializeField] private float2 initialLinearEmissionForceRange;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
