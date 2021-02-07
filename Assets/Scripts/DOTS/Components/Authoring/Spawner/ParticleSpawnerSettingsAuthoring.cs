@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using Unity.Animation;
 using Unity.Animation.Hybrid;
@@ -19,7 +21,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         [SerializeField] private bool randomDecayingParticles;
         [SerializeField] private bool totalDecayingParticles;
 
-        [SerializeField] private List<GameObject> virusParticles;
+        [SerializeField] private List<VirusParticle> particles;
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             
@@ -36,14 +38,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElementData>(entity);
             
             // add prefabs
-            foreach (var virusParticle in virusParticles) {
+            foreach (var virusParticle in particles) {
                 virusParticleBuffer.Add(new VirusParticleElementData() {
-                    value = conversionSystem.GetPrimaryEntity(virusParticle),
+                    prefab = conversionSystem.GetPrimaryEntity(virusParticle.prefab),
+                    particleCount = virusParticle.particleCount,
+                    particleScale = virusParticle.particleScale,
+                    linearEmissionForce = virusParticle.linearEmissionForce
                 });
             }
         }
 
-        public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => referencedPrefabs.AddRange(virusParticles);
+        public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => referencedPrefabs.AddRange(particles.Select(particle => particle.prefab));
+
     }
 
     public struct ParticleSpawnerSettingsData : IComponentData {
@@ -53,6 +59,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         public bool BreathingMechanicLooping;
         public bool RandomDecayingVirusParticles;
         public bool TotalDecayingVirusParticles;
+    }
+
+    [Serializable]
+    public class VirusParticle {
+        public GameObject prefab;
+        public int2 particleCount;
+        public float2 particleScale;
+        public float2 linearEmissionForce;
     }
     
 }

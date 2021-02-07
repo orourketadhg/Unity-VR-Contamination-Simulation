@@ -3,9 +3,12 @@ using Unity.Mathematics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles {
 
-    [GenerateAuthoringComponent]
     public struct VirusParticleElementData : IBufferElementData {
-        public Entity value;
+        public Entity prefab;
+        public int2 particleCount;
+        public float2 particleScale;
+        public float2 linearEmissionForce;
+
     }
 
 }

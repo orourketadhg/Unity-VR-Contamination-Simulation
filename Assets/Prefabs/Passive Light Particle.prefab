@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 250970801269931557}
   - component: {fileID: 3891492689637467311}
   - component: {fileID: 6567428449660937738}
-  - component: {fileID: 6515442590039589069}
+  - component: {fileID: 6391994804136222582}
   m_Layer: 0
   m_Name: Passive Light Particle
   m_TagString: Untagged
@@ -291,12 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e3db9024aa4adab1702b4f20476bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleScale:
-    x: 0
-    y: 0
-  linearEmissionForce:
-    x: 0
-    y: 0
 --- !u!114 &6567428449660937738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e22252148ab471991aeeff67b4b71e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6515442590039589069
+--- !u!114 &6391994804136222582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,6 +312,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 250970801269931556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa7a51418f84fb0bef3046b1b6b0233, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c3f9e3c4a7a4f82906656394c992cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
