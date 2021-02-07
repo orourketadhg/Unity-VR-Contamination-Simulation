@@ -5,6 +5,7 @@ using Unity.Mathematics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
+    [UpdateInGroup(typeof(InitializationSystemGroup))]
     public class RandomSystem : ComponentSystem {
 
         public NativeArray<Random> RandomArray { get; private set; }
