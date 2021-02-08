@@ -56,7 +56,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         
         protected override void OnCreate() {
             _inputDataQuery = GetEntityQuery(typeof(InputData));
-            _breathingMechanicInputDataQuery = GetEntityQuery(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughBreathInputData));
+            _breathingMechanicInputDataQuery = GetEntityQuery(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughInputData));
 
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -101,23 +101,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             
             // update Breathing Mechanic Input components on found Input entity; 
             if (_breathingMechanicInputDataQuery.CalculateEntityCount() == 0) {
-                EntityManager.CreateEntity(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughBreathInputData));
+                EntityManager.CreateEntity(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughInputData));
             }
             
             _breathingMechanicInputDataQuery.SetSingleton(new MouthBreathInputData() {
-                Input = _mouthBreath
+                Value = _mouthBreath
             });
             
             _breathingMechanicInputDataQuery.SetSingleton(new NoseBreathInputData() {
-                Input = _noseBreath
+                Value = _noseBreath
             });
             
             _breathingMechanicInputDataQuery.SetSingleton(new SneezeInputData() {
-                Input = _sneeze
+                Value = _sneeze
             });
             
-            _breathingMechanicInputDataQuery.SetSingleton(new CoughBreathInputData() {
-                Input = _cough
+            _breathingMechanicInputDataQuery.SetSingleton(new CoughInputData() {
+                Value = _cough
             });
             
         }

@@ -1,5 +1,7 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -8,6 +10,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
+using Math = System.Math;
 using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
@@ -40,6 +43,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>();
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElementData>();
 
+            var noseBreathInput = GetSingleton<NoseBreathInputData>();
+            var mouthBreathInput = GetSingleton<MouthBreathInputData>();
+            var sneezeInput = GetSingleton<SneezeInputData>();
+            var coughInput = GetSingleton<CoughInputData>();
+
             var particleSpawnJobHandle = new VirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
@@ -64,26 +72,27 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             [ReadOnly] public ComponentTypeHandle<LocalToWorld> spawnerLocalToWorldHandle;
             [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
             [ReadOnly] public BufferTypeHandle<VirusParticleElementData> virusParticleBufferHandle;
-            
+
             public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
                 var spawnerLocalToWorlds = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
                 var spawnerSettings = batchInChunk.GetNativeArray(spawnerSettingsHandle);
                 var particleBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
                 
                 var random = randomArray[_nativeThreadIndex];
-
+                
                 // iterate over entities in batch
                 for (int i = 0; i < batchInChunk.Count; i++) {
-                    
+
                     var spawnerLocalToWorld = spawnerLocalToWorlds[i];
                     var spawnerSettingData = spawnerSettings[i];
-                    
+
                     // iterate over particle buffer on entity
                     for (int j = 0; j < particleBuffer[i].Length; j++) {
                         var virusParticleType = particleBuffer[i][j];
-                        
+
                         // get number of particles to spawn this iteration
-                        int particleCount = random.NextInt(virusParticleType.particleCount.x, virusParticleType.particleCount.y);
+                        int particleCount = random.NextInt(virusParticleType.particleCount.x,
+                            virusParticleType.particleCount.y);
 
                         // create PARTICLE COUNT number of virus particles of this type
                         for (int k = 0; k < particleCount; k++) {
@@ -92,17 +101,19 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
                             // calculate particle component values
                             float instanceScale = CalculateScale(ref random, virusParticleType.particleScale);
-                            var instanceTranslation = CalculateTranslation(ref random, in spawnerSettingData) + spawnerLocalToWorld.Position + spawnerLocalToWorld.Forward;
-                            var instanceVelocity = random.NextFloat(virusParticleType.linearEmissionForce.x, virusParticleType.linearEmissionForce.y) * spawnerLocalToWorld.Forward;
+                            var instanceTranslation = CalculateTranslation(ref random, in spawnerSettingData) +
+                                                      spawnerLocalToWorld.Position + spawnerLocalToWorld.Forward;
+                            var instanceVelocity = random.NextFloat(virusParticleType.linearEmissionForce.x,
+                                virusParticleType.linearEmissionForce.y) * spawnerLocalToWorld.Forward;
 
                             // set new instance components  
                             // ecb.SetComponent(batchIndex, instance, new Scale() {Value = instanceScale});
-                            ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
+                            ecb.SetComponent(batchIndex, instance,
+                                new Rotation() {Value = spawnerLocalToWorld.Rotation});
                             ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
                             ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});
                         }
                     }
-                    
                 }
                 
                 randomArray[_nativeThreadIndex] = random;
