@@ -455,6 +455,7 @@ MonoBehaviour:
   spawnerDuration:
     x: 0
     y: 0
+  spawnerRadius: 0.075
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -501,8 +502,8 @@ MonoBehaviour:
       x: 0.01
       y: 0.02
     linearEmissionForce:
-      x: 0
-      y: 0
+      x: 2
+      y: 5
   - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
     particleCount:
       x: 1
@@ -511,8 +512,8 @@ MonoBehaviour:
       x: 0.01
       y: 0.02
     linearEmissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 5
 --- !u!1 &1586562308
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1586562309
 Transform:
   m_ObjectHideFlags: 0
@@ -559,6 +560,7 @@ MonoBehaviour:
   spawnerDuration:
     x: 0
     y: 0
+  spawnerRadius: 0
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -776,7 +778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1952702992
 Transform:
   m_ObjectHideFlags: 0
@@ -806,6 +808,7 @@ MonoBehaviour:
   spawnerDuration:
     x: 0
     y: 0
+  spawnerRadius: 0
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -880,7 +883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2014296552
 Transform:
   m_ObjectHideFlags: 0
@@ -910,6 +913,7 @@ MonoBehaviour:
   spawnerDuration:
     x: 0
     y: 0
+  spawnerRadius: 0
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
