@@ -112,7 +112,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             var instanceCompositeScale = float4x4.Scale(instanceScale);
                             
                             // set new instance components
-                             ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
+                            ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
                             ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
                             ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
                             ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});

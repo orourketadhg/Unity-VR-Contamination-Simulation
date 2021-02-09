@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace com.TUDublin.VRContaminationSimulation.Input {
@@ -41,6 +42,15 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         private void Awake() => _input = new VRControls();
         private void OnEnable() => _input.Enable();
         private void OnDisable() => _input.Disable();
+
+        private void OnApplicationPause(bool pauseStatus) {
+            if (pauseStatus) {
+                _input.Disable();
+            }
+            else {
+                _input.Enable();
+            }
+        }
 
         #region Right XR Controller
 
