@@ -1,5 +1,4 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +10,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
     public class InputHandlerSystem : SystemBase, VRControls.IXRRightActions, VRControls.IXRLeftActions {
         
         private EntityQuery _inputDataQuery;
-        private EntityQuery _breathingMechanicInputDataQuery;
 
         private VRControls _input;
         
@@ -56,7 +54,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         
         protected override void OnCreate() {
             _inputDataQuery = GetEntityQuery(typeof(InputData));
-            _breathingMechanicInputDataQuery = GetEntityQuery(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughInputData));
 
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -98,27 +95,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 LeftJoystickTouch = _leftJoystickTouch,
                 LeftJoystick = _leftJoystick
             });
-            
-            // update Breathing Mechanic Input components on found Input entity; 
-            if (_breathingMechanicInputDataQuery.CalculateEntityCount() == 0) {
-                EntityManager.CreateEntity(typeof(MouthBreathInputData), typeof(NoseBreathInputData), typeof(SneezeInputData), typeof(CoughInputData));
-            }
-            
-            _breathingMechanicInputDataQuery.SetSingleton(new MouthBreathInputData() {
-                Value = _mouthBreath
-            });
-            
-            _breathingMechanicInputDataQuery.SetSingleton(new NoseBreathInputData() {
-                Value = _noseBreath
-            });
-            
-            _breathingMechanicInputDataQuery.SetSingleton(new SneezeInputData() {
-                Value = _sneeze
-            });
-            
-            _breathingMechanicInputDataQuery.SetSingleton(new CoughInputData() {
-                Value = _cough
-            });
+
+            Entities
+                .WithoutBurst()
+                .ForEach((Entity entity, ref BreathingMechanicInputData inputData) => {
+                if (HasComponent<MouthBreathTag>(entity)) {
+                    inputData.Value = _mouthBreath;
+                }
+                else if (HasComponent<NoseBreathTag>(entity)) {
+                    inputData.Value = _noseBreath;
+                }
+                else if (HasComponent<SneezeTag>(entity)) {
+                    inputData.Value = _sneeze;
+                }
+                else if (HasComponent<CoughTag>(entity)) {
+                    inputData.Value = _cough;
+                }
+                }).Run();
             
         }
         

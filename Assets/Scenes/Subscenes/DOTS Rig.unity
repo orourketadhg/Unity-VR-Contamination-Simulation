@@ -418,7 +418,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1443684127}
+  - component: {fileID: 1443684129}
   - component: {fileID: 1443684131}
+  - component: {fileID: 1443684128}
   m_Layer: 0
   m_Name: Breath Spawner
   m_TagString: Untagged
@@ -440,6 +442,31 @@ Transform:
   m_Father: {fileID: 1147303547}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443684128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443684126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7c6a0536da48f9b20a2a0f9a7804d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+--- !u!114 &1443684129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443684126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ee631fb4594bb99a576bfd74987d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1443684131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,7 +550,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1586562309}
+  - component: {fileID: 1586562311}
   - component: {fileID: 1586562313}
+  - component: {fileID: 1586562310}
   m_Layer: 0
   m_Name: Breath Spawner
   m_TagString: Untagged
@@ -545,6 +574,31 @@ Transform:
   m_Father: {fileID: 1314829233}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1586562310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586562308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7c6a0536da48f9b20a2a0f9a7804d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+--- !u!114 &1586562311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586562308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa8ca375fd44d96bbd9757673e91909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1586562313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,7 +825,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1952702992}
+  - component: {fileID: 1952702994}
   - component: {fileID: 1952702996}
+  - component: {fileID: 1952702993}
   m_Layer: 0
   m_Name: Sneeze Spawner
   m_TagString: Untagged
@@ -793,6 +849,31 @@ Transform:
   m_Father: {fileID: 1314829233}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1952702993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952702991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7c6a0536da48f9b20a2a0f9a7804d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+--- !u!114 &1952702994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952702991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2224e9443384481e848af75bc83bdaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1952702996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,7 +957,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014296552}
+  - component: {fileID: 2014296554}
   - component: {fileID: 2014296556}
+  - component: {fileID: 2014296553}
   m_Layer: 0
   m_Name: CoughSpawner
   m_TagString: Untagged
@@ -898,6 +981,31 @@ Transform:
   m_Father: {fileID: 1147303547}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2014296553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014296551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7c6a0536da48f9b20a2a0f9a7804d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+--- !u!114 &2014296554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014296551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5732791e879443faa905b1a5d0afb769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2014296556
 MonoBehaviour:
   m_ObjectHideFlags: 0

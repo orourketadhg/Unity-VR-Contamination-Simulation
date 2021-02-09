@@ -1,5 +1,4 @@
-﻿using com.TUDublin.VRContaminationSimulation.Common.Interfaces;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using Unity.Burst;
@@ -10,7 +9,6 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using Math = System.Math;
 using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
@@ -28,11 +26,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 All = new ComponentType[] {
                     ComponentType.ReadOnly<LocalToWorld>(),
                     ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
-                    ComponentType.ReadOnly<VirusParticleElementData>(), 
+                    ComponentType.ReadOnly<VirusParticleElementData>(),
+                    ComponentType.ReadOnly<BreathingMechanicInputData>(), 
                 }
             };
             spawnerQuery = GetEntityQuery(queryDesc);
-
         }
         
         protected override void OnUpdate() {
@@ -42,21 +40,19 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>();
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>();
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElementData>();
-
-            var noseBreathInput = GetSingleton<NoseBreathInputData>();
-            var mouthBreathInput = GetSingleton<MouthBreathInputData>();
-            var sneezeInput = GetSingleton<SneezeInputData>();
-            var coughInput = GetSingleton<CoughInputData>();
+            var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>();
 
             var particleSpawnJobHandle = new VirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
+                inputHandle = spawnerInputHandle,
                 spawnerLocalToWorldHandle = spawnerLocalToWorldHandle,
                 spawnerSettingsHandle = spawnerSettingsHandle,
                 virusParticleBufferHandle = virusParticleBufferHandle
             };
-
+            
             var particleSpawnJobHandleDependency = particleSpawnJobHandle.ScheduleParallel(spawnerQuery, 1, Dependency);
+            
             Dependency = JobHandle.CombineDependencies(Dependency, particleSpawnJobHandleDependency);
             
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
@@ -69,13 +65,16 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             [NativeDisableParallelForRestriction] public NativeArray<Random> randomArray;
             public EntityCommandBuffer.ParallelWriter ecb;
 
+            // declare expected component handlers
+            [ReadOnly] public ComponentTypeHandle<BreathingMechanicInputData> inputHandle;
             [ReadOnly] public ComponentTypeHandle<LocalToWorld> spawnerLocalToWorldHandle;
             [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
             [ReadOnly] public BufferTypeHandle<VirusParticleElementData> virusParticleBufferHandle;
-
+            
             public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
                 var spawnerLocalToWorlds = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
                 var spawnerSettings = batchInChunk.GetNativeArray(spawnerSettingsHandle);
+                var spawnerInputs = batchInChunk.GetNativeArray(inputHandle);
                 var particleBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
                 
                 var random = randomArray[_nativeThreadIndex];
@@ -85,6 +84,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
                     var spawnerLocalToWorld = spawnerLocalToWorlds[i];
                     var spawnerSettingData = spawnerSettings[i];
+                    var input = spawnerInputs[i];
+
+                    // check if spawner is active
+                    if (!input.Value) {
+                        continue;
+                    }
 
                     // iterate over particle buffer on entity
                     for (int j = 0; j < particleBuffer[i].Length; j++) {
@@ -111,7 +116,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             ecb.SetComponent(batchIndex, instance,
                                 new Rotation() {Value = spawnerLocalToWorld.Rotation});
                             ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
-                            ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});
+                            ecb.SetComponent(batchIndex, instance,
+                                new PhysicsVelocity() {Linear = instanceVelocity});
                         }
                     }
                 }
@@ -122,7 +128,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             private static float CalculateScale(ref Random random, float2 particleScale) {
                 return random.NextFloat(particleScale.x, particleScale.y);
             }
-        
+
             private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData) {
                 // get random random position in circle
                 var randomPosition = NonUniformDiskPointPicking(ref random, spawnerSettingsData.SpawnerRadius);
