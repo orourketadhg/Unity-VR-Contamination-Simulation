@@ -59,7 +59,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         // calculate particle component values
                         var instanceScale = CalculateScale(ref random, virusParticleType.particleScale);
                         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettingData) + spawnerLocalToWorld.Position;
-                        var instanceVelocity = random.NextFloat(virusParticleType.linearEmissionForce.x, virusParticleType.linearEmissionForce.y) * spawnerLocalToWorld.Forward;
+                        var instanceVelocity = random.NextFloat(virusParticleType.emissionForce.x, virusParticleType.emissionForce.y) * spawnerLocalToWorld.Forward;
 
                         var instanceCompositeScale = float4x4.Scale(instanceScale);
                         

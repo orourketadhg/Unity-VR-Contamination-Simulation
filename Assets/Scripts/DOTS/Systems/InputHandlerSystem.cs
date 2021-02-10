@@ -1,4 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;

@@ -15,9 +15,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     [AddComponentMenu("VR CS/Spawners/Particle Spawner Settings Data")]
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
-        [SerializeField] private float2 spawnerDuration;
+        [SerializeField] private float2 spawnerDurationRange;
         [SerializeField] private float spawnerRadius;
-        [SerializeField] private AnimationCurve spawnRangeCurve;
+        [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
         [SerializeField] private bool randomDecayingParticles;
         [SerializeField] private bool totalDecayingParticles;
@@ -28,7 +28,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             
             // add spawner settings
             dstManager.AddComponentData(entity, new ParticleSpawnerSettingsData() {
-                SpawnerDuration = spawnerDuration,
+                SpawnerDurationRange = spawnerDurationRange,
+                SpawnerDuration = 0,
                 SpawnerStartTime = 0,
                 SpawnerRadius = spawnerRadius,
                 SpawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
@@ -43,9 +44,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             foreach (var virusParticle in particles) {
                 virusParticleBuffer.Add(new VirusParticleElementData() {
                     prefab = conversionSystem.GetPrimaryEntity(virusParticle.prefab),
-                    particleCount = virusParticle.particleCount,
                     particleScale = virusParticle.particleScale,
-                    linearEmissionForce = virusParticle.linearEmissionForce
+                    particleCount = virusParticle.particleCount,
+                    particleCountCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(virusParticle.particleCountCurve),
+                    emissionForce = virusParticle.emissionForce,
+                    emissionForceCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(virusParticle.emissionForceCurve)
                 });
             }
         }
@@ -55,7 +58,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     }
 
     public struct ParticleSpawnerSettingsData : IComponentData {
-        public float2 SpawnerDuration;
+        public float2 SpawnerDurationRange;
+        public float SpawnerDuration;
         public float SpawnerStartTime;
         public float SpawnerRadius;
         public BlobAssetReference<AnimationCurveBlob> SpawnRadiusCurve;
@@ -67,9 +71,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     [Serializable]
     public class VirusParticle {
         public GameObject prefab;
-        public int2 particleCount;
         public float2 particleScale;
-        public float2 linearEmissionForce;
+        public int2 particleCount;
+        public AnimationCurve particleCountCurve = AnimationCurve.Constant(0, 1, 1);
+        public float2 emissionForce;
+        public AnimationCurve emissionForceCurve = AnimationCurve.Constant(0, 1, 1);
     }
     
 }
