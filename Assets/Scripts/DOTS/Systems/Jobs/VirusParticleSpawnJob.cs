@@ -45,51 +45,55 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 var spawnerInternalSettings = spawnerInternalSettingsData[i];
                 var spawnerInput = spawnerInputData[i];
                 
-                // if (spawnerInput.Value) {
-                //     spawnerInternalSettings.isSpawnerActive = !spawnerInternalSettings.isSpawnerActive;
-                // }
+                if (spawnerInput.Value && (spawnerInput.Value != spawnerInternalSettings.inputLastFrame)) {
+                    spawnerInternalSettings.isSpawnerActive = !spawnerInternalSettings.isSpawnerActive;
+                }
 
-                // // check remaining time
-                // if (deltaTime > spawnerInternalSettings.spawnerStartTime + spawnerInternalSettings.spawnerDuration) {
-                //     
-                //     // if spawner has looping enabled 
-                //     if (spawnerInternalSettings.isSpawnerActive && (spawnerInput.Value || spawnerSettings.breathingMechanicLooping)) {
-                //         CalculateSpawningTime(ref random, ref spawnerInternalSettings, in spawnerSettings, deltaTime);
-                //     }
-                //     else {
-                //         // disable the spawner
-                //         spawnerInternalSettings.isSpawnerActive = false;
-                //         continue;
-                //     }
-                // }
-
-                // float currentTime = deltaTime - spawnerInternalSettings.spawnerStartTime;
-                // float timeNormalized = math.lerp(0, 1, spawnerInternalSettings.spawnerDuration - currentTime );
-
-                // iterate over particle buffer on entity
-                for (int j = 0; j < particleBuffer[i].Length; j++) {
-                    var virusParticleType = particleBuffer[i][j];
+                // check remaining time
+                if (deltaTime > spawnerInternalSettings.spawnerStartTime + spawnerInternalSettings.spawnerDuration) {
                     
-                    // get number of particles to spawn this iteration
-                    int particleCount = random.NextInt(virusParticleType.particleCount.x, virusParticleType.particleCount.y);
-                    
-                    // create PARTICLE COUNT number of virus particles of this type
-                    for (int k = 0; k < particleCount; k++) {
-                        // spawn new instance of particle 
-                        var instance = ecb.Instantiate(batchIndex, virusParticleType.prefab);
-                    
-                        // calculate particle component values
-                        var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
-                        var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings) + spawnerLocalToWorld.Position;
-                        var instanceVelocity = random.NextFloat(virusParticleType.emissionForce.x, virusParticleType.emissionForce.y) * spawnerLocalToWorld.Forward;
-                        
-                        // set new instance components
-                        ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
-                        ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
-                        ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
-                        ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});
+                    // if spawner has looping enabled 
+                    if (spawnerInternalSettings.isSpawnerActive && (spawnerInput.Value || spawnerSettings.breathingMechanicLooping)) {
+                        CalculateSpawningTime(ref random, ref spawnerInternalSettings, in spawnerSettings, deltaTime);
+                    }
+                    else {
+                        // disable the spawner
+                        spawnerInternalSettings.isSpawnerActive = false;
+                        continue;
                     }
                 }
+
+                float currentTime = deltaTime - spawnerInternalSettings.spawnerStartTime;
+                float timeNormalized = (spawnerInternalSettings.spawnerDuration - currentTime) / spawnerInternalSettings.spawnerDuration;
+
+                // iterate over particle buffer on entity
+                // for (int j = 0; j < particleBuffer[i].Length; j++) {
+                //     var virusParticleType = particleBuffer[i][j];
+                //     
+                //     // get number of particles to spawn this iteration
+                //     int particleCount = random.NextInt(virusParticleType.particleCount.x, virusParticleType.particleCount.y);
+                //     
+                //     // create PARTICLE COUNT number of virus particles of this type
+                //     for (int k = 0; k < particleCount; k++) {
+                //         // spawn new instance of particle 
+                //         var instance = ecb.Instantiate(batchIndex, virusParticleType.prefab);
+                //     
+                //         // calculate particle component values
+                //         var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
+                //         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings) + spawnerLocalToWorld.Position;
+                //         var instanceVelocity = random.NextFloat(virusParticleType.emissionForce.x, virusParticleType.emissionForce.y) * spawnerLocalToWorld.Forward;
+                //         
+                //         // set new instance components
+                //         ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
+                //         ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
+                //         ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
+                //         ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});
+                //     }
+                // }
+                
+                // return writable values 
+                spawnerInternalSettings.inputLastFrame = spawnerInput.Value;
+                spawnerInternalSettingsData[i] = spawnerInternalSettings;
             }
             
             randomArray[_nativeThreadIndex] = random;

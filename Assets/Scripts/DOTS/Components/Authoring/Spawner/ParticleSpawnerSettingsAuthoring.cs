@@ -73,6 +73,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         public float spawnerDuration;
         public float spawnerStartTime;
         public bool isSpawnerActive;
+        public bool inputLastFrame;
     }
 
     [Serializable]
