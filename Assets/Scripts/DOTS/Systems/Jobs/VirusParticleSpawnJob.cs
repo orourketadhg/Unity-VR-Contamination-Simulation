@@ -2,6 +2,7 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
+using Unity.Animation;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -67,29 +68,30 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 float timeNormalized = (spawnerInternalSettings.spawnerDuration - currentTime) / spawnerInternalSettings.spawnerDuration;
 
                 // iterate over particle buffer on entity
-                // for (int j = 0; j < particleBuffer[i].Length; j++) {
-                //     var virusParticleType = particleBuffer[i][j];
-                //     
-                //     // get number of particles to spawn this iteration
-                //     int particleCount = random.NextInt(virusParticleType.particleCount.x, virusParticleType.particleCount.y);
-                //     
-                //     // create PARTICLE COUNT number of virus particles of this type
-                //     for (int k = 0; k < particleCount; k++) {
-                //         // spawn new instance of particle 
-                //         var instance = ecb.Instantiate(batchIndex, virusParticleType.prefab);
-                //     
-                //         // calculate particle component values
-                //         var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
-                //         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings) + spawnerLocalToWorld.Position;
-                //         var instanceVelocity = random.NextFloat(virusParticleType.emissionForce.x, virusParticleType.emissionForce.y) * spawnerLocalToWorld.Forward;
-                //         
-                //         // set new instance components
-                //         ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
-                //         ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
-                //         ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
-                //         ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceVelocity});
-                //     }
-                // }
+                for (int j = 0; j < particleBuffer[i].Length; j++) {
+                    var virusParticleType = particleBuffer[i][j];
+                    
+                    // get number of particles to spawn this iteration
+                    int particleCount = random.NextInt(virusParticleType.particleCount.x, virusParticleType.particleCount.y);
+                    particleCount = (int) math.ceil(AnimationCurveEvaluator.Evaluate(timeNormalized, virusParticleType.particleCountCurve) * particleCount);
+                    
+                    // create PARTICLE COUNT number of virus particles of this type
+                    for (int k = 0; k < particleCount; k++) {
+                        // spawn new instance of particle 
+                        var instance = ecb.Instantiate(batchIndex, virusParticleType.prefab);
+                    
+                        // calculate particle component values
+                        var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
+                        var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings, timeNormalized) + spawnerLocalToWorld.Position;
+                        var instanceLinearVelocity = CalculateLinearVelocity(ref random, in virusParticleType, spawnerLocalToWorld.Forward, timeNormalized);
+                        
+                        // set new instance components
+                        ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
+                        ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
+                        ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
+                        ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceLinearVelocity});
+                    }
+                }
                 
                 // return writable values 
                 spawnerInternalSettings.inputLastFrame = spawnerInput.Value;
@@ -99,9 +101,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             randomArray[_nativeThreadIndex] = random;
         }
         
-        private static void CalculateSpawningTime(ref Random random, ref ParticleSpawnerInternalSettingsData internalSettings, in ParticleSpawnerSettingsData settings, float deltaTime) {
-            internalSettings.spawnerStartTime = deltaTime;
-            internalSettings.spawnerDuration = random.NextFloat(settings.spawnerDurationRange.x, settings.spawnerDurationRange.y);
+        private static void CalculateSpawningTime(ref Random random, ref ParticleSpawnerInternalSettingsData internalSpawnerSettings, in ParticleSpawnerSettingsData spawnerSettings, float deltaTime) {
+            internalSpawnerSettings.spawnerStartTime = deltaTime;
+            internalSpawnerSettings.spawnerDuration = random.NextFloat(spawnerSettings.spawnerDurationRange.x, spawnerSettings.spawnerDurationRange.y);
         }
         
         private static float3 CalculateScale(ref Random random, float2 particleScale) {
@@ -109,9 +111,20 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             return new float3(randomScale);
         }
 
-        private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData) {
+        private static float3 CalculateLinearVelocity(ref Random random, in VirusParticleElementData particleSettings, float3 direction, float time) {
+            float velocity = random.NextFloat(particleSettings.emissionForce.x, particleSettings.emissionForce.y);
+            float adjustedVelocity = AnimationCurveEvaluator.Evaluate(time, particleSettings.emissionForceCurve) * velocity;
+
+            return direction * adjustedVelocity;
+
+        }
+
+        private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
+            // adjust the radius based on the curve
+            float adjustedRadius = AnimationCurveEvaluator.Evaluate(time, spawnerSettingsData.spawnRadiusCurve) * spawnerSettingsData.spawnerRadius;
+            
             // get random random position in circle
-            var randomPosition = NonUniformDiskPointPicking(ref random, spawnerSettingsData.spawnerRadius);
+            var randomPosition = NonUniformDiskPointPicking(ref random, adjustedRadius);
         
             // add random position to spawner position
             return new float3() {
