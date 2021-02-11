@@ -150,21 +150,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         
         #region Additional Input Bindings
 
-        public void OnMouthBreath(InputAction.CallbackContext context) {
-            if (context.performed) _mouthBreath = !_mouthBreath;
-        }
+        public void OnMouthBreath(InputAction.CallbackContext context) => _mouthBreath = context.performed;
+        
+        public void OnNoseBreath(InputAction.CallbackContext context) => _noseBreath = context.performed;
 
-        public void OnNoseBreath(InputAction.CallbackContext context) {
-            if (context.performed) _noseBreath = !_noseBreath;
-        }
+        public void OnSneeze(InputAction.CallbackContext context) => _sneeze = context.performed;
 
-        public void OnSneeze(InputAction.CallbackContext context) {
-            if (context.performed) _sneeze = !_sneeze;
-        }
-
-        public void OnCough(InputAction.CallbackContext context) {
-            if (context.performed) _cough = !_cough;
-        }
+        public void OnCough(InputAction.CallbackContext context) => _cough = context.performed;
 
         #endregion
 

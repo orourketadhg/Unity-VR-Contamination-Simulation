@@ -16,6 +16,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
         [SerializeField] private float2 spawnerDurationRange;
+        [SerializeField] private float2 spawnerDelay;
         [SerializeField] private float spawnerRadius;
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
@@ -28,15 +29,16 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             
             // add spawner settings
             dstManager.AddComponentData(entity, new ParticleSpawnerSettingsData() {
-                SpawnerDurationRange = spawnerDurationRange,
-                SpawnerDuration = 0,
-                SpawnerStartTime = 0,
-                SpawnerRadius = spawnerRadius,
-                SpawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
-                BreathingMechanicLooping = looping,
-                RandomDecayingVirusParticles = randomDecayingParticles,
-                TotalDecayingVirusParticles = totalDecayingParticles,
+                spawnerDurationRange = spawnerDurationRange,
+                spawnerDelay = spawnerDelay,
+                spawnerRadius = spawnerRadius,
+                spawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
+                breathingMechanicLooping = looping,
+                randomDecayingVirusParticles = randomDecayingParticles,
+                totalDecayingVirusParticles = totalDecayingParticles,
             });
+
+            dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData());
 
             var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElementData>(entity);
             
@@ -58,14 +60,19 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     }
 
     public struct ParticleSpawnerSettingsData : IComponentData {
-        public float2 SpawnerDurationRange;
-        public float SpawnerDuration;
-        public float SpawnerStartTime;
-        public float SpawnerRadius;
-        public BlobAssetReference<AnimationCurveBlob> SpawnRadiusCurve;
-        public bool BreathingMechanicLooping;
-        public bool RandomDecayingVirusParticles;
-        public bool TotalDecayingVirusParticles;
+        public float2 spawnerDurationRange;
+        public float2 spawnerDelay;
+        public float spawnerRadius;
+        public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
+        public bool breathingMechanicLooping;
+        public bool randomDecayingVirusParticles;
+        public bool totalDecayingVirusParticles;
+    }
+
+    public struct ParticleSpawnerInternalSettingsData : IComponentData {
+        public float spawnerDuration;
+        public float spawnerStartTime;
+        public bool isSpawnerActive;
     }
 
     [Serializable]

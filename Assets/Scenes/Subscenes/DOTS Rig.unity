@@ -429,7 +429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1443684127
 Transform:
   m_ObjectHideFlags: 0
@@ -482,6 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
+    x: 0
+    y: 0
+  spawnerDelay:
     x: 0
     y: 0
   spawnerRadius: 0.075
@@ -758,6 +761,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
+    x: 0
+    y: 0
+  spawnerDelay:
     x: 0
     y: 0
   spawnerRadius: 0
@@ -1162,6 +1168,9 @@ MonoBehaviour:
   spawnerDurationRange:
     x: 0
     y: 0
+  spawnerDelay:
+    x: 0
+    y: 0
   spawnerRadius: 0
   spawnRangeCurve:
     serializedVersion: 2
@@ -1383,7 +1392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2014296552
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,9 +1445,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
+    x: 1
+    y: 3
+  spawnerDelay:
     x: 0
     y: 0
-  spawnerRadius: 0
+  spawnerRadius: 0.075
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
