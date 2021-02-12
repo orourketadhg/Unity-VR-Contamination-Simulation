@@ -112,7 +112,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             float adjustedVelocity = AnimationCurveEvaluator.Evaluate(time, particleSettings.emissionForceCurve) * velocity;
 
             return direction * adjustedVelocity;
-
         }
 
         private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
