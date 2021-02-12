@@ -13,15 +13,17 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
         protected override void OnUpdate() {
 
-            EntityCommandBuffer ecb = _entityCommandBufferSystem.CreateCommandBuffer();
+            var ecb = _entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             float timeSinceLoad = (float) Time.ElapsedTime;
 
-            Entities.ForEach((Entity entity, in DecayingLifetimeData decayingLifetimeData) => {
-                float aliveTime = timeSinceLoad - decayingLifetimeData.spawnTime;
-                if (aliveTime >= decayingLifetimeData.lifetime) {
-                    ecb.DestroyEntity(entity);
-                }
-            }).ScheduleParallel();
+            Entities
+                .WithBurst()
+                .ForEach((Entity entity, int entityInQueryIndex, in DecayingLifetimeData decayingLifetimeData) => {
+                    float aliveTime = timeSinceLoad - decayingLifetimeData.spawnTime;
+                    if (aliveTime >= decayingLifetimeData.lifetime) {
+                        ecb.DestroyEntity(entityInQueryIndex, entity);
+                    }
+                }).ScheduleParallel();
 
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
 

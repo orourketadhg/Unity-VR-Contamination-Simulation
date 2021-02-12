@@ -16,7 +16,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
         [SerializeField] private float2 spawnerDurationRange;
-        [SerializeField] private float2 spawnerDelay;
         [SerializeField] private float spawnerRadius;
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
@@ -30,7 +29,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
             // add spawner settings
             dstManager.AddComponentData(entity, new ParticleSpawnerSettingsData() {
                 spawnerDurationRange = spawnerDurationRange,
-                spawnerDelay = spawnerDelay,
                 spawnerRadius = spawnerRadius,
                 spawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
                 breathingMechanicLooping = looping,
@@ -61,7 +59,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
 
     public struct ParticleSpawnerSettingsData : IComponentData {
         public float2 spawnerDurationRange;
-        public float2 spawnerDelay;
         public float spawnerRadius;
         public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
         public bool breathingMechanicLooping;
@@ -73,7 +70,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         public float spawnerDuration;
         public float spawnerStartTime;
         public bool isSpawnerActive;
-        public bool inputLastFrame;
     }
 
     [Serializable]

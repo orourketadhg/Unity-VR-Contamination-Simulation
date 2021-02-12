@@ -100,18 +100,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithoutBurst()
                 .ForEach((Entity entity, ref BreathingMechanicInputData inputData) => {
-                if (HasComponent<MouthBreathTag>(entity)) {
-                    inputData.Value = _mouthBreath;
-                }
-                else if (HasComponent<NoseBreathTag>(entity)) {
-                    inputData.Value = _noseBreath;
-                }
-                else if (HasComponent<SneezeTag>(entity)) {
-                    inputData.Value = _sneeze;
-                }
-                else if (HasComponent<CoughTag>(entity)) {
-                    inputData.Value = _cough;
-                }
+                    if (HasComponent<MouthBreathTag>(entity)) {
+                        inputData.Value = _mouthBreath;
+                    }
+                    else if (HasComponent<NoseBreathTag>(entity)) {
+                        inputData.Value = _noseBreath;
+                    }
+                    else if (HasComponent<SneezeTag>(entity)) {
+                        inputData.Value = _sneeze;
+                    }
+                    else if (HasComponent<CoughTag>(entity)) {
+                        inputData.Value = _cough;
+                    }
                 }).Run();
             
         }

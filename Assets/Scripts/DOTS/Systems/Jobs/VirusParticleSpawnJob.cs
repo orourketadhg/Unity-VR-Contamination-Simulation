@@ -1,4 +1,4 @@
-﻿using System;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
@@ -10,7 +10,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
@@ -24,17 +23,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         public float deltaTime;
 
         // declare expected component handlers
-        [ReadOnly] public ComponentTypeHandle<BreathingMechanicInputData> inputHandle;
+        public ComponentTypeHandle<ParticleSpawnerInternalSettingsData> spawnerInternalSettingsHandle;
         [ReadOnly] public ComponentTypeHandle<LocalToWorld> spawnerLocalToWorldHandle;
         [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
-        public ComponentTypeHandle<ParticleSpawnerInternalSettingsData> spawnerInternalSettingsHandle;
         [ReadOnly] public BufferTypeHandle<VirusParticleElementData> virusParticleBufferHandle;
         
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
             var spawnerLocalToWorldData = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
             var spawnerSettingsData = batchInChunk.GetNativeArray(spawnerSettingsHandle);
             var spawnerInternalSettingsData = batchInChunk.GetNativeArray(spawnerInternalSettingsHandle);
-            var spawnerInputData = batchInChunk.GetNativeArray(inputHandle);
             var particleBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
             
             var random = randomArray[_nativeThreadIndex];
@@ -44,24 +41,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 var spawnerLocalToWorld = spawnerLocalToWorldData[i];
                 var spawnerSettings = spawnerSettingsData[i];
                 var spawnerInternalSettings = spawnerInternalSettingsData[i];
-                var spawnerInput = spawnerInputData[i];
-                
-                if (spawnerInput.Value && (spawnerInput.Value != spawnerInternalSettings.inputLastFrame)) {
-                    spawnerInternalSettings.isSpawnerActive = !spawnerInternalSettings.isSpawnerActive;
-                }
 
                 // check remaining time
                 if (deltaTime > spawnerInternalSettings.spawnerStartTime + spawnerInternalSettings.spawnerDuration) {
-                    
-                    // if spawner has looping enabled 
-                    if (spawnerInternalSettings.isSpawnerActive && (spawnerInput.Value || spawnerSettings.breathingMechanicLooping)) {
-                        CalculateSpawningTime(ref random, ref spawnerInternalSettings, in spawnerSettings, deltaTime);
-                    }
-                    else {
-                        // disable the spawner
-                        spawnerInternalSettings.isSpawnerActive = false;
-                        continue;
-                    }
+                    CalculateSpawningTime(ref random, ref spawnerInternalSettings, in spawnerSettings, deltaTime);
                 }
 
                 float currentTime = deltaTime - spawnerInternalSettings.spawnerStartTime;
@@ -90,11 +73,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
                         ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
                         ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceLinearVelocity});
+                        
+                        if (spawnerSettings.totalDecayingVirusParticles) {
+                            ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() { spawnTime = deltaTime, lifetime = 1f});
+                        }
+                        
                     }
                 }
                 
                 // return writable values 
-                spawnerInternalSettings.inputLastFrame = spawnerInput.Value;
                 spawnerInternalSettingsData[i] = spawnerInternalSettings;
             }
             

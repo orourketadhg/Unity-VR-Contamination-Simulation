@@ -34,17 +34,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
             float deltaTime = (float) Time.ElapsedTime;
 
+            var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>();
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>(true);
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(true);
-            var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>(false);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElementData>(true);
-            var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>(true);
 
             var particleSpawnJobHandle = new VirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
                 deltaTime = deltaTime,
-                inputHandle = spawnerInputHandle,
                 spawnerLocalToWorldHandle = spawnerLocalToWorldHandle,
                 spawnerSettingsHandle = spawnerSettingsHandle,
                 spawnerInternalSettingsHandle = spawnerInternalSettingsHandle,
