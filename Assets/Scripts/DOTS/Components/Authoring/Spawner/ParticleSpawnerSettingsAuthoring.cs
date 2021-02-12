@@ -15,13 +15,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
     [AddComponentMenu("VR CS/Spawners/Particle Spawner Settings Data")]
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
+        [Header("Spawner Settings")]
         [SerializeField] private float2 spawnerDurationRange;
         [SerializeField] private float spawnerRadius;
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
-        [SerializeField] private bool randomDecayingParticles;
-        [SerializeField] private bool totalDecayingParticles;
 
+        [Header("Particle Decaying")] 
+        [SerializeField][Min(0)] private float decayTime;
+        [SerializeField] private bool totalDecayingParticles;
+        [SerializeField] private bool randomDecayingParticles;
+        [SerializeField][Range(0f, 1f)] private float randomDecayChance;
+        
         [SerializeField] private List<VirusParticle> particles;
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
@@ -32,8 +37,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
                 spawnerRadius = spawnerRadius,
                 spawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
                 breathingMechanicLooping = looping,
-                randomDecayingVirusParticles = randomDecayingParticles,
+                decayTime = decayTime,
                 totalDecayingVirusParticles = totalDecayingParticles,
+                randomDecayingVirusParticles = randomDecayingParticles,
+                randomDecayChance = randomDecayChance
             });
 
             dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData());
@@ -62,8 +69,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         public float spawnerRadius;
         public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
         public bool breathingMechanicLooping;
-        public bool randomDecayingVirusParticles;
+        public float decayTime;
         public bool totalDecayingVirusParticles;
+        public bool randomDecayingVirusParticles;
+        public float randomDecayChance;
     }
 
     public struct ParticleSpawnerInternalSettingsData : IComponentData {

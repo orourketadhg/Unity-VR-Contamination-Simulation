@@ -1,7 +1,6 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using Unity.Animation;
 using Unity.Burst;
 using Unity.Collections;
@@ -66,18 +65,28 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         // calculate particle component values
                         var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
                         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings, timeNormalized) + spawnerLocalToWorld.Position;
+                        var instanceRotation = spawnerLocalToWorld.Rotation;
                         var instanceLinearVelocity = CalculateLinearVelocity(ref random, in virusParticleType, spawnerLocalToWorld.Forward, timeNormalized);
                         
                         // set new instance components
                         ecb.SetComponent(batchIndex, instance, new CompositeScale() {Value = instanceCompositeScale});
-                        ecb.SetComponent(batchIndex, instance, new Rotation() {Value = spawnerLocalToWorld.Rotation});
+                        ecb.SetComponent(batchIndex, instance, new Rotation() {Value = instanceRotation});
                         ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
                         ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceLinearVelocity});
+                        ecb.SetComponent(batchIndex, instance, new VirusParticleData() {spawnTime = deltaTime});
                         
+                        // particle decaying
                         if (spawnerSettings.totalDecayingVirusParticles) {
-                            ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() { spawnTime = deltaTime, lifetime = 1f});
+                            float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
+                            ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() {lifetime = randomLifetime});
                         }
-                        
+                        else if (spawnerSettings.randomDecayingVirusParticles) {
+                            float randomDecayValue = random.NextFloat(1);
+                            if (randomDecayValue > spawnerSettings.randomDecayChance) {
+                                float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
+                                ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() {lifetime = randomLifetime});
+                            }
+                        }
                     }
                 }
                 

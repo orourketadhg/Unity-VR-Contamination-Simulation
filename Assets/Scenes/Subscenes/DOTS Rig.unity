@@ -510,8 +510,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  randomDecayingParticles: 0
+  decayTime: 0
   totalDecayingParticles: 0
+  randomDecayingParticles: 0
+  randomDecayChance: 0
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -786,8 +788,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  randomDecayingParticles: 0
+  decayTime: 0
   totalDecayingParticles: 0
+  randomDecayingParticles: 0
+  randomDecayChance: 0
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1188,8 +1192,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  randomDecayingParticles: 0
+  decayTime: 0
   totalDecayingParticles: 0
+  randomDecayingParticles: 0
+  randomDecayChance: 0
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1464,8 +1470,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  randomDecayingParticles: 0
+  decayTime: 1.5
   totalDecayingParticles: 1
+  randomDecayingParticles: 0
+  randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1473,7 +1481,7 @@ MonoBehaviour:
       y: 0.025
     particleCount:
       x: 1
-      y: 10
+      y: 4
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
@@ -1499,8 +1507,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1531,7 +1539,7 @@ MonoBehaviour:
       y: 0.02
     particleCount:
       x: 1
-      y: 10
+      y: 6
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
@@ -1557,8 +1565,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1589,7 +1597,7 @@ MonoBehaviour:
       y: 0.02
     particleCount:
       x: 1
-      y: 10
+      y: 6
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
@@ -1615,8 +1623,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
