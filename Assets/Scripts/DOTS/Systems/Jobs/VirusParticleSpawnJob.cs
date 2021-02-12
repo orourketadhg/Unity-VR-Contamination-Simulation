@@ -32,7 +32,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             var spawnerSettingsData = batchInChunk.GetNativeArray(spawnerSettingsHandle);
             var spawnerInternalSettingsData = batchInChunk.GetNativeArray(spawnerInternalSettingsHandle);
             var particleBuffer = batchInChunk.GetBufferAccessor(virusParticleBufferHandle);
-            
             var random = randomArray[_nativeThreadIndex];
             
             // iterate over entities in batch
@@ -61,7 +60,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                     for (int k = 0; k < particleCount; k++) {
                         // spawn new instance of particle 
                         var instance = ecb.Instantiate(batchIndex, virusParticleType.prefab);
-                    
+                        
                         // calculate particle component values
                         var instanceCompositeScale = float4x4.Scale(CalculateScale(ref random, virusParticleType.particleScale));
                         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings, timeNormalized) + spawnerLocalToWorld.Position;
@@ -115,10 +114,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         }
 
         private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
-            // adjust the radius based on the curve
             float adjustedRadius = AnimationCurveEvaluator.Evaluate(time, spawnerSettingsData.spawnRadiusCurve) * spawnerSettingsData.spawnerRadius;
-            
-            // get random random position in circle
             var randomPosition = NonUniformDiskPointPicking(ref random, adjustedRadius);
         
             // add random position to spawner position
@@ -132,7 +128,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         private static float2 NonUniformDiskPointPicking(ref Random random, float radius) {
             // generate random alpha value [0-2π]
             float a = 2 * math.PI * random.NextFloat();
-
             float x = radius * math.cos(a);
             float y = radius * math.sin(a);
 
