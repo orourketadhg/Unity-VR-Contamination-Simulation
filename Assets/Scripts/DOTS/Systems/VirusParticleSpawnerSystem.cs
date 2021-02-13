@@ -4,12 +4,14 @@ using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Physics.Systems;
 using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    public partial class VirusParticleSpawnerSystem: SystemBase {
+    [UpdateBefore(typeof(BuildPhysicsWorld))]
+    public class VirusParticleSpawnerSystem: SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
         private EntityQuery _spawnerQuery;

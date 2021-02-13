@@ -10,9 +10,7 @@ using UnityEngine;
 using AnimationCurve = UnityEngine.AnimationCurve;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner {
-
-    [ConverterVersion("TOR", 2)]
-    [AddComponentMenu("VR CS/Spawners/Particle Spawner Settings Data")]
+    
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
         [Header("Spawner Settings")]

@@ -98,6 +98,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             });
 
             Entities
+                .WithName("BreathingMechanicInputDistribution")
                 .WithoutBurst()
                 .ForEach((Entity entity, ref BreathingMechanicInputData inputData) => {
                     if (HasComponent<MouthBreathTag>(entity)) {

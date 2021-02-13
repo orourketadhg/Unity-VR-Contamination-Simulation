@@ -18,6 +18,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             float timeSinceLoad = (float) Time.ElapsedTime;
 
             Entities
+                .WithName("ParticleCleanup")
                 .WithBurst()
                 .ForEach((Entity entity, int entityInQueryIndex, in VirusParticleData particle) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
