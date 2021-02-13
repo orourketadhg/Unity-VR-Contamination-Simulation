@@ -47,6 +47,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
 
                 float currentTime = deltaTime - spawnerInternalSettings.spawnerStartTime;
                 float timeNormalized = (spawnerInternalSettings.spawnerDuration - currentTime) / spawnerInternalSettings.spawnerDuration;
+                
+                // TODO: Add spawner activation/deactivation by input
 
                 // iterate over particle buffer on entity
                 for (int j = 0; j < particleBuffer[i].Length; j++) {
@@ -63,7 +65,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         
                         // calculate particle component values
                         var instanceScale = CalculateScale(ref random, virusParticleType.particleScale);
+                        // TODO: further investigate collider size change at run-time
+                        
                         var instanceCompositeScale = float4x4.Scale(instanceScale);
+                        
+                        // TODO: Fix translation not following rotation
                         var instanceTranslation = CalculateTranslation(ref random, in spawnerSettings, timeNormalized) + spawnerLocalToWorld.Position;
                         var instanceRotation = spawnerLocalToWorld.Rotation;
                         var instanceLinearVelocity = CalculateLinearVelocity(ref random, in virusParticleType, spawnerLocalToWorld.Forward, timeNormalized);

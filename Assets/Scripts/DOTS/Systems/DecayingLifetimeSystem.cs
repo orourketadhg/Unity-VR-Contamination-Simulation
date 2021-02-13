@@ -20,7 +20,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             var ecb = _entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             float timeSinceLoad = (float) Time.ElapsedTime;
-
+            
+            // TODO: refactor to preform all cleanup of particles
             Entities
                 .WithName("DecayingParticles")
                 .WithBurst()
