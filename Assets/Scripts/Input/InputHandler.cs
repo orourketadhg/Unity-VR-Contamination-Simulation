@@ -39,7 +39,12 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public bool sneeze;
         public bool cough;
 
-        private void Awake() => _input = new VRControls();
+        private void Awake() { 
+            _input = new VRControls();
+            _input.XRLeft.SetCallbacks(this);
+            _input.XRRight.SetCallbacks(this);
+        }
+        
         private void OnEnable() => _input.Enable();
         private void OnDisable() => _input.Disable();
         private void OnApplicationPause(bool pauseStatus) {
