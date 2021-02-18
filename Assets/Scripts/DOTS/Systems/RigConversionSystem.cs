@@ -38,6 +38,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         rotation = new Rotation() {Value = nodeRotation};
                     }
                 }).Run();
+            
         }
     }
 }
