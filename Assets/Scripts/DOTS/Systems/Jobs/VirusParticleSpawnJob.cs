@@ -65,8 +65,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         
                         // calculate particle component values
                         var instanceScale = CalculateScale(ref random, virusParticleType.particleScale);
-                        // TODO: further investigate collider size change at run-time
-                        
+
                         var instanceCompositeScale = float4x4.Scale(instanceScale);
                         
                         // TODO: Fix translation not following rotation

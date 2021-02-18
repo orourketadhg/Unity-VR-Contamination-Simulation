@@ -67,7 +67,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             // update InputData component on found singleton entity; 
             if (_inputDataQuery.CalculateEntityCount() == 0) {
-                EntityManager.CreateEntity(typeof(InputData));
+                var inputManager = EntityManager.CreateEntity(typeof(InputData));
+                EntityManager.SetName(inputManager, "Input Manager");
             }
             
             _inputDataQuery.SetSingleton(new InputData() {

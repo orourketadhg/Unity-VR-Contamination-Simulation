@@ -17,16 +17,16 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 1
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 1
       m_Value:
-        Value: 0.7
+        Value: 0.6
         CombineMode: 0
     m_Restitution:
       m_Override: 1
       m_Value:
-        Value: 0
+        Value: 0.6
         CombineMode: 2
     m_BelongsToCategories:
       m_Override: 0
