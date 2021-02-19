@@ -24,7 +24,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     ComponentType.ReadOnly<LocalToWorld>(),
                     ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
                     typeof(ParticleSpawnerInternalSettingsData),
-                    ComponentType.ReadOnly<VirusParticleElementData>(),
+                    ComponentType.ReadOnly<VirusParticleElement>(),
                     ComponentType.ReadOnly<BreathingMechanicInputData>(), 
                 }
             };
@@ -39,7 +39,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>();
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>(true);
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(true);
-            var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElementData>(true);
+            var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
             var particleSpawnJobHandle = new VirusParticleSpawnJob() {
                 randomArray = randomArray,

@@ -25,7 +25,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         public ComponentTypeHandle<ParticleSpawnerInternalSettingsData> spawnerInternalSettingsHandle;
         [ReadOnly] public ComponentTypeHandle<LocalToWorld> spawnerLocalToWorldHandle;
         [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
-        [ReadOnly] public BufferTypeHandle<VirusParticleElementData> virusParticleBufferHandle;
+        [ReadOnly] public BufferTypeHandle<VirusParticleElement> virusParticleBufferHandle;
         
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
             var spawnerLocalToWorldData = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
@@ -112,7 +112,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             return new float3(randomScale);
         }
 
-        private static float3 CalculateLinearVelocity(ref Random random, in VirusParticleElementData particleSettings, float3 direction, float time) {
+        private static float3 CalculateLinearVelocity(ref Random random, in VirusParticleElement particleSettings, float3 direction, float time) {
             float velocity = random.NextFloat(particleSettings.emissionForce.x, particleSettings.emissionForce.y);
             float adjustedVelocity = AnimationCurveEvaluator.Evaluate(time, particleSettings.emissionForceCurve) * velocity;
 

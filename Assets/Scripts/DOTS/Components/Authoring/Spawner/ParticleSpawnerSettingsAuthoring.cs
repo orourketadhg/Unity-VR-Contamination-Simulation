@@ -43,11 +43,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
 
             dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData());
 
-            var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElementData>(entity);
+            var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElement>(entity);
             
             // add prefabs
             foreach (var virusParticle in particles) {
-                virusParticleBuffer.Add(new VirusParticleElementData() {
+                virusParticleBuffer.Add(new VirusParticleElement() {
                     prefab = conversionSystem.GetPrimaryEntity(virusParticle.prefab),
                     particleScale = virusParticle.particleScale,
                     particleCount = virusParticle.particleCount,
