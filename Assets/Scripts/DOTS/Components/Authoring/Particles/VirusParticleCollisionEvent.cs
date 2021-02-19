@@ -5,7 +5,7 @@ using Unity.Physics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles {
 
-    public struct VirusParticleCollisionEvent {
+    public struct VirusParticleCollisionEvent : IBufferElementData {
 
         private readonly EntityPair _entityPair;
         private readonly BodyIndexPair _bodyIndices;

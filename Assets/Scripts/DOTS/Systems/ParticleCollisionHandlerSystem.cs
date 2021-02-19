@@ -5,6 +5,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -16,6 +17,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         private BuildPhysicsWorld _buildPhysicsWorld;
         private EntityQuery _virusParticleQuery;
 
+        private NativeList<VirusParticleCollisionEvent> _particleCollisionEvents;
+
         protected override void OnCreate() {
             _stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
             _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
@@ -26,6 +29,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 }
             });
 
+            _particleCollisionEvents = new NativeList<VirusParticleCollisionEvent>(Allocator.Persistent);
         }
 
         protected override void OnUpdate() {
@@ -33,14 +37,26 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             if (_virusParticleQuery.CalculateEntityCount() == 0) {
                 return;
             }
+            
+            Debug.Log(_particleCollisionEvents.Length);
+            _particleCollisionEvents.Clear();
+
+            var collisionEvents = _particleCollisionEvents;
 
             var virusParticleCollisionJob = new VirusParticleCollisionEventJob() {
+                particleCollisionEvents = collisionEvents,
                 particleGroup = GetComponentDataFromEntity<VirusParticleData>(true),
             };
             
             Dependency = virusParticleCollisionJob.Schedule(_stepPhysicsWorld.Simulation, ref _buildPhysicsWorld.PhysicsWorld, Dependency);
         }
-        
+
+        protected override void OnDestroy() {
+            _particleCollisionEvents.Dispose();
+        }
+
     }
+    
+    
 
 }

@@ -12,6 +12,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     [BurstCompile]
     public struct VirusParticleCollisionEventJob : ICollisionEventsJob {
 
+        public NativeList<VirusParticleCollisionEvent> particleCollisionEvents;
         [ReadOnly] public ComponentDataFromEntity<VirusParticleData> particleGroup;
 
         public void Execute(CollisionEvent collisionEvent) {
@@ -24,9 +25,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             
             if (isAParticle && !isBParticle) {
                 var particleCollisionEvent = new VirusParticleCollisionEvent(entityA, entityB, collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, collisionEvent.ColliderKeyA, collisionEvent.ColliderKeyB, collisionEvent.Normal);
+                particleCollisionEvents.Add(particleCollisionEvent);
             }
             else if (isBParticle && !isAParticle) {
                 var particleCollisionEvent = new VirusParticleCollisionEvent(entityB, entityA, collisionEvent.BodyIndexB, collisionEvent.BodyIndexA, collisionEvent.ColliderKeyB, collisionEvent.ColliderKeyA, collisionEvent.Normal);
+                particleCollisionEvents.Add(particleCollisionEvent);
             }
             
         }
