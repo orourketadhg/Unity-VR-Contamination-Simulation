@@ -1,4 +1,3 @@
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using Unity.Burst;
 using Unity.Collections;

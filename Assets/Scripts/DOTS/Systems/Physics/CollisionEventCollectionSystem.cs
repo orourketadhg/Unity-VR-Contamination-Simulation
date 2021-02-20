@@ -6,8 +6,6 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics;
 using Unity.Physics.Systems;
-using Unity.Rendering;
-using UnityEditor;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
@@ -69,7 +67,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             var collisionEventBuffer = GetBufferFromEntity<StatefulCollisionEvent>();
             var collisionEventBufferTag = GetComponentDataFromEntity<CollisionEventBuffer>();
 
-            var entitiesWithBufferSet = new NativeHashSet<Entity>(0, Allocator.Temp);
+            var entitiesWithBufferSet = new NativeHashSet<Entity>(0, Allocator.TempJob);
             
             Entities
                 .WithName("GetEntitiesWithCollisionBuffer")
@@ -77,7 +75,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
                 .WithAll<CollisionEventBuffer>()
                 .ForEach((Entity entity, ref DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     entitiesWithBufferSet.Add(entity);
-                }).ScheduleParallel();
+                }).Schedule();
 
             var collisionEventCollectionJob = new CollisionEventCollectionJob() {
                 statefulCollisionEvents = currentFrameCollisionEvents,
