@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
     
     /**
      * Job to collect all collision events that occur between entities
@@ -13,7 +13,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     public struct CollisionEventCollectionJob : ICollisionEventsJob {
 
         public NativeList<StatefulCollisionEvent> statefulCollisionEvents;
-        public ComponentDataFromEntity<CollisionEventBuffer> collisionEventBuffers;
+        public ComponentDataFromEntity<StatefulCollisionEventBuffer> collisionEventBuffers;
 
         [ReadOnly] public NativeHashSet<Entity> entitiesWithCollisionBuffers;
         [ReadOnly] public PhysicsWorld physicsWorld;

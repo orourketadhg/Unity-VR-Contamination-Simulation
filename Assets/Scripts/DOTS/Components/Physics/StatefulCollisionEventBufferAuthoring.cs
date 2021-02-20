@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
 
-    public struct CollisionEventBuffer : IComponentData {
+    public struct StatefulCollisionEventBuffer : IComponentData {
         public int calculateCollisionDetails;
     }
 
-    public class CollisionEventBufferAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
+    public class StatefulCollisionEventBufferAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
 
-        [SerializeField] private bool CalculateCollisionDetails;
+        [SerializeField] private bool calculateCollisionDetails;
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
-            dstManager.AddComponentData(entity, new CollisionEventBuffer() {calculateCollisionDetails = CalculateCollisionDetails ? 1 : 0});
+            dstManager.AddComponentData(entity, new StatefulCollisionEventBuffer() {calculateCollisionDetails = calculateCollisionDetails ? 1 : 0});
             dstManager.AddBuffer<StatefulCollisionEvent>(entity);
         }
     }
