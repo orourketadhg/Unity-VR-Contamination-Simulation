@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
 
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public class RandomSystem : ComponentSystem {

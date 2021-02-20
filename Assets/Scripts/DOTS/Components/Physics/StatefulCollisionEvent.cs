@@ -10,7 +10,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
     /**
      * Dynamic Buffer Element containing details about a collision event with another entity
      */
-    public struct CollisionEventElement : IBufferElementData, IComparable<CollisionEventElement> {
+    public struct StatefulCollisionEvent : IBufferElementData, IComparable<StatefulCollisionEvent> {
 
         private readonly EntityPair _entityPair;
         private readonly BodyIndexPair _bodyIndices;
@@ -26,7 +26,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
         public CollisionEventState CollisionState;
         internal CollisionDetails collisionDetails;
 
-        public CollisionEventElement(Entity entityA, Entity entityB, int bodyIndexA, int bodyIndexB, ColliderKey colliderKeyA, ColliderKey colliderKeyB, float3 normal) : this() {
+        public StatefulCollisionEvent(Entity entityA, Entity entityB, int bodyIndexA, int bodyIndexB, ColliderKey colliderKeyA, ColliderKey colliderKeyB, float3 normal) : this() {
             _entityPair = new EntityPair() {EntityA = entityA, EntityB = entityB};
             _bodyIndices = new BodyIndexPair() {BodyIndexA = bodyIndexA, BodyIndexB = bodyIndexB};
             _colliderKeys = new ColliderKeyPair() {ColliderKeyA = colliderKeyA, ColliderKeyB = colliderKeyB};
@@ -51,7 +51,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
             return collisionDetails.hasDetails != 0;
         }
         
-        public int CompareTo(CollisionEventElement other) {
+        public int CompareTo(StatefulCollisionEvent other) {
             int resultA = EntityA.CompareTo(other.EntityA);
             int resultB = EntityB.CompareTo(other.EntityB);
             
