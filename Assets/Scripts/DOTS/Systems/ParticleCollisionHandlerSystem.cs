@@ -1,4 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Collections;
 using Unity.Entities;
@@ -17,7 +18,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         private BuildPhysicsWorld _buildPhysicsWorld;
         private EntityQuery _virusParticleQuery;
 
-        private NativeList<VirusParticleCollisionEvent> _particleCollisionEvents;
+        private NativeList<CollisionEventElement> _particleCollisionEvents;
 
         protected override void OnCreate() {
             _stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
@@ -29,7 +30,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 }
             });
 
-            _particleCollisionEvents = new NativeList<VirusParticleCollisionEvent>(Allocator.Persistent);
+            _particleCollisionEvents = new NativeList<CollisionEventElement>(Allocator.Persistent);
         }
 
         protected override void OnUpdate() {

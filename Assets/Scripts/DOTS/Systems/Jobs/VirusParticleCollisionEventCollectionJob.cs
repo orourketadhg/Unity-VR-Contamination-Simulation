@@ -1,4 +1,5 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -12,25 +13,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     [BurstCompile]
     public struct VirusParticleCollisionEventCollectionJob : ICollisionEventsJob {
 
-        public NativeList<VirusParticleCollisionEvent> particleCollisionEvents;
+        public NativeList<CollisionEventElement> particleCollisionEvents;
         [ReadOnly] public ComponentDataFromEntity<VirusParticleData> particleGroup;
 
-        public void Execute(CollisionEvent collisionEvent) {
+        public void Execute(Unity.Physics.CollisionEvent collisionEvent) {
 
-            var entityA = collisionEvent.EntityA;
-            var entityB = collisionEvent.EntityB;
-
-            bool isAParticle = particleGroup.HasComponent(entityA);
-            bool isBParticle = particleGroup.HasComponent(entityB);
             
-            if (isAParticle && !isBParticle) {
-                var particleCollisionEvent = new VirusParticleCollisionEvent(entityA, entityB, collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, collisionEvent.ColliderKeyA, collisionEvent.ColliderKeyB, collisionEvent.Normal);
-                particleCollisionEvents.Add(particleCollisionEvent);
-            }
-            else if (isBParticle && !isAParticle) {
-                var particleCollisionEvent = new VirusParticleCollisionEvent(entityB, entityA, collisionEvent.BodyIndexB, collisionEvent.BodyIndexA, collisionEvent.ColliderKeyB, collisionEvent.ColliderKeyA, collisionEvent.Normal);
-                particleCollisionEvents.Add(particleCollisionEvent);
-            }
             
         }
     }
