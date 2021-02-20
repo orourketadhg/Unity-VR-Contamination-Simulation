@@ -10,7 +10,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
      * Job to collect all collision events that occur by entities with a VirusParticleData component
      */
     [BurstCompile]
-    public struct VirusParticleCollisionEventJob : ICollisionEventsJob {
+    public struct VirusParticleCollisionEventCollectionJob : ICollisionEventsJob {
 
         public NativeList<VirusParticleCollisionEvent> particleCollisionEvents;
         [ReadOnly] public ComponentDataFromEntity<VirusParticleData> particleGroup;

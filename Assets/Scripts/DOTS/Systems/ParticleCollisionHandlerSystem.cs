@@ -43,12 +43,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             var collisionEvents = _particleCollisionEvents;
 
-            var virusParticleCollisionJob = new VirusParticleCollisionEventJob() {
+            var virusParticleCollisionJob = new VirusParticleCollisionEventCollectionJob() {
                 particleCollisionEvents = collisionEvents,
                 particleGroup = GetComponentDataFromEntity<VirusParticleData>(true),
             };
             
-            Dependency = virusParticleCollisionJob.Schedule(_stepPhysicsWorld.Simulation, ref _buildPhysicsWorld.PhysicsWorld, Dependency);
+            var collisionDependency = virusParticleCollisionJob.Schedule(_stepPhysicsWorld.Simulation, ref _buildPhysicsWorld.PhysicsWorld, Dependency);
+            
+            
+            
         }
 
         protected override void OnDestroy() {
