@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b691280fef488a9eeddc0191c65d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightGripTouch: 0
   rightGripPress: 0
   rightTriggerTouch: 0
   rightTriggerPress: 0
@@ -162,7 +161,6 @@ MonoBehaviour:
   rightSecondaryPress: 0
   rightJoystickTouch: 0
   rightJoystick: {x: 0, y: 0}
-  leftGripTouch: 0
   leftGripPress: 0
   leftTriggerTouch: 0
   leftTriggerPress: 0
@@ -457,6 +455,7 @@ GameObject:
   - component: {fileID: 926142092}
   - component: {fileID: 926142091}
   - component: {fileID: 926142090}
+  - component: {fileID: 926142096}
   m_Layer: 0
   m_Name: TestItem
   m_TagString: Untagged
@@ -733,6 +732,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &926142096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926142089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4cc1dadb33a44b8ab429ccb0b5fc4bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPositionOffset:
+    x: 0
+    y: 0
+    z: 0
+  itemRotationOffset:
+    x: 0
+    y: 0
+    z: 0
 --- !u!1 &965168129
 GameObject:
   m_ObjectHideFlags: 0
