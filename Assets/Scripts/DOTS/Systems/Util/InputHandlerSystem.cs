@@ -119,10 +119,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 .WithoutBurst()
                 .ForEach((Entity entity, ref InteractableCollectorData collector) => {
                     if (HasComponent<LeftHandTag>(entity)) {
-                        collector.engageCollectorInput = _leftGripPress;
+                        collector.EnableCollector = _leftGripPress;
                     } 
                     else if (HasComponent<RightHandTag>(entity)) {
-                        collector.engageCollectorInput = _rightGripPress;
+                        collector.EnableCollector = _rightGripPress;
                     }
                 }).Run();
 

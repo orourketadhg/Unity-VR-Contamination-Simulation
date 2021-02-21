@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 482435958}
+  - component: {fileID: 482435960}
   - component: {fileID: 482435959}
   m_Layer: 0
   m_Name: ItemCollector
@@ -166,18 +167,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableCollectorInput: 0
-  engageCollectorInput: 0
-  collectorPositionOffset:
-    x: 0
-    y: 0
-    z: 0
-  collectorRadius: 0
+  EnableCollector: 0
+  collectorPositionOffset: 3
+  collectorRadius: 3
   collectedItem: {fileID: 0}
-  collectedItemPositionOffset:
-    x: 0
-    y: 0
-    z: 0
+  collectedItemPositionOffset: 3
+--- !u!114 &482435960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482435957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9b9d8a6de84331a2695c645178d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &560201559
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 680000143}
+  - component: {fileID: 680000145}
   - component: {fileID: 680000144}
   m_Layer: 0
   m_Name: ItemCollector
@@ -281,18 +288,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableCollectorInput: 0
-  engageCollectorInput: 0
-  collectorPositionOffset:
-    x: 0
-    y: 0
-    z: 0
-  collectorRadius: 0
+  EnableCollector: 0
+  collectorPositionOffset: 3
+  collectorRadius: 3
   collectedItem: {fileID: 0}
-  collectedItemPositionOffset:
-    x: 0
-    y: 0
-    z: 0
+  collectedItemPositionOffset: 3
+--- !u!114 &680000145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680000142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dff4eea533c41cfbc31ecd9b8df5281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &785881709
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +314,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 785881710}
-  - component: {fileID: 785881713}
   - component: {fileID: 785881711}
   - component: {fileID: 785881712}
   m_Layer: 0
@@ -391,18 +402,6 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
---- !u!114 &785881713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785881709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dff4eea533c41cfbc31ecd9b8df5281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1147303546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1461,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623901149}
-  - component: {fileID: 1623901152}
   - component: {fileID: 1623901150}
   - component: {fileID: 1623901151}
   m_Layer: 0
@@ -1551,18 +1549,6 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
---- !u!114 &1623901152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623901148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9b9d8a6de84331a2695c645178d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1793472319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,7 +1926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2014296552
 Transform:
   m_ObjectHideFlags: 0

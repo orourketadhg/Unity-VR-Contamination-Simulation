@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -20,20 +21,24 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             Entities
                 .WithName("ItemPickup")
+                .WithoutBurst()
                 .ForEach((InteractableCollectorData collector, LocalToWorld ltw) => {
+
+                    if (collector.EnableCollector != 1) {
+                        return;
+                    }
                     
                     var overlapSpherePosition = ltw.Position + ltw.Right * collector.collectorPositionOffset;
                     float overlapSphereRadius = collector.collectorRadius;
                     var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
                     var overlapSphereFilter = new CollisionFilter {
-                        CollidesWith = ~(uint) ( 1 << 12 )
                     };
-
+                    
                     if (physicsWorld.OverlapSphere(overlapSpherePosition, overlapSphereRadius, ref overlapSphereHits, overlapSphereFilter)) {
-                        
+                        Debug.Log(overlapSphereHits.Length);
                     }
 
-                }).Schedule();
+                }).Run();
             
 
         }
