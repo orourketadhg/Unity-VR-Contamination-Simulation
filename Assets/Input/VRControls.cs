@@ -19,14 +19,6 @@ public class @VRControls : IInputActionCollection, IDisposable
             ""id"": ""3c8fd46a-0dc1-42e7-b076-29d6379b444a"",
             ""actions"": [
                 {
-                    ""name"": ""GripTouch"",
-                    ""type"": ""Value"",
-                    ""id"": ""2208c8af-df2c-484f-9f33-7422a92eb60f"",
-                    ""expectedControlType"": ""Analog"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""GripPress"",
                     ""type"": ""Button"",
                     ""id"": ""9ad36a68-dd80-4e97-bc7b-16758b465398"",
@@ -173,17 +165,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f30590ce-e1e8-4f3a-b359-5c48be216995"",
-                    ""path"": ""<XRController>{RightHand}/grip"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GripTouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4a51618d-b5b2-48c7-9926-0ef507fe3a3b"",
                     ""path"": ""<XRController>{RightHand}/primaryTouched"",
                     ""interactions"": """",
@@ -254,14 +235,6 @@ public class @VRControls : IInputActionCollection, IDisposable
             ""name"": ""XRLeft"",
             ""id"": ""4038f130-7b63-408f-8bc4-1b309c58f744"",
             ""actions"": [
-                {
-                    ""name"": ""GripTouch"",
-                    ""type"": ""Value"",
-                    ""id"": ""d279b5bc-b51d-40ce-9204-08a9b9d7855b"",
-                    ""expectedControlType"": ""Analog"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
                 {
                     ""name"": ""GripPress"",
                     ""type"": ""Button"",
@@ -420,17 +393,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4d04ee08-5aa8-4fca-8416-6bc2b8377890"",
-                    ""path"": ""<XRController>{LeftHand}/grip"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GripTouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""469a5214-b200-47bd-a2bd-c3f0ec21c6d0"",
                     ""path"": ""<XRController>{LeftHand}/primaryTouched"",
                     ""interactions"": """",
@@ -491,7 +453,6 @@ public class @VRControls : IInputActionCollection, IDisposable
 }");
         // XRRight
         m_XRRight = asset.FindActionMap("XRRight", throwIfNotFound: true);
-        m_XRRight_GripTouch = m_XRRight.FindAction("GripTouch", throwIfNotFound: true);
         m_XRRight_GripPress = m_XRRight.FindAction("GripPress", throwIfNotFound: true);
         m_XRRight_TriggerTouch = m_XRRight.FindAction("TriggerTouch", throwIfNotFound: true);
         m_XRRight_TriggerPress = m_XRRight.FindAction("TriggerPress", throwIfNotFound: true);
@@ -505,7 +466,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRRight_NoseBreath = m_XRRight.FindAction("NoseBreath", throwIfNotFound: true);
         // XRLeft
         m_XRLeft = asset.FindActionMap("XRLeft", throwIfNotFound: true);
-        m_XRLeft_GripTouch = m_XRLeft.FindAction("GripTouch", throwIfNotFound: true);
         m_XRLeft_GripPress = m_XRLeft.FindAction("GripPress", throwIfNotFound: true);
         m_XRLeft_TriggerTouch = m_XRLeft.FindAction("TriggerTouch", throwIfNotFound: true);
         m_XRLeft_TriggerPress = m_XRLeft.FindAction("TriggerPress", throwIfNotFound: true);
@@ -566,7 +526,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     // XRRight
     private readonly InputActionMap m_XRRight;
     private IXRRightActions m_XRRightActionsCallbackInterface;
-    private readonly InputAction m_XRRight_GripTouch;
     private readonly InputAction m_XRRight_GripPress;
     private readonly InputAction m_XRRight_TriggerTouch;
     private readonly InputAction m_XRRight_TriggerPress;
@@ -582,7 +541,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     {
         private @VRControls m_Wrapper;
         public XRRightActions(@VRControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @GripTouch => m_Wrapper.m_XRRight_GripTouch;
         public InputAction @GripPress => m_Wrapper.m_XRRight_GripPress;
         public InputAction @TriggerTouch => m_Wrapper.m_XRRight_TriggerTouch;
         public InputAction @TriggerPress => m_Wrapper.m_XRRight_TriggerPress;
@@ -603,9 +561,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_XRRightActionsCallbackInterface != null)
             {
-                @GripTouch.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripTouch;
-                @GripTouch.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripTouch;
-                @GripTouch.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripTouch;
                 @GripPress.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripPress;
                 @GripPress.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripPress;
                 @GripPress.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnGripPress;
@@ -643,9 +598,6 @@ public class @VRControls : IInputActionCollection, IDisposable
             m_Wrapper.m_XRRightActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @GripTouch.started += instance.OnGripTouch;
-                @GripTouch.performed += instance.OnGripTouch;
-                @GripTouch.canceled += instance.OnGripTouch;
                 @GripPress.started += instance.OnGripPress;
                 @GripPress.performed += instance.OnGripPress;
                 @GripPress.canceled += instance.OnGripPress;
@@ -687,7 +639,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     // XRLeft
     private readonly InputActionMap m_XRLeft;
     private IXRLeftActions m_XRLeftActionsCallbackInterface;
-    private readonly InputAction m_XRLeft_GripTouch;
     private readonly InputAction m_XRLeft_GripPress;
     private readonly InputAction m_XRLeft_TriggerTouch;
     private readonly InputAction m_XRLeft_TriggerPress;
@@ -703,7 +654,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     {
         private @VRControls m_Wrapper;
         public XRLeftActions(@VRControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @GripTouch => m_Wrapper.m_XRLeft_GripTouch;
         public InputAction @GripPress => m_Wrapper.m_XRLeft_GripPress;
         public InputAction @TriggerTouch => m_Wrapper.m_XRLeft_TriggerTouch;
         public InputAction @TriggerPress => m_Wrapper.m_XRLeft_TriggerPress;
@@ -724,9 +674,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_XRLeftActionsCallbackInterface != null)
             {
-                @GripTouch.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripTouch;
-                @GripTouch.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripTouch;
-                @GripTouch.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripTouch;
                 @GripPress.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripPress;
                 @GripPress.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripPress;
                 @GripPress.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnGripPress;
@@ -764,9 +711,6 @@ public class @VRControls : IInputActionCollection, IDisposable
             m_Wrapper.m_XRLeftActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @GripTouch.started += instance.OnGripTouch;
-                @GripTouch.performed += instance.OnGripTouch;
-                @GripTouch.canceled += instance.OnGripTouch;
                 @GripPress.started += instance.OnGripPress;
                 @GripPress.performed += instance.OnGripPress;
                 @GripPress.canceled += instance.OnGripPress;
@@ -806,7 +750,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     public XRLeftActions @XRLeft => new XRLeftActions(this);
     public interface IXRRightActions
     {
-        void OnGripTouch(InputAction.CallbackContext context);
         void OnGripPress(InputAction.CallbackContext context);
         void OnTriggerTouch(InputAction.CallbackContext context);
         void OnTriggerPress(InputAction.CallbackContext context);
@@ -821,7 +764,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     }
     public interface IXRLeftActions
     {
-        void OnGripTouch(InputAction.CallbackContext context);
         void OnGripPress(InputAction.CallbackContext context);
         void OnTriggerTouch(InputAction.CallbackContext context);
         void OnTriggerPress(InputAction.CallbackContext context);

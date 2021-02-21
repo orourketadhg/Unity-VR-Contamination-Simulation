@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 560201561}
+  - component: {fileID: 560201562}
   - component: {fileID: 560201560}
   m_Layer: 0
   m_Name: XR Head
@@ -170,6 +171,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &560201562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560201559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b6c7a258d741369201b66004b16382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &785881709
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,9 +192,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 785881710}
+  - component: {fileID: 785881713}
   - component: {fileID: 785881711}
   - component: {fileID: 785881712}
-  - component: {fileID: 785881713}
+  - component: {fileID: 785881714}
   m_Layer: 0
   m_Name: XR Left Hand
   m_TagString: Untagged
@@ -276,10 +290,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 785881709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2a9685c11709e4d9763cf190c66001, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dff4eea533c41cfbc31ecd9b8df5281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calculateCollisionDetails: 0
+--- !u!114 &785881714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785881709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableCollectorInput: 0
+  engageCollectorInput: 0
+  collectedItem: {fileID: 0}
 --- !u!1 &1147303546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,9 +1367,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623901149}
+  - component: {fileID: 1623901152}
   - component: {fileID: 1623901150}
   - component: {fileID: 1623901151}
-  - component: {fileID: 1623901152}
+  - component: {fileID: 1623901153}
   m_Layer: 0
   m_Name: XR Right Hand
   m_TagString: Untagged
@@ -1436,10 +1465,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1623901148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2a9685c11709e4d9763cf190c66001, type: 3}
+  m_Script: {fileID: 11500000, guid: ad9b9d8a6de84331a2695c645178d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calculateCollisionDetails: 0
+--- !u!114 &1623901153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623901148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableCollectorInput: 0
+  engageCollectorInput: 0
+  collectedItem: {fileID: 0}
 --- !u!1 &1793472319
 GameObject:
   m_ObjectHideFlags: 0

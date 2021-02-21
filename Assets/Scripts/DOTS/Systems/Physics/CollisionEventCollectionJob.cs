@@ -18,7 +18,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
         [ReadOnly] public NativeHashSet<Entity> entitiesWithCollisionBuffers;
         [ReadOnly] public PhysicsWorld physicsWorld;
 
-        public void Execute(Unity.Physics.CollisionEvent collisionEvent) {
+        public void Execute(CollisionEvent collisionEvent) {
 
             var statefulCollisionEvent = new StatefulCollisionEvent(
                 collisionEvent.EntityA, collisionEvent.EntityB, 

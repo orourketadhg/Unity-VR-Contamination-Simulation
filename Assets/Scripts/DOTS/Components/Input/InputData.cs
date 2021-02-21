@@ -4,26 +4,26 @@ using Unity.Mathematics;
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
     
     public struct InputData : IComponentData {
-        public bool RightGripTouch;
-        public bool RightGripPress;
-        public bool RightTriggerTouch;
-        public bool RightTriggerPress;
-        public bool RightPrimaryTouch;
-        public bool RightPrimaryPress;
-        public bool RightSecondaryTouch;
-        public bool RightSecondaryPress;
-        public bool RightJoystickTouch;
+        public int RightGripTouch;
+        public int RightGripPress;
+        public int RightTriggerTouch;
+        public int RightTriggerPress;
+        public int RightPrimaryTouch;
+        public int RightPrimaryPress;
+        public int RightSecondaryTouch;
+        public int RightSecondaryPress;
+        public int RightJoystickTouch;
         public float2 RightJoystick;
         
-        public bool LeftGripTouch;
-        public bool LeftGripPress;
-        public bool LeftTriggerTouch;
-        public bool LeftTriggerPress;
-        public bool LeftPrimaryTouch;
-        public bool LeftPrimaryPress;
-        public bool LeftSecondaryTouch;
-        public bool LeftSecondaryPress;
-        public bool LeftJoystickTouch;
+        public int LeftGripTouch;
+        public int LeftGripPress;
+        public int LeftTriggerTouch;
+        public int LeftTriggerPress;
+        public int LeftPrimaryTouch;
+        public int LeftPrimaryPress;
+        public int LeftSecondaryTouch;
+        public int LeftSecondaryPress;
+        public int LeftJoystickTouch;
         public float2 LeftJoystick;
         
     }

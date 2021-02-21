@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,6 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public static InputHandler Instance;
 
         [Header("Right XR Controller")]
-        public bool rightGripTouch;
         public bool rightGripPress;
         public bool rightTriggerTouch;
         public bool rightTriggerPress;
@@ -22,7 +22,6 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public Vector2 rightJoystick;
         
         [Header("Left XR Controller")]
-        public bool leftGripTouch;
         public bool leftGripPress;
         public bool leftTriggerTouch;
         public bool leftTriggerPress;
@@ -57,8 +56,7 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         }
 
         #region Right XR Controller
-
-        void VRControls.IXRRightActions.OnGripTouch(InputAction.CallbackContext context) => rightGripTouch = context.performed;
+        
         void VRControls.IXRRightActions.OnGripPress(InputAction.CallbackContext context) => rightGripPress = context.performed;
         void VRControls.IXRRightActions.OnTriggerTouch(InputAction.CallbackContext context) => rightTriggerTouch = context.performed;
         void VRControls.IXRRightActions.OnTriggerPress(InputAction.CallbackContext context) => rightTriggerPress = context.performed;
@@ -72,8 +70,7 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         #endregion
         
         #region Left XR Controller
-
-        void VRControls.IXRLeftActions.OnGripTouch(InputAction.CallbackContext context) => leftGripTouch = context.performed;
+        
         void VRControls.IXRLeftActions.OnGripPress(InputAction.CallbackContext context) => leftGripPress = context.performed;
         void VRControls.IXRLeftActions.OnTriggerTouch(InputAction.CallbackContext context) => leftTriggerTouch = context.performed;
         void VRControls.IXRLeftActions.OnTriggerPress(InputAction.CallbackContext context) => leftTriggerPress = context.performed;

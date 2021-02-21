@@ -6,14 +6,6 @@
             "id": "3c8fd46a-0dc1-42e7-b076-29d6379b444a",
             "actions": [
                 {
-                    "name": "GripTouch",
-                    "type": "Value",
-                    "id": "2208c8af-df2c-484f-9f33-7422a92eb60f",
-                    "expectedControlType": "Analog",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "GripPress",
                     "type": "Button",
                     "id": "9ad36a68-dd80-4e97-bc7b-16758b465398",
@@ -160,17 +152,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f30590ce-e1e8-4f3a-b359-5c48be216995",
-                    "path": "<XRController>{RightHand}/grip",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GripTouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4a51618d-b5b2-48c7-9926-0ef507fe3a3b",
                     "path": "<XRController>{RightHand}/primaryTouched",
                     "interactions": "",
@@ -241,14 +222,6 @@
             "name": "XRLeft",
             "id": "4038f130-7b63-408f-8bc4-1b309c58f744",
             "actions": [
-                {
-                    "name": "GripTouch",
-                    "type": "Value",
-                    "id": "d279b5bc-b51d-40ce-9204-08a9b9d7855b",
-                    "expectedControlType": "Analog",
-                    "processors": "",
-                    "interactions": ""
-                },
                 {
                     "name": "GripPress",
                     "type": "Button",
@@ -402,17 +375,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "TriggerTouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4d04ee08-5aa8-4fca-8416-6bc2b8377890",
-                    "path": "<XRController>{LeftHand}/grip",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GripTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

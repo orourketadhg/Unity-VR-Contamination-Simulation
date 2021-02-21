@@ -12,7 +12,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateAfter(typeof(StepPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
-    public class CollisionEventCollectionSystem : SystemBase {
+    public class StatefulCollisionEventSystem : SystemBase {
 
         private StepPhysicsWorld _stepPhysicsWorld;
         private BuildPhysicsWorld _buildPhysicsWorld;
