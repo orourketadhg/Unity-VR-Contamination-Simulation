@@ -1,11 +1,11 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Items;
-using Unity.Assertions;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using Collider = Unity.Physics.Collider;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -59,24 +59,26 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 var otherRotation = otherInteractableData.itemRotationOffset;
                                 var otherLtw = new float4x4(float3x3.Euler(otherRotation, math.RotationOrder.XYZ), otherPosition);
                                 
+                                
                                 // update collision filter
                                 var otherCollider = GetComponent<PhysicsCollider>(other);
-                                var clone = otherCollider.Value.Value.Clone();
-                                var filter = new CollisionFilter() {
+                                var otherColliderClone = otherCollider.Value.Value.Clone();
+                                var otherFilter = new CollisionFilter() {
                                     BelongsTo = ( 1u << 12 ),
                                     CollidesWith = ~( 1u << 11 ),
                                     GroupIndex = 0
                                 };
                                 
                                 unsafe {
-                                    var clonePtr = (ColliderHeader*) clone.GetUnsafePtr();
-                                    clonePtr->Filter = filter;
+                                    var clonePtr = (ColliderHeader*) otherColliderClone.GetUnsafePtr();
+                                    clonePtr->Filter = otherFilter;
                                 }
-
+                                
                                 // set other as child of collector
                                 ecb.AddComponent(other, new Parent() {Value = entity});
                                 ecb.AddComponent(other, new LocalToParent() {Value = otherLtw});
-                                ecb.SetComponent(other, new PhysicsCollider() {Value = clone});
+                                ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
+                                
                                 ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass),typeof(PhysicsVelocity), typeof(PhysicsDamping)));
                             }
                             break;
@@ -84,9 +86,43 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         case 0 when collector.collectedItem != Entity.Null:
                             // un-parent entity + enable physics
                             var heldItem = collector.collectedItem;
+                            var heldItemInteractableData = GetComponent<InteractableItemData>(heldItem);
+                            
+                            // update collision filter
+                            var heldItemCollider = GetComponent<PhysicsCollider>(heldItem);
+                            var heldItemColliderClone = heldItemCollider.Value.Value.Clone();
+                            var heldFilter = new CollisionFilter() {
+                                BelongsTo = ( 1u << 12 ),
+                                CollidesWith = 0xffffffff,
+                                GroupIndex = 0
+                            };
+                                
+                            unsafe {
+                                var clonePtr = (ColliderHeader*) heldItemColliderClone.GetUnsafePtr();
+                                clonePtr->Filter = heldFilter;
+                            }
+                            
+                            // recreate physics mass, velocity, & damping
+                            var mass = PhysicsMass.CreateDynamic(heldItemCollider.MassProperties, heldItemInteractableData.mass);
+                            var velocity = new PhysicsVelocity();
+                            var damping = new PhysicsDamping() {
+                                Linear = 0.01f,
+                                Angular = 0.05f
+                            };
+                            
+                            // set release position 
+                            var heldItemLtw = GetComponent<LocalToWorld>(heldItem);
+                            var position = heldItemLtw.Position;
+                            var rotation = heldItemLtw.Rotation;
+
+                            // set item components
                             ecb.RemoveComponent(heldItem, typeof(Parent));
                             ecb.RemoveComponent(heldItem, typeof(LocalToParent));
-                            
+                            ecb.SetComponent(heldItem, new PhysicsCollider() {Value = heldItemColliderClone});
+                            ecb.SetComponent(heldItem, new Translation() { Value = position});
+                            ecb.AddComponent(heldItem, mass);
+                            ecb.AddComponent(heldItem, velocity);
+                            ecb.AddComponent(heldItem, damping);
                             collector.collectedItem = Entity.Null;
                             break;
                     }
