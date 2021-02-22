@@ -59,8 +59,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 var otherRotation = otherInteractableData.itemRotationOffset;
                                 var otherLtw = new float4x4(float3x3.Euler(otherRotation, math.RotationOrder.XYZ), otherPosition);
                                 
-                                // set collision filter
-                                var otherCollider = GetComponent<PhysicsCollider>(entity);
+                                // update collision filter
+                                var otherCollider = GetComponent<PhysicsCollider>(other);
                                 var clone = otherCollider.Value.Value.Clone();
                                 var filter = new CollisionFilter() {
                                     BelongsTo = ( 1u << 12 ),
