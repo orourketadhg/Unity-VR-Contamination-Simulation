@@ -1,6 +1,5 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
 
@@ -12,7 +11,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
         public float collectorRadius;
         
         public Entity collectedItem;
-        public float collectedItemPositionOffset;
+        public float3 collectedItemPositionOffset;
     }
 
 }
