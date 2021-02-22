@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
+using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
@@ -22,25 +23,42 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("ItemPickup")
                 .WithoutBurst()
-                .ForEach((InteractableCollectorData collector, LocalToWorld ltw) => {
+                .ForEach((Entity entity, ref InteractableCollectorData collector, in LocalToWorld ltw) => {
+                    switch (collector.EnableCollector) {
+                        // attempt to pickup item
+                        case 1 when collector.collectedItem == Entity.Null: {
+                            var overlapSpherePosition = ltw.Position + ( -ltw.Right ) * collector.collectorPositionOffset;
+                            float overlapSphereRadius = collector.collectorRadius;
+                            var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
+                            var overlapSphereFilter = new CollisionFilter() {
+                                BelongsTo = ~0u, // belongs to everything
+                                CollidesWith = ( 1u << 12 ), // collide with layer 12
+                                GroupIndex = 0
+                            };
 
-                    if (collector.EnableCollector != 1) {
-                        return;
-                    }
-                    
-                    var overlapSpherePosition = ltw.Position + ltw.Right * collector.collectorPositionOffset;
-                    float overlapSphereRadius = collector.collectorRadius;
-                    var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
-                    var overlapSphereFilter = new CollisionFilter {
-                    };
-                    
-                    if (physicsWorld.OverlapSphere(overlapSpherePosition, overlapSphereRadius, ref overlapSphereHits, overlapSphereFilter)) {
-                        Debug.Log(overlapSphereHits.Length);
-                    }
+                            if (physicsWorld.OverlapSphere(overlapSpherePosition, overlapSphereRadius, ref overlapSphereHits, overlapSphereFilter)) {
+                                // get the index of the closest entity
+                                int otherIndex = 0;
+                                if (overlapSphereHits.Length > 1) {
+                                    for (int i = 1; i < overlapSphereHits.Length; i++) {
+                                        if (overlapSphereHits[i].Distance > overlapSphereHits[otherIndex].Distance) {
+                                            otherIndex = i;
+                                        }
+                                    }
+                                }
 
+                                var other = overlapSphereHits[otherIndex].Entity;
+                                collector.collectedItem = other;
+                            
+                                Debug.Log(other);
+                            }
+                            break;
+                        }
+                        case 0 when collector.collectedItem != Entity.Null:
+                            collector.collectedItem = Entity.Null;
+                            break;
+                    }
                 }).Run();
-            
-
         }
     }
 
