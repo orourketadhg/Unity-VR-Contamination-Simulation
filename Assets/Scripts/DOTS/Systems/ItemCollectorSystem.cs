@@ -2,10 +2,8 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
-using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -23,6 +21,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("ItemPickup")
                 .WithoutBurst()
+                .WithStructuralChanges()
                 .ForEach((Entity entity, ref InteractableCollectorData collector, in LocalToWorld ltw) => {
                     switch (collector.EnableCollector) {
                         // attempt to pickup item
@@ -47,14 +46,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                     }
                                 }
 
-                                var other = overlapSphereHits[otherIndex].Entity;
-                                collector.collectedItem = other;
-                            
-                                Debug.Log(other);
+                                {
+                                    var other = overlapSphereHits[otherIndex].Entity;
+                                    collector.collectedItem = other;
+                                        
+                                    EntityManager.AddComponentData(other, new Parent() {Value = entity});
+                                    EntityManager.AddComponentData(other, new LocalToParent());
+                                }
                             }
                             break;
                         }
                         case 0 when collector.collectedItem != Entity.Null:
+                            {
+                                var other = collector.collectedItem;
+                                EntityManager.RemoveComponent(other, typeof(Parent));
+                                EntityManager.RemoveComponent(other, typeof(LocalToParent));
+                            }
+
                             collector.collectedItem = Entity.Null;
                             break;
                     }
