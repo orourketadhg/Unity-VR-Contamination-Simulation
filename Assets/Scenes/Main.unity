@@ -752,6 +752,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
+  mass: 1000
 --- !u!1 &965168129
 GameObject:
   m_ObjectHideFlags: 0

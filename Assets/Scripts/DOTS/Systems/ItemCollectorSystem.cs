@@ -53,12 +53,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 var other = overlapSphereHits[otherIndex].Entity;
                                 collector.collectedItem = other;
                                 var otherInteractableData = GetComponent<InteractableItemData>(other);
+                                
+                                // check if already held
 
                                 // calculate held item position and rotation
                                 var otherPosition = otherInteractableData.itemPositionOffset + collector.collectedItemPositionOffset;
                                 var otherRotation = otherInteractableData.itemRotationOffset;
-                                var otherLtw = new float4x4(float3x3.Euler(otherRotation, math.RotationOrder.XYZ), otherPosition);
-                                
+                                var otherLtp = new float4x4(float3x3.Euler(otherRotation, math.RotationOrder.XYZ), otherPosition);
                                 
                                 // update collision filter
                                 var otherCollider = GetComponent<PhysicsCollider>(other);
@@ -76,7 +77,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 
                                 // set other as child of collector
                                 ecb.AddComponent(other, new Parent() {Value = entity});
-                                ecb.AddComponent(other, new LocalToParent() {Value = otherLtw});
+                                ecb.AddComponent(other, new LocalToParent() {Value = otherLtp});
                                 ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
                                 
                                 ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass),typeof(PhysicsVelocity), typeof(PhysicsDamping)));
@@ -84,7 +85,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             break;
                         }
                         case 0 when collector.collectedItem != Entity.Null:
-                            // un-parent entity + enable physics
                             var heldItem = collector.collectedItem;
                             var heldItemInteractableData = GetComponent<InteractableItemData>(heldItem);
                             
@@ -113,7 +113,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             // set release position 
                             var heldItemLtw = GetComponent<LocalToWorld>(heldItem);
                             var position = heldItemLtw.Position;
-                            var rotation = heldItemLtw.Rotation;
 
                             // set item components
                             ecb.RemoveComponent(heldItem, typeof(Parent));
