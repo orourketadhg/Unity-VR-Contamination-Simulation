@@ -51,12 +51,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 }
                                 
                                 var other = overlapSphereHits[otherIndex].Entity;
-                                Debug.Log(other);
-                                
-                                if (!HasComponent<InteractableItemData>(other)) {
-                                    break;
-                                }
-                                    
                                 var otherInteractableData = GetComponent<InteractableItemData>(other);
                                 
                                 // check if already held
