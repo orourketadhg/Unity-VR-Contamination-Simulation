@@ -5,7 +5,6 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using Collider = Unity.Physics.Collider;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -30,7 +29,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     switch (collector.EnableCollector) {
                         // attempt to pickup item
                         case 1 when collector.collectedItem == Entity.Null: {
-                            var overlapSpherePosition = ltw.Position + ( -ltw.Right ) * collector.collectorPositionOffset;
+                            var overlapSpherePosition = ltw.Position + ( ltw.Right * collector.CollectorDirection ) * collector.collectorPositionOffset;
                             float overlapSphereRadius = collector.collectorRadius;
                             var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
                             var overlapSphereFilter = new CollisionFilter() {
@@ -51,10 +50,16 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 }
                                 
                                 var other = overlapSphereHits[otherIndex].Entity;
-                                collector.collectedItem = other;
                                 var otherInteractableData = GetComponent<InteractableItemData>(other);
                                 
                                 // check if already held
+                                if (otherInteractableData.collector != Entity.Null) {
+                                    break;
+                                }
+
+                                // set item and collector
+                                otherInteractableData.collector = entity;
+                                collector.collectedItem = other;
 
                                 // calculate held item position and rotation
                                 var otherPosition = otherInteractableData.itemPositionOffset + collector.collectedItemPositionOffset;
@@ -76,10 +81,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 }
                                 
                                 // set other as child of collector
+                                ecb.SetComponent(other, otherInteractableData);
                                 ecb.AddComponent(other, new Parent() {Value = entity});
                                 ecb.AddComponent(other, new LocalToParent() {Value = otherLtp});
                                 ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
-                                
                                 ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass),typeof(PhysicsVelocity), typeof(PhysicsDamping)));
                             }
                             break;
@@ -88,6 +93,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             var heldItem = collector.collectedItem;
                             var heldItemInteractableData = GetComponent<InteractableItemData>(heldItem);
                             
+                            // check if this collector is holding the item
+                            if (heldItemInteractableData.collector != entity) {
+                                break;
+                            }
+                            
+                            // release the item and collector 
+                            heldItemInteractableData.collector = Entity.Null;
+                            collector.collectedItem = Entity.Null;
+
                             // update collision filter
                             var heldItemCollider = GetComponent<PhysicsCollider>(heldItem);
                             var heldItemColliderClone = heldItemCollider.Value.Value.Clone();
@@ -113,26 +127,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             // set release position 
                             var heldItemLtw = GetComponent<LocalToWorld>(heldItem);
                             var position = heldItemLtw.Position;
-
+                            
                             // set item components
                             ecb.RemoveComponent(heldItem, typeof(Parent));
                             ecb.RemoveComponent(heldItem, typeof(LocalToParent));
+                            ecb.SetComponent(heldItem, heldItemInteractableData);
                             ecb.SetComponent(heldItem, new PhysicsCollider() {Value = heldItemColliderClone});
                             ecb.SetComponent(heldItem, new Translation() { Value = position});
                             ecb.AddComponent(heldItem, mass);
                             ecb.AddComponent(heldItem, velocity);
                             ecb.AddComponent(heldItem, damping);
-                            collector.collectedItem = Entity.Null;
                             break;
                     }
                 }).Schedule();
             
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
         }
-
-        private static void SetItemCollisionFilter(ref BlobAssetReference<Collider> collider, uint belongsTo, uint disabled) {
-            
-        }
+        
     }
 
 }

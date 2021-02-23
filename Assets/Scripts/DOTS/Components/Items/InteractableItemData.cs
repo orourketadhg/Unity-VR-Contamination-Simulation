@@ -5,6 +5,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
 
     [GenerateAuthoringComponent]
     public struct InteractableItemData : IComponentData {
+        public Entity collector;
         public float3 itemPositionOffset;
         public float3 itemRotationOffset;
         public float mass; 

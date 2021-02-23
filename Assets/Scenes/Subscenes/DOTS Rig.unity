@@ -167,11 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableCollector: 0
-  collectorPositionOffset: 3
+  invertCollector: 0
+  collectionOffset: 3
   collectorRadius: 3
-  collectedItem: {fileID: 0}
-  collectedItemPositionOffset: 3
+  collectedItemPositionOffset:
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &482435960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,11 +290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableCollector: 0
-  collectorPositionOffset: 3
+  invertCollector: 1
+  collectionOffset: 3
   collectorRadius: 3
-  collectedItem: {fileID: 0}
-  collectedItemPositionOffset: 3
+  collectedItemPositionOffset:
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &680000145
 MonoBehaviour:
   m_ObjectHideFlags: 0
