@@ -1,28 +1,18 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Physics;
-using Unity.Rendering;
-using Unity.Transforms;
-using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
-
-    [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    [UpdateAfter(typeof(StatefulCollisionEventSystem))]
+    
     public class ParticleCollisionHandlerSystem : SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
         
         private EntityArchetype _particleJointEntityArchetype;
         private EntityQuery _particleCollisionQuery;
-
-        //private NativeList<Entity> _particlesWithJoints;
-
+        
         protected override void OnCreate() {
 
             // Command Buffer for manipulating entity components

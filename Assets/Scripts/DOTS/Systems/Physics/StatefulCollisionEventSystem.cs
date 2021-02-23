@@ -1,6 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -13,6 +12,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
     [UpdateAfter(typeof(StepPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
     public class StatefulCollisionEventSystem : SystemBase {
+
+        public JobHandle OutDependency => Dependency;
 
         private StepPhysicsWorld _stepPhysicsWorld;
         private BuildPhysicsWorld _buildPhysicsWorld;
