@@ -28,6 +28,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         [ReadOnly] public BufferTypeHandle<VirusParticleElement> virusParticleBufferHandle;
         
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
+            
             var spawnerLocalToWorldData = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
             var spawnerSettingsData = batchInChunk.GetNativeArray(spawnerSettingsHandle);
             var spawnerInternalSettingsData = batchInChunk.GetNativeArray(spawnerInternalSettingsHandle);

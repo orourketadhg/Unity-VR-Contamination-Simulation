@@ -744,10 +744,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4cc1dadb33a44b8ab429ccb0b5fc4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collector: {fileID: 0}
   itemPositionOffset:
-    x: 1
-    y: 1
-    z: 1
+    x: 0
+    y: 0
+    z: 0
   itemRotationOffset:
     x: 0
     y: 0

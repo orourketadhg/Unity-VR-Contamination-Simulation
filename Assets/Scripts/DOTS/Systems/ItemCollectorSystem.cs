@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -21,7 +22,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         protected override void OnUpdate() {
             var physicsWorld = _buildPhysicsWorld.PhysicsWorld;
             var ecb = _entityCommandBuffer.CreateCommandBuffer();
-
+            
             Entities
                 .WithName("ItemPickup")
                 .WithoutBurst()
@@ -33,7 +34,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             float overlapSphereRadius = collector.collectorRadius;
                             var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
                             var overlapSphereFilter = new CollisionFilter() {
-                                BelongsTo = ~0u,                // belongs to nothing
+                                BelongsTo = ~0u,       // belongs to nothing
                                 CollidesWith = ( 1u << 12 ),    // collide with layer 12
                                 GroupIndex = 0
                             };
@@ -50,6 +51,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 }
                                 
                                 var other = overlapSphereHits[otherIndex].Entity;
+                                Debug.Log(other);
+                                
+                                if (!HasComponent<InteractableItemData>(other)) {
+                                    break;
+                                }
+                                    
                                 var otherInteractableData = GetComponent<InteractableItemData>(other);
                                 
                                 // check if already held
