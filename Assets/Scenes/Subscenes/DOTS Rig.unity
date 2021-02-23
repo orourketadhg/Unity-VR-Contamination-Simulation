@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invertCollector: 0
+  invertCollector: 1
   collectionOffset: 3
   collectorRadius: 3
   collectedItemPositionOffset:
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18dd0d7feb44e4a92a830fa45475b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invertCollector: 1
+  invertCollector: 0
   collectionOffset: 3
   collectorRadius: 3
   collectedItemPositionOffset:

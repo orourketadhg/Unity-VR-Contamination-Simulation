@@ -14,7 +14,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             dstManager.AddComponentData(entity, new InteractableCollectorData() {
                 EnableCollector = 0,
-                CollectorDirection = invertCollector ? -1 : 1,
+                CollectorDirection = invertCollector ? 1 : -1,
                 collectorPositionOffset = collectionOffset,
                 collectorRadius = collectorRadius,
                 collectedItemPositionOffset = collectedItemPositionOffset,

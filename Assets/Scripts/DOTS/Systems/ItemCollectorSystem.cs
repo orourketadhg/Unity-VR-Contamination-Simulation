@@ -29,11 +29,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     switch (collector.EnableCollector) {
                         // attempt to pickup item
                         case 1 when collector.collectedItem == Entity.Null: {
-                            var overlapSpherePosition = ltw.Position + ( ltw.Right * collector.CollectorDirection ) * collector.collectorPositionOffset;
+                            var overlapSpherePosition = ltw.Position + ( -ltw.Right * collector.CollectorDirection ) * collector.collectorPositionOffset;
                             float overlapSphereRadius = collector.collectorRadius;
                             var overlapSphereHits = new NativeList<DistanceHit>(Allocator.Temp);
                             var overlapSphereFilter = new CollisionFilter() {
-                                BelongsTo = ~0u,                // belongs to everything
+                                BelongsTo = ~0u,                // belongs to nothing
                                 CollidesWith = ( 1u << 12 ),    // collide with layer 12
                                 GroupIndex = 0
                             };
@@ -62,16 +62,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 collector.collectedItem = other;
 
                                 // calculate held item position and rotation
-                                var otherPosition = otherInteractableData.itemPositionOffset + collector.collectedItemPositionOffset;
-                                var otherRotation = otherInteractableData.itemRotationOffset;
-                                var otherLtp = new float4x4(float3x3.Euler(otherRotation, math.RotationOrder.XYZ), otherPosition);
-                                
+                                var pos = collector.collectedItemPositionOffset + otherInteractableData.itemPositionOffset;
+                                var rot = quaternion.EulerXYZ(otherInteractableData.itemRotationOffset);
+
                                 // update collision filter
                                 var otherCollider = GetComponent<PhysicsCollider>(other);
                                 var otherColliderClone = otherCollider.Value.Value.Clone();
                                 var otherFilter = new CollisionFilter() {
-                                    BelongsTo = ( 1u << 12 ),
-                                    CollidesWith = ~( 1u << 11 ),
+                                    BelongsTo = ( 1u << 12 ),       // belongs to layer 12
+                                    CollidesWith = ~( 1u << 11 ),   // collides with not layer 11
                                     GroupIndex = 0
                                 };
                                 
@@ -83,7 +82,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                                 // set other as child of collector
                                 ecb.SetComponent(other, otherInteractableData);
                                 ecb.AddComponent(other, new Parent() {Value = entity});
-                                ecb.AddComponent(other, new LocalToParent() {Value = otherLtp});
+                                ecb.AddComponent(other, new LocalToParent());
+                                ecb.SetComponent(other, new Translation(){Value = pos});
+                                ecb.SetComponent(other, new Rotation(){Value = rot});
                                 ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
                                 ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass),typeof(PhysicsVelocity), typeof(PhysicsDamping)));
                             }
@@ -106,8 +107,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             var heldItemCollider = GetComponent<PhysicsCollider>(heldItem);
                             var heldItemColliderClone = heldItemCollider.Value.Value.Clone();
                             var heldFilter = new CollisionFilter() {
-                                BelongsTo = ( 1u << 12 ),
-                                CollidesWith = 0xffffffff,
+                                BelongsTo = ( 1u << 12 ),   // belongs to layer 12
+                                CollidesWith = 0xffffffff,  // collides with everything
                                 GroupIndex = 0
                             };
                                 
@@ -127,6 +128,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             // set release position 
                             var heldItemLtw = GetComponent<LocalToWorld>(heldItem);
                             var position = heldItemLtw.Position;
+                            var rotation = heldItemLtw.Rotation;
                             
                             // set item components
                             ecb.RemoveComponent(heldItem, typeof(Parent));
@@ -134,6 +136,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             ecb.SetComponent(heldItem, heldItemInteractableData);
                             ecb.SetComponent(heldItem, new PhysicsCollider() {Value = heldItemColliderClone});
                             ecb.SetComponent(heldItem, new Translation() { Value = position});
+                            ecb.SetComponent(heldItem, new Rotation() { Value = rotation});
                             ecb.AddComponent(heldItem, mass);
                             ecb.AddComponent(heldItem, velocity);
                             ecb.AddComponent(heldItem, damping);
