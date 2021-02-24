@@ -26,6 +26,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var physicsWorld = _buildPhysicsWorld.PhysicsWorld;
             var ecb = _entityCommandBuffer.CreateCommandBuffer();
             
+            // handle physics world dependency issue
             Dependency = JobHandle.CombineDependencies(Dependency, _statefulCollisionEventSystem.OutDependency);
             
             Entities

@@ -28,6 +28,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 .ForEach((Entity entity, int entityInQueryIndex, in VirusParticleData particle, in DecayingLifetimeData decayingLifetimeData) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= decayingLifetimeData.lifetime) {
+
                         ecb.DestroyEntity(entityInQueryIndex, entity);
                     }
                 }).ScheduleParallel();

@@ -133,11 +133,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             while (i < currentFrameCollisionEvents.Length && j < previousFrameCollisionEvents.Length) {
                 var currentFrameCollisionEvent = currentFrameCollisionEvents[i];
                 var previousFrameCollisionEvent = previousFrameCollisionEvents[j];
-
-                // check if any change occurred 
+                
                 int result = currentFrameCollisionEvent.CompareTo(previousFrameCollisionEvent);
                 
-                // check result to determine collision state
                 if (result == 0) {
                     currentFrameCollisionEvent.CollisionState = CollisionEventState.Stay;
                     resultingStates.Add(currentFrameCollisionEvent);
