@@ -1,14 +1,12 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
-    
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    [UpdateAfter(typeof(ParticleCleanupSystem))]
-    public class DecayingLifetimeSystem : SystemBase {
+    public class SceneCleanupSystem : SystemBase {
 
         private BeginInitializationEntityCommandBufferSystem _entityCommandBufferSystem;
 
@@ -20,15 +18,34 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             var ecb = _entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             float timeSinceLoad = (float) Time.ElapsedTime;
-            
-            // TODO: refactor to preform all cleanup of particles
+
             Entities
-                .WithName("DecayingParticles")
+                .WithName("RemoveInvalidParticleJoints")
                 .WithBurst()
+                .WithAll<ParticleJointTag>()
+                .ForEach((Entity entity, int entityInQueryIndex) => {
+                    
+                }).ScheduleParallel();
+
+            // Remove decaying particles
+            Entities
+                .WithName("RemoveDecayingParticles")
+                .WithBurst()
+                .WithNone<IgnoreDecayTag>()
                 .ForEach((Entity entity, int entityInQueryIndex, in VirusParticleData particle, in DecayingLifetimeData decayingLifetimeData) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= decayingLifetimeData.lifetime) {
-
+                        ecb.DestroyEntity(entityInQueryIndex, entity);
+                    }
+                }).ScheduleParallel();
+            
+            // Remove long life particles
+            Entities
+                .WithName("ParticleCleanup")
+                .WithBurst()
+                .ForEach((Entity entity, int entityInQueryIndex, in VirusParticleData particle) => {
+                    float aliveTime = timeSinceLoad - particle.spawnTime;
+                    if (aliveTime > 30f) {
                         ecb.DestroyEntity(entityInQueryIndex, entity);
                     }
                 }).ScheduleParallel();
