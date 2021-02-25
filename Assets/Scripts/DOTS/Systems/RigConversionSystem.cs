@@ -1,7 +1,6 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.Rig;
 using Unity.Entities;
-using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
@@ -25,7 +24,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("RigConversion")
                 .WithoutBurst()
-                .ForEach((ref Translation translation, ref Rotation rotation, in XRRigData rigData) => {
+                .ForEach((ref Translation translation, ref Rotation rotation, ref PhysicsVelocity velocity, in XRRigData rigData) => {
                     foreach (var node in _rig) {
                         if (rigData.Type != node.type) {
                             continue;
@@ -36,9 +35,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
                         translation = new Translation() {Value = nodePosition};
                         rotation = new Rotation() {Value = nodeRotation};
+                        velocity = new PhysicsVelocity();
                     }
                 }).Run();
-            
         }
     }
 }

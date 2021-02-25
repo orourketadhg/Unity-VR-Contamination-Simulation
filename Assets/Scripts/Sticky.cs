@@ -3,18 +3,12 @@ using UnityEngine;
 namespace com.TUDublin.VRContaminationSimulation
 {
     public class Sticky : MonoBehaviour {
-
-        [SerializeField] private Vector3 initialVelocity;
         private Rigidbody _rigidbody;
         private Collider _collider;
 
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
-        }
-
-        private void Start() {
-            _rigidbody.AddForce(initialVelocity);
         }
 
         private void OnCollisionEnter(Collision other) {

@@ -5,11 +5,11 @@ using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Rendering;
 using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
     
-    [DisableAutoCreation]
     public class ParticleCollisionHandlerSystem : SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
@@ -46,56 +46,55 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             var ecb = _entityCommandBuffer.CreateCommandBuffer().AsParallelWriter();
             var particleJointEntityArchetype = _particleJointEntityArchetype;
-            
+
             Entities
                 .WithName("ParticleJointCreation")
-                .WithoutBurst()
-                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particleData, ref PhysicsVelocity velocity, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Translation translation, in Rotation rotation) => {
-                    
+                .WithNone<JointReferenceData>()
+                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particleData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Translation translation, in Rotation rotation) => {
+
                     // ignore particles with no collisions
                     if (collisionBuffer.IsEmpty) {
                         return;
                     }
 
-                    // particle doesn't have a joint
-                    if (particleData.particleJoint == Entity.Null) {
-                        
-                        // get the first instance of a Enter collisionEvent
-                        int collisionIndex = -1;
-                        for (int i = 0; i < collisionBuffer.Length; i++) {
-                            if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
-                                collisionIndex = i;
-                                break;
-                            }
+                    // get the first instance of a Enter collisionEvent
+                    int collisionIndex = -1;
+                    for (int i = 0; i < collisionBuffer.Length; i++) {
+                        if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
+                            collisionIndex = i;
+                            break;
                         }
-
-                        // check if a collision was found
-                        if (collisionIndex < 0) {
-                            return;
-                        }
-
-                        // get the collision event
-                        var collisionEvent = collisionBuffer[collisionIndex];
-                        
-                        var other = collisionEvent.GetOtherCollisionEntity(entity);
-                        var translationB = GetComponent<Translation>(other);
-                        var rotationB = GetComponent<Rotation>(other);
-
-                        // create Physics joint between collision entities
-                        var joint = CreatePhysicsJoint(translation, translationB, rotation, rotationB);
-                        
-                        // Body pair to constrain the entities
-                        // enableCollision set to false so the bodies do not generate collision events between them
-                        var constrainedBodyPair = new PhysicsConstrainedBodyPair(entity, other, false);
-                        
-                        // create a joint entity
-                        var jointEntity = ecb.CreateEntity(entityInQueryIndex, particleJointEntityArchetype);
-                        ecb.SetComponent(entityInQueryIndex, entity, new PhysicsVelocity());
-                        ecb.SetComponent(entityInQueryIndex, jointEntity, joint);
-                        ecb.SetComponent(entityInQueryIndex, jointEntity, constrainedBodyPair);
-                        particleData.particleJoint = jointEntity;
                     }
-                    
+
+                    // check if a collision was found
+                    if (collisionIndex < 0) {
+                        return;
+                    }
+
+                    // get the collision event
+                    var collisionEvent = collisionBuffer[collisionIndex];
+
+                    var other = collisionEvent.GetOtherCollisionEntity(entity);
+                    var translationB = GetComponent<Translation>(other);
+                    var rotationB = GetComponent<Rotation>(other);
+
+                    // create Joint Components between the two colliding entities
+                    var joint = CreatePhysicsJoint(translation, translationB, rotation, rotationB);
+                    var constrainedBodyPair = new PhysicsConstrainedBodyPair(entity, other, false);
+
+                    // create a joint entity
+                    var jointEntity = ecb.CreateEntity(entityInQueryIndex, particleJointEntityArchetype);
+                    ecb.AddComponent(entityInQueryIndex, entity, new JointReferenceData() {value = jointEntity});
+                    ecb.AddComponent(entityInQueryIndex, entity, new IgnoreDecayTag());
+                    ecb.SetComponent(entityInQueryIndex, jointEntity, joint);
+                    ecb.SetComponent(entityInQueryIndex, jointEntity, constrainedBodyPair);
+                }).ScheduleParallel();
+
+            Entities
+                .WithAny<JointReferenceData>()
+                .WithoutBurst()
+                .ForEach((ref PhysicsVelocity velocity) => {
+
                 }).Schedule();
 
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
@@ -108,7 +107,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var bodyFrameA = new BodyFrame(rigidTransformA);
             var bodyFrameB = new BodyFrame(rigidTransformB);
 
-            return PhysicsJoint.CreateFixed(bodyFrameA, bodyFrameB);
+            return PhysicsJoint.CreateHinge(bodyFrameA, bodyFrameB);
         }
         
     }
