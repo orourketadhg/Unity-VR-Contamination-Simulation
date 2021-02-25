@@ -2,11 +2,12 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
-using Unity.Rendering;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
     
@@ -49,14 +50,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             Entities
                 .WithName("ParticleJointCreation")
-                .WithNone<JointReferenceData>()
-                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particleData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Translation translation, in Rotation rotation) => {
-
+                .WithBurst()
+                .WithAll<VirusParticleData>()
+                .ForEach((Entity entity, int entityInQueryIndex, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Translation translation, in Rotation rotation) => {
+            
                     // ignore particles with no collisions
                     if (collisionBuffer.IsEmpty) {
                         return;
                     }
-
+                    
                     // get the first instance of a Enter collisionEvent
                     int collisionIndex = -1;
                     for (int i = 0; i < collisionBuffer.Length; i++) {
@@ -65,41 +67,32 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             break;
                         }
                     }
-
+                    
                     // check if a collision was found
                     if (collisionIndex < 0) {
                         return;
                     }
-
+            
                     // get the collision event
                     var collisionEvent = collisionBuffer[collisionIndex];
-
+                    
                     var other = collisionEvent.GetOtherCollisionEntity(entity);
                     var translationB = GetComponent<Translation>(other);
                     var rotationB = GetComponent<Rotation>(other);
-
+                    
                     // create Joint Components between the two colliding entities
                     var joint = CreatePhysicsJoint(translation, translationB, rotation, rotationB);
                     var constrainedBodyPair = new PhysicsConstrainedBodyPair(entity, other, false);
-
+                    
                     // create a joint entity
                     var jointEntity = ecb.CreateEntity(entityInQueryIndex, particleJointEntityArchetype);
-                    ecb.AddComponent(entityInQueryIndex, entity, new JointReferenceData() {value = jointEntity});
-                    ecb.AddComponent(entityInQueryIndex, entity, new IgnoreDecayTag());
-                    ecb.SetComponent(entityInQueryIndex, jointEntity, joint);
                     ecb.SetComponent(entityInQueryIndex, jointEntity, constrainedBodyPair);
-                }).ScheduleParallel();
-
-            Entities
-                .WithAny<JointReferenceData>()
-                .WithoutBurst()
-                .ForEach((ref PhysicsVelocity velocity) => {
-
+                    ecb.SetComponent(entityInQueryIndex, jointEntity, joint);
                 }).Schedule();
-
+            
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
         }
-
+        
         private static PhysicsJoint CreatePhysicsJoint(in Translation translationA, in Translation translationB, in Rotation rotationA, in Rotation rotationB) {
             var rigidTransformA = new RigidTransform(rotationA.Value, translationA.Value);
             var rigidTransformB = new RigidTransform(rotationB.Value, translationB.Value);
