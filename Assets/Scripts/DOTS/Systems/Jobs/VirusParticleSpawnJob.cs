@@ -13,7 +13,6 @@ using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     
-    [BurstCompile]
     public struct VirusParticleSpawnJob : IJobEntityBatch {
 
         [NativeSetThreadIndex] private int _nativeThreadIndex;
@@ -80,6 +79,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         ecb.SetComponent(batchIndex, instance, new Translation() {Value = instanceTranslation});
                         ecb.SetComponent(batchIndex, instance, new PhysicsVelocity() {Linear = instanceLinearVelocity});
                         ecb.SetComponent(batchIndex, instance, new VirusParticleData() {spawnTime = deltaTime});
+                        
+                        // remove reference to sub scene
+                        ecb.RemoveComponent(batchIndex, instance, typeof(SceneTag));                    
                         
                         // particle decaying
                         if (spawnerSettings.totalDecayingVirusParticles) {

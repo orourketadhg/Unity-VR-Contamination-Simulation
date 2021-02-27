@@ -6,8 +6,7 @@ using Unity.Physics;
 using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.Testing {
-
-    [DisableAutoCreation]
+    
     public class TestStickByJointTestSystem : SystemBase {
 
         private BeginSimulationEntityCommandBufferSystem _entityCommandBuffer;

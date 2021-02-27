@@ -6,7 +6,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -21,7 +20,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             _jointEntityArchetype = EntityManager.CreateArchetype(
                 typeof(PhysicsJoint),
-                typeof(PhysicsConstrainedBodyPair)
+                typeof(PhysicsConstrainedBodyPair),
+                typeof(DeleteMeData)
             );
             
             // get all entities virusParticleData & statefulCollisionEventBuffer components 
@@ -75,12 +75,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         var entityBF = new BodyFrame(entityRT);
                         var otherBF = new BodyFrame(otherRT);
 
-                        var joint = PhysicsJoint.CreateFixed(entityBF, otherBF);
+                        var joint = PhysicsJoint.CreateHinge(entityBF, otherBF);
                         var cBP = new PhysicsConstrainedBodyPair(entity, other, false);
-                        
+                        var deleteMeData = new DeleteMeData() {value = 0};
+
                         var jointEntity = ecb.CreateEntity(jointArchetype);
                         ecb.AddComponent(jointEntity, joint);
                         ecb.AddComponent(jointEntity, cBP);
+                        ecb.AddComponent(jointEntity, deleteMeData);
                         
                         ecb.SetComponent(other, new PhysicsVelocity());
                         velocity = new PhysicsVelocity();

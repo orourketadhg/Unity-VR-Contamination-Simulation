@@ -1,6 +1,7 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using Unity.Entities;
+using Unity.Physics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -14,30 +15,42 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         }
 
         protected override void OnUpdate() {
-
-            var ecb = _entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
+            var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
             float timeSinceLoad = (float) Time.ElapsedTime;
             
             // Remove decaying particles
             Entities
                 .WithName("RemoveDecayingParticles")
-                .WithoutBurst()
-                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particle, in DecayingLifetimeData decayingLifetimeData) => {
+                .WithBurst()
+                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingLifetimeData decayingLifetimeData) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= decayingLifetimeData.lifetime) {
-                        ecb.DestroyEntity(entityInQueryIndex, entity);
+                        ecb.DestroyEntity(entity);
                     }
-                }).ScheduleParallel();
-            
+                }).Schedule();
+
             Entities
                 .WithName("ParticleCleanup")
                 .WithBurst()
-                .ForEach((Entity entity, int entityInQueryIndex, in VirusParticleData particle) => {
+                .ForEach((Entity entity, in VirusParticleData particle) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime > 30f) {
-                        ecb.DestroyEntity(entityInQueryIndex, entity);
+                        ecb.DestroyEntity(entity);
                     }
-                }).ScheduleParallel();
+                }).Schedule();
+            
+            Entities
+                .WithName("JointCleanup")
+                .WithoutBurst()
+                .WithStructuralChanges()
+                .ForEach((Entity entity, in PhysicsJoint joint, in PhysicsConstrainedBodyPair constrainedBodyPair) => {
+                    var entityA = constrainedBodyPair.EntityA;
+                    var entityB = constrainedBodyPair.EntityB;
+
+                    if (!EntityManager.Exists(entityA) || !EntityManager.Exists(entityB)) {
+                        ecb.DestroyEntity(entity);
+                    }
+                }).Run();
 
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
 
