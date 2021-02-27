@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.Testing
 {
-    public class Sticky : MonoBehaviour {
+    public class ArrowStick : MonoBehaviour {
         public Vector3 initialVelocity;
         private Rigidbody _rigidbody;
         private Collider _collider;

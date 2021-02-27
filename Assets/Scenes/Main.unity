@@ -456,7 +456,6 @@ GameObject:
   - component: {fileID: 926142091}
   - component: {fileID: 926142090}
   - component: {fileID: 926142096}
-  - component: {fileID: 926142097}
   m_Layer: 0
   m_Name: TestItem
   m_TagString: Untagged
@@ -504,7 +503,7 @@ MonoBehaviour:
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
+    m_BevelRadius: 0
     m_MinimumAngle: 2.5000002
   m_CustomMesh: {fileID: 0}
   m_ForceUnique: 0
@@ -727,7 +726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926142089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.186, z: 0.107}
+  m_LocalPosition: {x: 0, y: 0.186, z: 0.518}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -755,18 +754,6 @@ MonoBehaviour:
     y: 0
     z: 0
   mass: 1000
---- !u!114 &926142097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926142089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a70a14e81344781a88f87c59b7c71e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &965168129
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,18 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.Testing {
 
-    public class ParticleCollisionHandlerSystem : SystemBase {
+    [DisableAutoCreation]
+    public class TestStickByJointTestSystem : SystemBase {
 
         private BeginSimulationEntityCommandBufferSystem _entityCommandBuffer;
         private EntityArchetype _jointEntityArchetype;
-        private EntityQuery _particleCollisionQuery;
-        
+
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
 
@@ -23,30 +20,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 typeof(PhysicsJoint),
                 typeof(PhysicsConstrainedBodyPair)
             );
-            
-            // get all entities virusParticleData & statefulCollisionEventBuffer components 
-            _particleCollisionQuery = GetEntityQuery(new EntityQueryDesc() {
-                All = new ComponentType[] {
-                    typeof(VirusParticleData)
-                }
-            });
+
         }
 
         protected override void OnUpdate() {
-            
-            // check if any particles exist
-            if (_particleCollisionQuery.CalculateEntityCount() == 0) {
-                return;
-            }
-            
             var ecb = _entityCommandBuffer.CreateCommandBuffer();
             var jointArchetype = _jointEntityArchetype;
 
             Entities
                 .WithBurst()
-                .ForEach((Entity entity, ref VirusParticleData particle, ref PhysicsVelocity velocity, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
+                .ForEach((Entity entity, ref ArrowData arrow, ref PhysicsVelocity velocity, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
 
-                    if (particle.joint == Entity.Null) {
+                    if (arrow.joint == Entity.Null) {
 
                         if (collisionBuffer.IsEmpty) {
                             return;
@@ -66,6 +51,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
                         var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
 
+                        if (!HasComponent<TargetData>(other)) {
+                            return;
+                        }
+                        
                         var otherTranslation = GetComponent<Translation>(other);
                         var otherRotation = GetComponent<Rotation>(other);
 
@@ -85,12 +74,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         ecb.SetComponent(other, new PhysicsVelocity());
                         velocity = new PhysicsVelocity();
                         
-                        particle.joint = jointEntity;
+                        arrow.joint = jointEntity;
                     }
 
                 }).Schedule();
             
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
+
         }
     }
 

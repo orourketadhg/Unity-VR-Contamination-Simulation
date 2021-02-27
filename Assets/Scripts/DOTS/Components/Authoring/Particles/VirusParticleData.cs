@@ -6,6 +6,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Parti
 
     [GenerateAuthoringComponent]
     public struct VirusParticleData : IComponentData {
+        public Entity joint;
         public float spawnTime;
     }
     
