@@ -5,21 +5,21 @@ using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     public class ParticleCollisionHandlerSystem : SystemBase {
 
-        private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
+        private EndSimulationEntityCommandBufferSystem _entityCommandBuffer;
         private EntityQuery _particleCollisionQuery;
         
         protected override void OnCreate() {
-            _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+            _entityCommandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
             
             // get all entities virusParticleData & statefulCollisionEventBuffer components 
             _particleCollisionQuery = GetEntityQuery(new EntityQueryDesc() {
                 All = new ComponentType[] {
-                    typeof(StatefulCollisionEventBuffer),
                     typeof(VirusParticleData)
                 }
             });
@@ -37,8 +37,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("ParticleCollisionHandler")
                 .WithoutBurst()
-                .WithAll<ParticleCollectorTag>()
-                .ForEach((Entity entity, int entityInQueryIndex, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
+                .ForEach((Entity entity, int entityInQueryIndex, in ParticleCollectorTag collector, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
 
                     if (collisionBuffer.IsEmpty) {
                         return;
@@ -47,10 +46,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     // get the first instance of a Enter collisionEvent
                     for (int i = 0; i < collisionBuffer.Length; i++) {
                         
+                        var other = collisionBuffer[i].GetOtherCollisionEntity(entity);
+
                         // check for enter type collision
                         if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
-                            var other = collisionBuffer[i].GetOtherCollisionEntity(entity);
-                            
+
                             // check if the collision entity is a particle
                             if (!HasComponent<VirusParticleData>(other)) {
                                 continue;
@@ -58,6 +58,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                             
                             ecb.AddComponent(other, new Parent() {Value = entity});
                             ecb.AddComponent(other, new LocalToParent());
+                            ecb.AddComponent(other, new IgnoreDecayTag());
+                            ecb.AddComponent(other, new IgnoreWalkTag());
                             ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass), typeof(PhysicsVelocity), typeof(PhysicsDamping)));
                         }
                     }

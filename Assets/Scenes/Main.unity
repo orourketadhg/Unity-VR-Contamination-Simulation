@@ -453,10 +453,10 @@ GameObject:
   - component: {fileID: 926142094}
   - component: {fileID: 926142093}
   - component: {fileID: 926142092}
-  - component: {fileID: 926142097}
   - component: {fileID: 926142091}
   - component: {fileID: 926142090}
   - component: {fileID: 926142096}
+  - component: {fileID: 926142097}
   m_Layer: 0
   m_Name: TestItem
   m_TagString: Untagged
@@ -513,7 +513,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:

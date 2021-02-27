@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 7778364264823758902}
   - component: {fileID: 5008245189316925811}
   - component: {fileID: 6525075511975545796}
-  - component: {fileID: 4651161583240709158}
   m_Layer: 0
   m_Name: Active Light Particle
   m_TagString: Untagged
@@ -186,7 +185,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 1
-      m_Value: 1
+      m_Value: 0
     m_Friction:
       m_Override: 1
       m_Value:
@@ -292,7 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e3db9024aa4adab1702b4f20476bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleJoint: {fileID: 0}
   spawnTime: 0
 --- !u!114 &5008245189316925811
 MonoBehaviour:
@@ -318,16 +316,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3f9e3c4a7a4f82906656394c992cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4651161583240709158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250970801269931556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2a9685c11709e4d9763cf190c66001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  calculateCollisionDetails: 0

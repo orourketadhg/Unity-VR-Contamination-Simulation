@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: -3425320252700905303}
   - component: {fileID: 5998707178823175041}
   - component: {fileID: 1633983546845760190}
-  - component: {fileID: 8467455812440806005}
   m_Layer: 0
   m_Name: Active Heavy Particle
   m_TagString: Untagged
@@ -186,7 +185,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 1
-      m_Value: 1
+      m_Value: 0
     m_Friction:
       m_Override: 1
       m_Value:
@@ -292,7 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e3db9024aa4adab1702b4f20476bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleJoint: {fileID: 0}
   spawnTime: 0
 --- !u!114 &5998707178823175041
 MonoBehaviour:
@@ -318,16 +316,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa7a51418f84fb0bef3046b1b6b0233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8467455812440806005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250970801269931556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2a9685c11709e4d9763cf190c66001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  calculateCollisionDetails: 0
