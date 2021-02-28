@@ -94,14 +94,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                     if (HasComponent<MouthBreathTag>(entity)) {
                         inputData.Value = _rightPrimaryPress;
                     }
-                    else if (HasComponent<NoseBreathTag>(entity)) {
+                    else if (HasComponent<CoughTag>(entity)) {
                         inputData.Value = _rightSecondaryPress;
+                    }
+                    else if (HasComponent<NoseBreathTag>(entity)) {
+                        inputData.Value = _leftPrimaryPress;
                     }
                     else if (HasComponent<SneezeTag>(entity)) {
                         inputData.Value = _leftSecondaryPress;
-                    }
-                    else if (HasComponent<CoughTag>(entity)) {
-                        inputData.Value = _leftPrimaryPress;
                     }
                 }).Run();
             
@@ -116,7 +116,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                         collector.EnableCollector = _rightGripPress;
                     }
                 }).Run();
-
         }
         
         protected override void OnStopRunning() => _input.Disable();

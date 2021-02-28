@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1443684127
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,8 +1022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
-    x: 0
-    y: 0
+    x: 3
+    y: 5
   spawnerRadius: 0.075
   spawnRangeCurve:
     serializedVersion: 2
@@ -1049,11 +1049,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  looping: 0
-  decayTime: 0
-  totalDecayingParticles: 0
+  looping: 1
+  decayTime: 1.5
+  totalDecayingParticles: 1
   randomDecayingParticles: 0
-  randomDecayChance: 0
+  randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1067,28 +1067,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1125,28 +1143,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1183,28 +1219,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1247,7 +1301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1586562309
 Transform:
   m_ObjectHideFlags: 0
@@ -1300,9 +1354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
-    x: 0
-    y: 0
-  spawnerRadius: 0
+    x: 3
+    y: 5
+  spawnerRadius: 0.05
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -1327,11 +1381,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  looping: 0
-  decayTime: 0
-  totalDecayingParticles: 0
+  looping: 1
+  decayTime: 1.5
+  totalDecayingParticles: 1
   randomDecayingParticles: 0
-  randomDecayChance: 0
+  randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1345,28 +1399,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1403,28 +1475,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1461,28 +1551,46 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.24142662
+      - serializedVersion: 3
+        time: 0.25
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1703,7 +1811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1952702992
 Transform:
   m_ObjectHideFlags: 0
@@ -1756,9 +1864,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDurationRange:
-    x: 0
-    y: 0
-  spawnerRadius: 0
+    x: 1
+    y: 3
+  spawnerRadius: 0.075
   spawnRangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -1784,10 +1892,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  decayTime: 0
-  totalDecayingParticles: 0
+  decayTime: 1.5
+  totalDecayingParticles: 1
   randomDecayingParticles: 0
-  randomDecayChance: 0
+  randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
     particleScale:
@@ -1795,34 +1903,34 @@ MonoBehaviour:
       y: 0.025
     particleCount:
       x: 1
-      y: 10
+      y: 4
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        time: -0.0041656494
+        value: 0.99765015
+        inSlope: 0.053780254
+        outSlope: 0.053780254
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.5983412
       - serializedVersion: 3
         time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        value: 0
+        inSlope: -5.1550136
+        outSlope: -5.1550136
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.025000025
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1853,34 +1961,34 @@ MonoBehaviour:
       y: 0.02
     particleCount:
       x: 1
-      y: 10
+      y: 6
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        time: -0.0041656494
+        value: 0.99765015
+        inSlope: 0.053780254
+        outSlope: 0.053780254
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.5983412
       - serializedVersion: 3
         time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        value: 0
+        inSlope: -5.1550136
+        outSlope: -5.1550136
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.025000025
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
@@ -1911,34 +2019,34 @@ MonoBehaviour:
       y: 0.02
     particleCount:
       x: 1
-      y: 10
+      y: 6
     particleCountCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        time: -0.0041656494
+        value: 0.99765015
+        inSlope: 0.053780254
+        outSlope: 0.053780254
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.5983412
       - serializedVersion: 3
         time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
+        value: 0
+        inSlope: -5.1550136
+        outSlope: -5.1550136
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.025000025
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     emissionForce:
-      x: 0
-      y: 0
+      x: 1
+      y: 3
     emissionForceCurve:
       serializedVersion: 2
       m_Curve:
