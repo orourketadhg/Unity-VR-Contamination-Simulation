@@ -48,7 +48,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 float currentTime = deltaTime - spawnerInternalSettings.spawnerStartTime;
                 float timeNormalized = (spawnerInternalSettings.spawnerDuration - currentTime) / spawnerInternalSettings.spawnerDuration;
                 
-                // TODO: Add spawner activation/deactivation by input
+                
+                
+                
 
                 // iterate over particle buffer on entity
                 for (int j = 0; j < particleBuffer[i].Length; j++) {
@@ -124,7 +126,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
 
         private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
             float adjustedRadius = AnimationCurveEvaluator.Evaluate(time, spawnerSettingsData.spawnRadiusCurve) * spawnerSettingsData.spawnerRadius;
-            var randomPosition = NonUniformDiskPointPicking(ref random, adjustedRadius);
+            var randomPosition = InsideRadiusCircle(ref random, adjustedRadius);
         
             // add random position to spawner position
             return new float3() {
@@ -134,7 +136,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             };
         }
     
-        private static float2 NonUniformDiskPointPicking(ref Random random, float radius) {
+        private static float2 InsideRadiusCircle(ref Random random, float radius) {
             // generate random alpha value [0-2π]
             float a = 2 * math.PI * random.NextFloat();
             float r = radius * math.sqrt(random.NextFloat());

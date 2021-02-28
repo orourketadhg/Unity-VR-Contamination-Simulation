@@ -89,22 +89,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""MouthBreath"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0239089-5457-41bb-8a9c-48616e05ee30"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""NoseBreath"",
-                    ""type"": ""Button"",
-                    ""id"": ""8376e6ea-12ef-46dc-84d9-130acc60aa8a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -206,28 +190,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""TriggerTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""51f54382-9b3b-4faf-ac18-3ae771b250a5"",
-                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
-                    ""interactions"": ""MultiTap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NoseBreath"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3a19e742-f86c-4186-a9be-04d62880bd4e"",
-                    ""path"": ""<XRController>{RightHand}/primaryButton"",
-                    ""interactions"": ""MultiTap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouthBreath"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -304,22 +266,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""42601efe-ee76-4997-ad97-878c546c53ae"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Sneeze"",
-                    ""type"": ""Button"",
-                    ""id"": ""12d64471-3aa4-4811-9e75-f589becd159d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Cough"",
-                    ""type"": ""Button"",
-                    ""id"": ""a6d1a456-bfeb-4856-99a8-e456da499e75"",
-                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -423,28 +369,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""JoystickTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""33e886de-6548-4b14-b0d8-baa736dfad22"",
-                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
-                    ""interactions"": ""MultiTap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Sneeze"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ae8d2e04-c4dc-4b1e-9480-0459af5c445f"",
-                    ""path"": ""<XRController>{LeftHand}/secondaryButton"",
-                    ""interactions"": ""MultiTap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cough"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -462,8 +386,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRRight_SecondaryPress = m_XRRight.FindAction("SecondaryPress", throwIfNotFound: true);
         m_XRRight_JoystickTouch = m_XRRight.FindAction("JoystickTouch", throwIfNotFound: true);
         m_XRRight_Joystick = m_XRRight.FindAction("Joystick", throwIfNotFound: true);
-        m_XRRight_MouthBreath = m_XRRight.FindAction("MouthBreath", throwIfNotFound: true);
-        m_XRRight_NoseBreath = m_XRRight.FindAction("NoseBreath", throwIfNotFound: true);
         // XRLeft
         m_XRLeft = asset.FindActionMap("XRLeft", throwIfNotFound: true);
         m_XRLeft_GripPress = m_XRLeft.FindAction("GripPress", throwIfNotFound: true);
@@ -475,8 +397,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRLeft_SecondaryPress = m_XRLeft.FindAction("SecondaryPress", throwIfNotFound: true);
         m_XRLeft_JoystickTouch = m_XRLeft.FindAction("JoystickTouch", throwIfNotFound: true);
         m_XRLeft_Joystick = m_XRLeft.FindAction("Joystick", throwIfNotFound: true);
-        m_XRLeft_Sneeze = m_XRLeft.FindAction("Sneeze", throwIfNotFound: true);
-        m_XRLeft_Cough = m_XRLeft.FindAction("Cough", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -535,8 +455,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputAction m_XRRight_SecondaryPress;
     private readonly InputAction m_XRRight_JoystickTouch;
     private readonly InputAction m_XRRight_Joystick;
-    private readonly InputAction m_XRRight_MouthBreath;
-    private readonly InputAction m_XRRight_NoseBreath;
     public struct XRRightActions
     {
         private @VRControls m_Wrapper;
@@ -550,8 +468,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryPress => m_Wrapper.m_XRRight_SecondaryPress;
         public InputAction @JoystickTouch => m_Wrapper.m_XRRight_JoystickTouch;
         public InputAction @Joystick => m_Wrapper.m_XRRight_Joystick;
-        public InputAction @MouthBreath => m_Wrapper.m_XRRight_MouthBreath;
-        public InputAction @NoseBreath => m_Wrapper.m_XRRight_NoseBreath;
         public InputActionMap Get() { return m_Wrapper.m_XRRight; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -588,12 +504,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
-                @MouthBreath.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnMouthBreath;
-                @MouthBreath.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnMouthBreath;
-                @MouthBreath.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnMouthBreath;
-                @NoseBreath.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnNoseBreath;
-                @NoseBreath.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnNoseBreath;
-                @NoseBreath.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnNoseBreath;
             }
             m_Wrapper.m_XRRightActionsCallbackInterface = instance;
             if (instance != null)
@@ -625,12 +535,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
-                @MouthBreath.started += instance.OnMouthBreath;
-                @MouthBreath.performed += instance.OnMouthBreath;
-                @MouthBreath.canceled += instance.OnMouthBreath;
-                @NoseBreath.started += instance.OnNoseBreath;
-                @NoseBreath.performed += instance.OnNoseBreath;
-                @NoseBreath.canceled += instance.OnNoseBreath;
             }
         }
     }
@@ -648,8 +552,6 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputAction m_XRLeft_SecondaryPress;
     private readonly InputAction m_XRLeft_JoystickTouch;
     private readonly InputAction m_XRLeft_Joystick;
-    private readonly InputAction m_XRLeft_Sneeze;
-    private readonly InputAction m_XRLeft_Cough;
     public struct XRLeftActions
     {
         private @VRControls m_Wrapper;
@@ -663,8 +565,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryPress => m_Wrapper.m_XRLeft_SecondaryPress;
         public InputAction @JoystickTouch => m_Wrapper.m_XRLeft_JoystickTouch;
         public InputAction @Joystick => m_Wrapper.m_XRLeft_Joystick;
-        public InputAction @Sneeze => m_Wrapper.m_XRLeft_Sneeze;
-        public InputAction @Cough => m_Wrapper.m_XRLeft_Cough;
         public InputActionMap Get() { return m_Wrapper.m_XRLeft; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -701,12 +601,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
-                @Sneeze.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnSneeze;
-                @Sneeze.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnSneeze;
-                @Sneeze.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnSneeze;
-                @Cough.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnCough;
-                @Cough.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnCough;
-                @Cough.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnCough;
             }
             m_Wrapper.m_XRLeftActionsCallbackInterface = instance;
             if (instance != null)
@@ -738,12 +632,6 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
-                @Sneeze.started += instance.OnSneeze;
-                @Sneeze.performed += instance.OnSneeze;
-                @Sneeze.canceled += instance.OnSneeze;
-                @Cough.started += instance.OnCough;
-                @Cough.performed += instance.OnCough;
-                @Cough.canceled += instance.OnCough;
             }
         }
     }
@@ -759,8 +647,6 @@ public class @VRControls : IInputActionCollection, IDisposable
         void OnSecondaryPress(InputAction.CallbackContext context);
         void OnJoystickTouch(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
-        void OnMouthBreath(InputAction.CallbackContext context);
-        void OnNoseBreath(InputAction.CallbackContext context);
     }
     public interface IXRLeftActions
     {
@@ -773,7 +659,5 @@ public class @VRControls : IInputActionCollection, IDisposable
         void OnSecondaryPress(InputAction.CallbackContext context);
         void OnJoystickTouch(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
-        void OnSneeze(InputAction.CallbackContext context);
-        void OnCough(InputAction.CallbackContext context);
     }
 }

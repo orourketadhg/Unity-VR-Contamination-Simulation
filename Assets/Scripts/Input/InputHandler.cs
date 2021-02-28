@@ -32,12 +32,6 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public bool leftJoystickTouch;
         public Vector2 leftJoystick;
 
-        [Header("Additional Input")] 
-        public bool mouthBreath;
-        public bool noseBreath;
-        public bool sneeze;
-        public bool cough;
-
         private void Awake() { 
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -80,26 +74,6 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         void VRControls.IXRLeftActions.OnSecondaryPress(InputAction.CallbackContext context) => leftSecondaryPress = context.performed;
         void VRControls.IXRLeftActions.OnJoystickTouch(InputAction.CallbackContext context) => leftJoystickTouch = context.performed;
         void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => leftJoystick = context.ReadValue<Vector2>();
-
-        #endregion
-
-        #region Additional Input Bindings
-        
-        public void OnMouthBreath(InputAction.CallbackContext context) {
-            if (context.performed) mouthBreath = !mouthBreath;
-        }
-
-        public void OnNoseBreath(InputAction.CallbackContext context) {
-            if (context.performed) noseBreath = !noseBreath;
-        }
-
-        public void OnSneeze(InputAction.CallbackContext context) {
-            if (context.performed) sneeze = !sneeze;
-        }
-
-        public void OnCough(InputAction.CallbackContext context) {
-            if (context.performed) cough = !cough;
-        }
 
         #endregion
         

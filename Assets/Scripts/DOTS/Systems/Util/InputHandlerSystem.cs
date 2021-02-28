@@ -43,15 +43,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         private Vector2 _leftJoystick;
         
         #endregion
-
-        #region Additional Input Binding Variables
-
-        private int _mouthBreath;
-        private int _noseBreath;
-        private int _sneeze;
-        private int _cough;
-
-        #endregion
         
         protected override void OnCreate() {
             _inputDataQuery = GetEntityQuery(typeof(InputData));
@@ -101,16 +92,16 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 .WithoutBurst()
                 .ForEach((Entity entity, ref BreathingMechanicInputData inputData) => {
                     if (HasComponent<MouthBreathTag>(entity)) {
-                        inputData.Value = _mouthBreath;
+                        inputData.Value = _rightPrimaryPress;
                     }
                     else if (HasComponent<NoseBreathTag>(entity)) {
-                        inputData.Value = _noseBreath;
+                        inputData.Value = _rightSecondaryPress;
                     }
                     else if (HasComponent<SneezeTag>(entity)) {
-                        inputData.Value = _sneeze;
+                        inputData.Value = _leftSecondaryPress;
                     }
                     else if (HasComponent<CoughTag>(entity)) {
-                        inputData.Value = _cough;
+                        inputData.Value = _leftPrimaryPress;
                     }
                 }).Run();
             
@@ -157,19 +148,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => _leftJoystick = context.ReadValue<Vector2>();
         
         #endregion
-        
-        #region Additional Input Bindings
-
-        public void OnMouthBreath(InputAction.CallbackContext context) => _mouthBreath = context.performed ? 1 : 0;
-        
-        public void OnNoseBreath(InputAction.CallbackContext context) => _noseBreath = context.performed ? 1 : 0;
-
-        public void OnSneeze(InputAction.CallbackContext context) => _sneeze = context.performed ? 1 : 0;
-
-        public void OnCough(InputAction.CallbackContext context) => _cough = context.performed ? 1 : 0;
-
-        #endregion
-
     }
 
 }
