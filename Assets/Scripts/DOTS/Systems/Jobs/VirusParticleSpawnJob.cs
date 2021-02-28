@@ -1,7 +1,7 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using Unity.Animation;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -105,13 +105,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                             // particle decaying
                             if (spawnerSettings.totalDecayingVirusParticles == 1) {
                                 float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
-                                ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() {lifetime = randomLifetime});
+                                ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                             }
                             else if (spawnerSettings.randomDecayingVirusParticles == 1) {
                                 float randomDecayValue = random.NextFloat(1);
                                 if (randomDecayValue > spawnerSettings.randomDecayChance) {
                                     float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
-                                    ecb.AddComponent(batchIndex, instance, new DecayingLifetimeData() {lifetime = randomLifetime});
+                                    ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                                 }
                             }
                         }

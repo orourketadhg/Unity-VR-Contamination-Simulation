@@ -2,7 +2,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles {
 
     public struct VirusParticleElement : IBufferElementData {
         public Entity prefab;

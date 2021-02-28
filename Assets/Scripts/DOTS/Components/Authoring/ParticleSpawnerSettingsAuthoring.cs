@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using Unity.Animation;
 using Unity.Animation.Hybrid;
 using Unity.Entities;
@@ -9,7 +9,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using AnimationCurve = UnityEngine.AnimationCurve;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
     
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 

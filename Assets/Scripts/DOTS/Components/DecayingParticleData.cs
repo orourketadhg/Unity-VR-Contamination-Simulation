@@ -3,7 +3,8 @@
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components {
     
     [GenerateAuthoringComponent]
-    public struct DecayingLifetimeData : IComponentData {
+    public struct DecayingParticleData : IComponentData {
+        public int isDecayingParticle;
         public float lifetime;
     }
 

@@ -1,6 +1,6 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawner;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util;
 using Unity.Entities;

@@ -1,5 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Entities;
 using Unity.Physics;
@@ -24,7 +24,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("RemoveDecayingParticles")
                 .WithBurst()
-                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingLifetimeData decayingLifetimeData) => {
+                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingParticleData decayingLifetimeData) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= decayingLifetimeData.lifetime) {
                         ecb.DestroyEntity(entity);

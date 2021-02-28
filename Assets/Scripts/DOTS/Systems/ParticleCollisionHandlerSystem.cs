@@ -1,5 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
@@ -45,9 +45,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             Entities
                 .WithBurst()
-                .ForEach((Entity entity, ref VirusParticleData particle, ref PhysicsVelocity velocity, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
+                .WithAll<VirusParticleData>()
+                .ForEach((Entity entity, ref StickyParticleData sticky, ref PhysicsVelocity velocity, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
 
-                    if (particle.joint == Entity.Null) {
+                    if (sticky.value == Entity.Null) {
 
                         if (collisionBuffer.IsEmpty) {
                             return;
@@ -88,7 +89,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         ecb.SetComponent(other, new PhysicsVelocity());
                         velocity = new PhysicsVelocity();
                         
-                        particle.joint = jointEntity;
+                        sticky.value = jointEntity;
                     }
 
                 }).Schedule();
