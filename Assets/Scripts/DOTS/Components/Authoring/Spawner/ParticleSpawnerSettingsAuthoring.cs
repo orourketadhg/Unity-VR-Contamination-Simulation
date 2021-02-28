@@ -34,10 +34,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
                 spawnerDurationRange = spawnerDurationRange,
                 spawnerRadius = spawnerRadius,
                 spawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
-                breathingMechanicLooping = looping,
+                breathingMechanicLooping = looping ? 1 : 0,
                 decayTime = decayTime,
-                totalDecayingVirusParticles = totalDecayingParticles,
-                randomDecayingVirusParticles = randomDecayingParticles,
+                totalDecayingVirusParticles = totalDecayingParticles ? 1 : 0,
+                randomDecayingVirusParticles = randomDecayingParticles ? 1 : 0,
                 randomDecayChance = randomDecayChance
             });
 
@@ -66,17 +66,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Spawn
         public float2 spawnerDurationRange;
         public float spawnerRadius;
         public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
-        public bool breathingMechanicLooping;
+        public int breathingMechanicLooping;
         public float decayTime;
-        public bool totalDecayingVirusParticles;
-        public bool randomDecayingVirusParticles;
+        public int totalDecayingVirusParticles;
+        public int randomDecayingVirusParticles;
         public float randomDecayChance;
     }
 
     public struct ParticleSpawnerInternalSettingsData : IComponentData {
         public float spawnerDuration;
         public float spawnerStartTime;
-        public bool isSpawnerActive;
+        public int isSpawnerActive;
+        public float timeOfLastInput;
     }
 
     [Serializable]

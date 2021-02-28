@@ -35,20 +35,22 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
         protected override void OnUpdate() {
             var ecb = _entityCommandBuffer.CreateCommandBuffer().AsParallelWriter();
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-            float deltaTime = (float) Time.ElapsedTime;
+            float time = (float) Time.ElapsedTime;
 
             var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>();
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>(true);
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(true);
+            var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>(true);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
             var particleSpawnJobHandle = new VirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
-                deltaTime = deltaTime,
+                time = time,
                 spawnerLocalToWorldHandle = spawnerLocalToWorldHandle,
                 spawnerSettingsHandle = spawnerSettingsHandle,
                 spawnerInternalSettingsHandle = spawnerInternalSettingsHandle,
+                spawnerInputHandle = spawnerInputHandle,
                 virusParticleBufferHandle = virusParticleBufferHandle
             };
             
