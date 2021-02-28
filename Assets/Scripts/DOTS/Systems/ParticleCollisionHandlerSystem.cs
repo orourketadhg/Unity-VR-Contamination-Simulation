@@ -9,6 +9,7 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
+    [DisableAutoCreation]
     public class ParticleCollisionHandlerSystem : SystemBase {
 
         private BeginSimulationEntityCommandBufferSystem _entityCommandBuffer;

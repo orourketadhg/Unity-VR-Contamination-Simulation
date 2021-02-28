@@ -1,7 +1,9 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Entities;
 using Unity.Physics;
+using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
@@ -39,19 +41,21 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     }
                 }).Schedule();
             
-            Entities
-                .WithName("JointCleanup")
-                .WithoutBurst()
-                .WithStructuralChanges()
-                .ForEach((Entity entity, in PhysicsJoint joint, in PhysicsConstrainedBodyPair constrainedBodyPair) => {
-                    var entityA = constrainedBodyPair.EntityA;
-                    var entityB = constrainedBodyPair.EntityB;
-
-                    if (!EntityManager.Exists(entityA) || !EntityManager.Exists(entityB)) {
-                        ecb.DestroyEntity(entity);
-                    }
-                }).Run();
-
+            // Entities
+            //     .WithName("JointCleanup")
+            //     .WithoutBurst()
+            //     .WithStructuralChanges()
+            //     .ForEach((Entity entity, in PhysicsJoint joint, in PhysicsConstrainedBodyPair constrainedBodyPair) => {
+            //         var entityA = constrainedBodyPair.EntityA;
+            //         var entityB = constrainedBodyPair.EntityB;
+            //
+            //         GetComponentDataFromEntity<Translation>();
+            //
+            //         if (!EntityManager.Exists(entityA) || !EntityManager.Exists(entityB)) {
+            //             EntityManager.DestroyEntity(entity);
+            //         }
+            //     }).Run();
+            
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
 
         }

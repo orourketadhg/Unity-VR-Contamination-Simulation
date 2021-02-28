@@ -137,8 +137,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
         private static float2 NonUniformDiskPointPicking(ref Random random, float radius) {
             // generate random alpha value [0-2π]
             float a = 2 * math.PI * random.NextFloat();
-            float x = radius * math.cos(a);
-            float y = radius * math.sin(a);
+            float r = radius * math.sqrt(random.NextFloat());
+            float x = r * math.cos(a);
+            float y = r * math.sin(a);
 
             return new float2() {x = x, y = y};
         }

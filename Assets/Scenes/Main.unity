@@ -293,7 +293,7 @@ MonoBehaviour:
   DrawContacts: 0
   DrawCollisionEvents: 0
   DrawTriggerEvents: 0
-  DrawJoints: 0
+  DrawJoints: 1
 --- !u!114 &490474887
 MonoBehaviour:
   m_ObjectHideFlags: 0
