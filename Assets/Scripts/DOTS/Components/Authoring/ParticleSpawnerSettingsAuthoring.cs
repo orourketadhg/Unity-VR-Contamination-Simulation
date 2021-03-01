@@ -35,7 +35,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 spawnerRadius = spawnerRadius,
                 spawnRadiusCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(spawnRangeCurve),
                 breathingMechanicLooping = looping ? 1 : 0,
-                decayTime = decayTime,
                 totalDecayingVirusParticles = totalDecayingParticles ? 1 : 0,
                 randomDecayingVirusParticles = randomDecayingParticles ? 1 : 0,
                 randomDecayChance = randomDecayChance
@@ -49,6 +48,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
             foreach (var virusParticle in particles) {
                 virusParticleBuffer.Add(new VirusParticleElement() {
                     prefab = conversionSystem.GetPrimaryEntity(virusParticle.prefab),
+                    decayTime = virusParticle.decayTime,
                     particleScale = virusParticle.particleScale,
                     particleCount = virusParticle.particleCount,
                     particleCountCurve = conversionSystem.BlobAssetStore.GetAnimationCurve(virusParticle.particleCountCurve),
@@ -67,7 +67,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         public float spawnerRadius;
         public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
         public int breathingMechanicLooping;
-        public float decayTime;
         public int totalDecayingVirusParticles;
         public int randomDecayingVirusParticles;
         public float randomDecayChance;
@@ -83,9 +82,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
     [Serializable]
     public class VirusParticle {
         public GameObject prefab;
+        public float2 decayTime;
         public float2 particleScale;
+        
         public int2 particleCount;
         public AnimationCurve particleCountCurve = AnimationCurve.Constant(0, 1, 1);
+        
         public float2 emissionForce;
         public AnimationCurve emissionForceCurve = AnimationCurve.Constant(0, 1, 1);
     }

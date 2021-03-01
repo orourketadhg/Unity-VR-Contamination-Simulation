@@ -104,13 +104,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 
                             // particle decaying
                             if (spawnerSettings.totalDecayingVirusParticles == 1) {
-                                float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
+                                float randomLifetime = random.NextFloat(virusParticleType.decayTime.x, virusParticleType.decayTime.y);
                                 ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                             }
                             else if (spawnerSettings.randomDecayingVirusParticles == 1) {
                                 float randomDecayValue = random.NextFloat(1);
-                                if (randomDecayValue > spawnerSettings.randomDecayChance) {
-                                    float randomLifetime = random.NextFloat(spawnerSettings.decayTime);
+                                if (randomDecayValue < spawnerSettings.randomDecayChance) {
+                                    float randomLifetime = random.NextFloat(virusParticleType.decayTime.x, virusParticleType.decayTime.y);
                                     ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                                 }
                             }

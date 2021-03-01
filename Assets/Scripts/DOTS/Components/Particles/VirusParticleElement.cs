@@ -6,6 +6,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles {
 
     public struct VirusParticleElement : IBufferElementData {
         public Entity prefab;
+        public float2 decayTime;
         public float2 particleScale;
         public int2 particleCount;
         public BlobAssetReference<AnimationCurveBlob> particleCountCurve;
