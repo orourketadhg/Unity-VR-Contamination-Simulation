@@ -1,38 +1,44 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util;
+using com.TUDublin.VRContaminationSimulation.Util;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Physics;
 using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
+using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
+    [UpdateAfter(typeof(VirusParticleSpawnerSystem))]
     public class BrownianMotionRandomWalkSystem : SystemBase {
-
-        protected override void OnCreate() {
-
-        }
 
         protected override void OnUpdate() {
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-            float deltaTime = Time.DeltaTime;
 
+            // Add dependency on VirusParticleSpawnerSystem due to random being used 
+            var spawnerDependency = World.GetExistingSystem<VirusParticleSpawnerSystem>().OutDependency;
+            Dependency = JobHandle.CombineDependencies(Dependency, spawnerDependency);
+            
             Entities
                 .WithName("ApplyParticleBrownianMotion")
                 .WithBurst()
-                .WithAll<VirusParticleData, LightTag>()
-                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref PhysicsVelocity pv, in PhysicsMass pm, in BrownianMotionData bm) => {
-                    var random = randomArray[nativeThreadIndex];
-                    
-                    if (bm.enableWalk == 1) {
-                        var randomImpulse = random.NextFloat3() * 10;
-                        pv.ApplyLinearImpulse(in pm, randomImpulse);
+                .WithAll<VirusParticleData>()
+                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref PhysicsVelocity pv, ref PhysicsMass pm, ref BrownianMotionData motionData, in Translation pos) => {
+                    var random = randomArray[0];
+
+                    float randomMotionChance = random.NextFloat();
+
+                    if (randomMotionChance < motionData.motionChance) {
+                        float randomForce = random.NextFloat(motionData.force.x, motionData.force.y);
+                        var randomDirection = MathUtil.PointOnUnitSphere(ref random);
+                        pv.ApplyLinearImpulse(pm, randomDirection * randomForce);
                     }
 
-                    randomArray[nativeThreadIndex] = random;
+                    randomArray[0] = random;
                 }).Schedule();
 
         }

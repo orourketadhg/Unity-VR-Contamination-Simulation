@@ -19,8 +19,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
 
-        [Header("Particle Decaying")] 
-        [SerializeField][Min(0)] private float decayTime;
+        [Header("Particle Decaying")]
         [SerializeField] private bool totalDecayingParticles;
         [SerializeField] private bool randomDecayingParticles;
         [SerializeField][Range(0f, 1f)] private float randomDecayChance;

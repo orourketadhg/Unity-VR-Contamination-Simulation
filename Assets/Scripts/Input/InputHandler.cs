@@ -2,6 +2,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.Input {
 

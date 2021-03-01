@@ -16,6 +16,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
         private EntityQuery _spawnerQuery;
+
+        public JobHandle OutDependency => Dependency;
         
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();

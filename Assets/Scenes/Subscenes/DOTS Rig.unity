@@ -1050,12 +1050,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 1
-  decayTime: 1.5
   totalDecayingParticles: 1
   randomDecayingParticles: 0
   randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    decayTime:
+      x: 1
+      y: 3
     particleScale:
       x: 0.015
       y: 0.025
@@ -1132,6 +1134,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    decayTime:
+      x: 2
+      y: 3
     particleScale:
       x: 0.01
       y: 0.02
@@ -1208,6 +1213,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    decayTime:
+      x: 2
+      y: 4
     particleScale:
       x: 0.01
       y: 0.02
@@ -1382,12 +1390,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 1
-  decayTime: 1.5
   totalDecayingParticles: 1
   randomDecayingParticles: 0
   randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    decayTime:
+      x: 2
+      y: 3
     particleScale:
       x: 0.015
       y: 0.025
@@ -1464,6 +1474,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    decayTime:
+      x: 1
+      y: 3
     particleScale:
       x: 0.01
       y: 0.02
@@ -1540,6 +1553,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    decayTime:
+      x: 2
+      y: 4
     particleScale:
       x: 0.01
       y: 0.02
@@ -1892,12 +1908,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  decayTime: 1.5
   totalDecayingParticles: 1
   randomDecayingParticles: 0
   randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    decayTime:
+      x: 2
+      y: 3
     particleScale:
       x: 0.015
       y: 0.025
@@ -1956,6 +1974,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    decayTime:
+      x: 1
+      y: 3
     particleScale:
       x: 0.01
       y: 0.02
@@ -2014,6 +2035,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    decayTime:
+      x: 2
+      y: 4
     particleScale:
       x: 0.01
       y: 0.02
@@ -2170,12 +2194,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   looping: 0
-  decayTime: 1.5
   totalDecayingParticles: 1
   randomDecayingParticles: 0
   randomDecayChance: 0.5
   particles:
   - prefab: {fileID: 250970801269931556, guid: aa25989b7db37ec499b9342ca74a5b5b, type: 3}
+    decayTime:
+      x: 1
+      y: 3
     particleScale:
       x: 0.015
       y: 0.025
@@ -2234,6 +2260,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 2cd5d91352b972c4885c06bf64231b36, type: 3}
+    decayTime:
+      x: 1
+      y: 3
     particleScale:
       x: 0.01
       y: 0.02
@@ -2292,6 +2321,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - prefab: {fileID: 250970801269931556, guid: 6a5dcfb99a3ac2b42a1a7db5352bafb6, type: 3}
+    decayTime:
+      x: 2
+      y: 4
     particleScale:
       x: 0.01
       y: 0.02

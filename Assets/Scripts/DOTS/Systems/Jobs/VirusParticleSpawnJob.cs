@@ -2,6 +2,7 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
+using com.TUDublin.VRContaminationSimulation.Util;
 using Unity.Animation;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -108,8 +109,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                                 ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                             }
                             else if (spawnerSettings.randomDecayingVirusParticles == 1) {
-                                float randomDecayValue = random.NextFloat(1);
-                                if (randomDecayValue < spawnerSettings.randomDecayChance) {
+                                float randomDecayChance = random.NextFloat(1);
+                                if (randomDecayChance < spawnerSettings.randomDecayChance) {
                                     float randomLifetime = random.NextFloat(virusParticleType.decayTime.x, virusParticleType.decayTime.y);
                                     ecb.SetComponent(batchIndex, instance, new DecayingParticleData() {isDecayingParticle = 1, lifetime = randomLifetime});
                                 }
@@ -144,7 +145,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
 
         private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
             float adjustedRadius = AnimationCurveEvaluator.Evaluate(time, spawnerSettingsData.spawnRadiusCurve) * spawnerSettingsData.spawnerRadius;
-            var randomPosition = InsideRadiusCircle(ref random, adjustedRadius);
+            var randomPosition = MathUtil.PointInsideRadiusCircle(ref random, adjustedRadius);
         
             // add random position to spawner position
             return new float3() {
@@ -152,16 +153,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 y = randomPosition.y,
                 z = 0
             };
-        }
-    
-        private static float2 InsideRadiusCircle(ref Random random, float radius) {
-            // generate random alpha value [0-2π]
-            float a = 2 * math.PI * random.NextFloat();
-            float r = radius * math.sqrt(random.NextFloat());
-            float x = r * math.cos(a);
-            float y = r * math.sin(a);
-
-            return new float2() {x = x, y = y};
         }
     }
 }
