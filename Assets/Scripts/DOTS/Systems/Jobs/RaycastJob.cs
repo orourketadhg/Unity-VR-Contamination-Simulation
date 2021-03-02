@@ -9,12 +9,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     public struct RaycastJob : IJobParallelFor {
 
         [ReadOnly] public CollisionWorld world;
-        [ReadOnly] public NativeArray<RaycastInput> inputs;
+        public NativeList<RaycastInput> inputs;
         public NativeArray<RaycastHit> results;
         
         public void Execute(int index) {
-            world.CastRay(inputs[index], out var hit);
-            results[index] = hit;
+            bool hasHit = world.CastRay(inputs[index], out var hit);
+            if (hasHit) {
+                results[index] = hit;
+            }
         }
     }
 

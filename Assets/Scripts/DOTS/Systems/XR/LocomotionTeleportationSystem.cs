@@ -52,12 +52,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
             // var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
             Dependency = JobHandle.CombineDependencies(Dependency, _endFramePhysicsSystem.GetOutputDependency());
             
-            var translationHandle = new ComponentTypeHandle<Translation>();
-            var rotationHandle = new ComponentTypeHandle<Rotation>();
-            var inputHandle = new ComponentTypeHandle<LocomotionTeleportationInputData>();
-            var teleportHandle = new ComponentTypeHandle<LocomotionTeleportationData>();
+            var translationHandle = GetComponentTypeHandle<Translation>();
+            var rotationHandle = GetComponentTypeHandle<Rotation>();
+            var inputHandle = GetComponentTypeHandle<LocomotionTeleportationInputData>();
+            var teleportHandle = GetComponentTypeHandle<LocomotionTeleportationData>();
             
-            var raycastInputsList = new NativeList<RaycastInput>(Allocator.TempJob);
+            var raycastInputs = new NativeList<RaycastInput>(Allocator.TempJob);
+            var raycastsHits = new NativeList<RaycastHit>(raycastInputs.Length, Allocator.TempJob);
 
             // Get raycastInputs from entities 
             var raycastInputCreationJob = new LocomotionTeleportInputJob() {
@@ -65,22 +66,24 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                 rotationHandle = rotationHandle,
                 inputHandle = inputHandle,
                 teleportHandle = teleportHandle,
-                raycastInputs = raycastInputsList
+                raycastInputs = raycastInputs
             };
-            var raycastInputCreationJobHandle = raycastInputCreationJob.Schedule(_locomotionTeleportationQuery, Dependency);
+            raycastInputCreationJob.Schedule(_locomotionTeleportationQuery, Dependency).Complete();
             
-            // var raycastInputs = raycastInputsList.AsArray();
-            // var raycastsHits = new NativeArray<RaycastHit>();
-            //
-            // // perform raycasts based on raycastInputs
-            // var locomotionTeleportRaycastJob = new RaycastJob() {
-            //     world = collisionWorld,
-            //     inputs = raycastInputs,
-            //     results = raycastsHits
-            // };
-            // locomotionTeleportRaycastJob.Schedule(raycastInputs.Length, 4, raycastInputCreationJobHandle).Complete();
+            // perform raycasts based on raycastInputs
+            var locomotionTeleportRaycastJob = new RaycastJob() {
+                world = collisionWorld,
+                inputs = raycastInputs,
+                results = raycastsHits
+            };
+            locomotionTeleportRaycastJob.Schedule(raycastInputs.Length, 4, Dependency).Complete();
 
-            raycastInputsList.Dispose();
+            foreach (var t in raycastsHits) {
+                Debug.Log(t.Position);
+            }
+
+            raycastsHits.Dispose();
+            raycastInputs.Dispose();
         }
     }
 
