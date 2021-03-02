@@ -1,5 +1,4 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util;
 using com.TUDublin.VRContaminationSimulation.Util;
 using Unity.Entities;

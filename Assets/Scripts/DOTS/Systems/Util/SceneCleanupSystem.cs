@@ -1,11 +1,8 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using Unity.Entities;
-using Unity.Physics;
-using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
 
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public class SceneCleanupSystem : SystemBase {

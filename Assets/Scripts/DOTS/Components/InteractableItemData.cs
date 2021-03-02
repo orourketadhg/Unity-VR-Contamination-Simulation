@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components {
 
     [GenerateAuthoringComponent]
     public struct InteractableItemData : IComponentData {

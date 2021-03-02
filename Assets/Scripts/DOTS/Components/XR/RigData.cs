@@ -1,10 +1,10 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
 using Unity.Entities;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.XR {
 
     [GenerateAuthoringComponent]
-    public struct XRRigData : IComponentData{
+    public struct RigData : IComponentData{
         public RigHardwareType Type;
     }
     

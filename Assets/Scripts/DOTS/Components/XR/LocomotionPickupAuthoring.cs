@@ -2,9 +2,9 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.XR {
     
-    public class InteractableCollectorAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
+    public class LocomotionPickupAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
 
         [SerializeField] private bool invertCollector;
         [SerializeField] private float collectionOffset;
@@ -12,7 +12,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
         [SerializeField] private float3 collectedItemPositionOffset;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
-            dstManager.AddComponentData(entity, new InteractableCollectorData() {
+            dstManager.AddComponentData(entity, new LocomotionPickupData() {
                 EnableCollector = 0,
                 CollectorDirection = invertCollector ? 1 : -1,
                 collectorPositionOffset = collectionOffset,
@@ -23,7 +23,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Items {
         }
     }
     
-    public struct InteractableCollectorData : IComponentData {
+    public struct LocomotionPickupData : IComponentData {
         public int EnableCollector;
         public int CollectorDirection;
         

@@ -1,6 +1,6 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Items;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.XR;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -108,7 +108,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
             Entities
                 .WithName("ItemCollectorInputDistribution")
                 .WithoutBurst()
-                .ForEach((Entity entity, ref InteractableCollectorData collector) => {
+                .ForEach((Entity entity, ref LocomotionPickupData collector) => {
                     if (HasComponent<LeftHandTag>(entity)) {
                         collector.EnableCollector = _leftGripPress;
                     } 

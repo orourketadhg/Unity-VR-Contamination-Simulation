@@ -1,4 +1,5 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Items;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.XR;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics;
 using Unity.Collections;
 using Unity.Entities;
@@ -8,7 +9,7 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
     public class ItemCollectorSystem : SystemBase {
 
@@ -32,7 +33,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
             .WithName("ItemPickup")
             .WithoutBurst()
-            .ForEach((Entity entity, ref InteractableCollectorData collector, in LocalToWorld ltw) => {
+            .ForEach((Entity entity, ref LocomotionPickupData collector, in LocalToWorld ltw) => {
                 switch (collector.EnableCollector) {
                     // attempt to pickup item
                     case 1 when collector.collectedItem == Entity.Null: {

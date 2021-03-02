@@ -2,12 +2,13 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags {
-
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles {
+    
     [GenerateAuthoringComponent]
     public struct BrownianMotionData : IComponentData {
         public float2 force;
-        [Range(0,1)] public float motionChance;
+        [Range(0, 1)] public float motionChance;
+        
     }
 
 }
