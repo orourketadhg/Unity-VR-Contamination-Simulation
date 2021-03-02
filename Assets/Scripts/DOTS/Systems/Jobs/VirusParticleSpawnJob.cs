@@ -43,7 +43,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                 var spawnerSettings = spawnerSettingsData[i];
                 var spawnerInternalSettings = spawnerInternalSettingsData[i];
                 var spawnerInput = spawnerInputData[i];
-                
+
                 // input
                 if (( spawnerInput.Value == 1 ) && time > spawnerInternalSettings.timeOfLastInput + 0.5f) {
                     spawnerInternalSettings.timeOfLastInput = time;

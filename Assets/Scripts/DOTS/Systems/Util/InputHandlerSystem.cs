@@ -104,16 +104,30 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                         inputData.Value = _leftSecondaryPress;
                     }
                 }).Run();
+
+            Entities
+                .WithName("LocomotionTeleportInputDistribution")
+                .WithoutBurst()
+                .ForEach((Entity entity, ref LocomotionTeleportationInputData lti) => {
+                    if (HasComponent<LeftHandTag>(entity)) {
+                        lti.enableTeleport = _leftTriggerTouch;
+                        lti.engageTeleport = _leftTriggerPress;
+                    }
+                    else if (HasComponent<RightHandTag>(entity)) {
+                        lti.enableTeleport = _rightTriggerTouch;
+                        lti.engageTeleport = _rightTriggerPress;
+                    }
+                }).Run();
             
             Entities
-                .WithName("ItemCollectorInputDistribution")
+                .WithName("LocomotionPickupInputDistribution")
                 .WithoutBurst()
-                .ForEach((Entity entity, ref LocomotionPickupData collector) => {
+                .ForEach((Entity entity, ref LocomotionPickupData lp) => {
                     if (HasComponent<LeftHandTag>(entity)) {
-                        collector.EnableCollector = _leftGripPress;
+                        lp.EnableCollector = _leftGripPress;
                     } 
                     else if (HasComponent<RightHandTag>(entity)) {
-                        collector.EnableCollector = _rightGripPress;
+                        lp.EnableCollector = _rightGripPress;
                     }
                 }).Run();
         }
