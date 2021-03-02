@@ -9,7 +9,8 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     
-    public struct LocomotionTeleportInputJob : IJobEntityBatch {
+    [BurstCompile]
+    public struct ConstructLocomotionTeleportationRaycastInputsJob : IJobEntityBatch {
 
         public ComponentTypeHandle<Translation> translationHandle;
         public ComponentTypeHandle<Rotation> rotationHandle;
@@ -23,21 +24,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
             var translations = batchInChunk.GetNativeArray(translationHandle);
             var rotations = batchInChunk.GetNativeArray(rotationHandle);
             var inputs = batchInChunk.GetNativeArray(inputHandle);
+            var teleportationData = batchInChunk.GetNativeArray(teleportHandle);
 
             for (int i = 0; i < batchInChunk.Count; i++) {
             
                 var translation = translations[i];
                 var rotation = rotations[i];
                 var input = inputs[i];
+                var teleport = teleportationData[i];
 
                 if (input.enableTeleport == 1) {
                     
                     var rayInput = new RaycastInput() {
                         Start = translation.Value,
-                        End = translation.Value + math.forward(rotation.Value),
+                        End = translation.Value + math.forward(rotation.Value) * teleport.distance,
                         Filter = new CollisionFilter() {
-                            BelongsTo = ~0u,
-                            CollidesWith = ( 1u << 4 ),
+                            BelongsTo = 0u,
+                            CollidesWith = 0u,
                             GroupIndex = 0
                         }
                     };

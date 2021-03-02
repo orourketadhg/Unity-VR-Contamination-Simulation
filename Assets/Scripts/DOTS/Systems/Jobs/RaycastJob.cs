@@ -8,8 +8,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     [BurstCompile]
     public struct RaycastJob : IJobParallelFor {
 
-        [ReadOnly] public CollisionWorld world;
-        public NativeList<RaycastInput> inputs;
+        [ReadOnly] public PhysicsWorld world;
+        [ReadOnly] public NativeList<RaycastInput> inputs;
         public NativeArray<RaycastHit> results;
         
         public void Execute(int index) {

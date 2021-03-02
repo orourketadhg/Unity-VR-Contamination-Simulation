@@ -13,21 +13,18 @@ using RaycastHit = Unity.Physics.RaycastHit;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
-    [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    [UpdateAfter(typeof(EndFramePhysicsSystem))]
+    [UpdateAfter(typeof(FixedStepSimulationSystemGroup))]
     public class LocomotionTeleportationSystem : SystemBase {
 
         private XRRig _xrRig;
         private BuildPhysicsWorld _buildPhysicsWorld;
-        private EndFramePhysicsSystem _endFramePhysicsSystem;
-        private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
+        private ItemCollectorSystem _itemCollectorSystem;
 
         private EntityQuery _locomotionTeleportationQuery;
 
         protected override void OnCreate() {
-            _buildPhysicsWorld = World.GetExistingSystem<BuildPhysicsWorld>();
-            _endFramePhysicsSystem = World.GetExistingSystem<EndFramePhysicsSystem>();
-            _entityCommandBufferSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+            _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
+            _itemCollectorSystem = World.GetOrCreateSystem<ItemCollectorSystem>();
 
             _locomotionTeleportationQuery = GetEntityQuery(new EntityQueryDesc() {
                 All = new ComponentType[] {
@@ -43,25 +40,25 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
         }
 
         protected override void OnUpdate() {
+            
+            Dependency = JobHandle.CombineDependencies(Dependency, _itemCollectorSystem.OutDependency);
 
             if (_locomotionTeleportationQuery.CalculateEntityCount() == 0) {
                 return;
             }
             
-            var collisionWorld = _buildPhysicsWorld.PhysicsWorld.CollisionWorld;
-            // var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
-            Dependency = JobHandle.CombineDependencies(Dependency, _endFramePhysicsSystem.GetOutputDependency());
-            
+            var collisionWorld = _buildPhysicsWorld.PhysicsWorld;
+
             var translationHandle = GetComponentTypeHandle<Translation>();
             var rotationHandle = GetComponentTypeHandle<Rotation>();
             var inputHandle = GetComponentTypeHandle<LocomotionTeleportationInputData>();
             var teleportHandle = GetComponentTypeHandle<LocomotionTeleportationData>();
             
             var raycastInputs = new NativeList<RaycastInput>(Allocator.TempJob);
-            var raycastsHits = new NativeList<RaycastHit>(raycastInputs.Length, Allocator.TempJob);
+            var raycastsHits = new NativeArray<RaycastHit>(raycastInputs.Length, Allocator.TempJob);
 
             // Get raycastInputs from entities 
-            var raycastInputCreationJob = new LocomotionTeleportInputJob() {
+            var raycastInputCreationJob = new ConstructLocomotionTeleportationRaycastInputsJob() {
                 translationHandle = translationHandle,
                 rotationHandle = rotationHandle,
                 inputHandle = inputHandle,

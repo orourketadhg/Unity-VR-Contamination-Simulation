@@ -17,6 +17,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
         private StatefulCollisionEventSystem _statefulCollisionEventSystem;
 
+        public JobHandle OutDependency => Dependency;
+
         protected override void OnCreate() {
             _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
