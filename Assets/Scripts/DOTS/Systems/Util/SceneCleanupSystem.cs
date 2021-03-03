@@ -1,48 +1,53 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using Unity.Entities;
+using Unity.Transforms;
+using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
-
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
+    
+    [UpdateAfter(typeof(ParticleCollisionParentingSystem))]
     public class SceneCleanupSystem : SystemBase {
 
-        private BeginInitializationEntityCommandBufferSystem _entityCommandBufferSystem;
+        private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
 
         protected override void OnCreate() {
-            _entityCommandBufferSystem = World.GetOrCreateSystem<BeginInitializationEntityCommandBufferSystem>();
+            _entityCommandBufferSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate() {
             var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
             float timeSinceLoad = (float) Time.ElapsedTime;
             
-            // Remove decaying particles
+            // Remove free decaying particles
             Entities
                 .WithName("RemoveDecayingParticles")
                 .WithBurst()
-                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingParticleData decayingLifetimeData) => {
-                    
-                    // check if the virus particles is allowed to decay
-                    if (decayingLifetimeData.isDecayingParticle == 0) {
+                .WithNone<Parent, LocalToParent>()
+                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingParticleData decayData) => {
+                    if (decayData.isDecayingParticle == 0) {
                         return;
                     }
                     
                     float aliveTime = timeSinceLoad - particle.spawnTime;
-                    if (aliveTime >= decayingLifetimeData.lifetime) {
+                    if (aliveTime >= decayData.lifetime) {
                         ecb.DestroyEntity(entity);
                     }
                 }).Schedule();
 
+            // Remove stuck particles
             Entities
-                .WithName("ParticleCleanup")
-                .WithBurst()
-                .WithAny<DecayingParticleData>()
-                .ForEach((Entity entity, in VirusParticleData particle) => {
+                .WithName("RemovingStuckParticles")
+                .WithAll<Parent, LocalToParent, DecayingParticleData>()
+                .ForEach((Entity entity, ref VirusParticleData particle, ref DecayingParticleData decayData) => {
+                    
                     float aliveTime = timeSinceLoad - particle.spawnTime;
-                    if (aliveTime > 30f) {
-                        ecb.DestroyEntity(entity);
+                    if (aliveTime > 20f) {
+                        ecb.RemoveComponent<Parent>(entity);
+                        ecb.RemoveComponent<LocalToParent>(entity);
+                        decayData.isDecayingParticle = 1;
                     }
+                    
                 }).Schedule();
             
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);

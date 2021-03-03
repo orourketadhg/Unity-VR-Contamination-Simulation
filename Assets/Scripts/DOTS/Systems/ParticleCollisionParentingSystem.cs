@@ -2,12 +2,13 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
+using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
-
+    
     public class ParticleCollisionParentingSystem : SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
@@ -23,7 +24,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithoutBurst()
                 .WithAll<VirusParticleData, StickyParticleData>()
-                .ForEach((Entity entity, ref PhysicsVelocity pv, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
+                .WithNone<Parent, LocalToParent>()
+                .ForEach((Entity entity, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     if (collisionBuffer.IsEmpty) {
                         return;
                     }
@@ -44,12 +46,17 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     
                     ecb.AddComponent(entity, new Parent() {Value = other});
                     ecb.AddComponent(entity, new LocalToParent());
-                    // ecb.RemoveComponent<DecayingParticleData>(entity);
-
                     pv = new PhysicsVelocity();
+                    ecb.RemoveComponent<PhysicsVelocity>(entity);
+                    ecb.RemoveComponent<PhysicsMass>(entity);
+                    ecb.RemoveComponent<PhysicsDamping>(entity);
+                    
                     motionData.enabled = 0;
+                    decayData.isDecayingParticle = 0;
 
                 }).Schedule();
+            
+            
             
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
             

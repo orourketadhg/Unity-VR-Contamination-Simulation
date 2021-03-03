@@ -30,8 +30,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             _jointEntityArchetype = EntityManager.CreateArchetype(
                 typeof(PhysicsJoint),
-                typeof(PhysicsConstrainedBodyPair),
-                typeof(DeleteMeData)
+                typeof(PhysicsConstrainedBodyPair)
             );
             
             // get all entities virusParticleData & statefulCollisionEventBuffer components 
@@ -90,7 +89,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
                         var joint = PhysicsJoint.CreateHinge(entityBF, otherBF);
                         var cBP = new PhysicsConstrainedBodyPair(entity, other, false);
-                        var deleteMeData = new DeleteMeData() {value = 0};
 
                         var jointEntity = ecb.CreateEntity(jointArchetype);
                         ecb.AddComponent(jointEntity, joint);
