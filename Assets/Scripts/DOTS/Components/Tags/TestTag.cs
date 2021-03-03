@@ -2,8 +2,7 @@
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags {
 
-    [GenerateAuthoringComponent]
-    public struct ParticleCollectorTag : IComponentData{
+    public struct TestTag : IComponentData {
         
     }
 

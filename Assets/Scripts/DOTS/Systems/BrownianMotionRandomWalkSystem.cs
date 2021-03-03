@@ -29,12 +29,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref PhysicsVelocity pv, ref PhysicsMass pm, ref BrownianMotionData motionData, in Translation pos) => {
                     var random = randomArray[0];
 
-                    float randomMotionChance = random.NextFloat();
+                    if (motionData.enabled == 1) {
+                        float randomMotionChance = random.NextFloat();
 
-                    if (randomMotionChance < motionData.motionChance) {
-                        float randomForce = random.NextFloat(motionData.force.x, motionData.force.y);
-                        var randomDirection = MathUtil.PointOnUnitSphere(ref random);
-                        pv.ApplyLinearImpulse(pm, randomDirection * randomForce);
+                        if (randomMotionChance < motionData.motionChance) {
+                            float randomForce = random.NextFloat(motionData.force.x, motionData.force.y);
+                            var randomDirection = MathUtil.PointOnUnitSphere(ref random);
+                            pv.ApplyLinearImpulse(pm, randomDirection * randomForce);
+                        }
                     }
 
                     randomArray[0] = random;

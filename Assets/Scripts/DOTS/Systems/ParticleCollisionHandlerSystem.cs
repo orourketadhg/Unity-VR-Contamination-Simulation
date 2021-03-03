@@ -1,23 +1,32 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
+using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
-
+    
     [DisableAutoCreation]
+    [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+    [UpdateAfter(typeof(StatefulCollisionEventSystem))]
+    [UpdateBefore(typeof(EndFramePhysicsSystem))]
     public class ParticleCollisionHandlerSystem : SystemBase {
-
-        private BeginSimulationEntityCommandBufferSystem _entityCommandBuffer;
+        
+        private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
+        private StatefulCollisionEventSystem _collisionEventSystem;
         private EntityArchetype _jointEntityArchetype;
         private EntityQuery _particleCollisionQuery;
         
         protected override void OnCreate() {
-            _entityCommandBuffer = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+            _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+            _collisionEventSystem = World.GetOrCreateSystem<StatefulCollisionEventSystem>();
 
             _jointEntityArchetype = EntityManager.CreateArchetype(
                 typeof(PhysicsJoint),
@@ -35,6 +44,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
         protected override void OnUpdate() {
             
+            Dependency = JobHandle.CombineDependencies(Dependency, _collisionEventSystem.OutDependency);
+            
             // check if any particles exist
             if (_particleCollisionQuery.CalculateEntityCount() == 0) {
                 return;
@@ -46,7 +57,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithBurst()
                 .WithAll<VirusParticleData>()
-                .ForEach((Entity entity, ref PhysicsVelocity velocity, ref StickyParticleData sticky, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
+                .ForEach((Entity entity, ref PhysicsVelocity velocity, ref StickyParticleData sticky, ref BrownianMotionData motionData, ref DecayingParticleData decayingParticleData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
 
                     if (sticky.value == Entity.Null) {
 
@@ -84,12 +95,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                         var jointEntity = ecb.CreateEntity(jointArchetype);
                         ecb.AddComponent(jointEntity, joint);
                         ecb.AddComponent(jointEntity, cBP);
-                        ecb.AddComponent(jointEntity, deleteMeData);
                         
+                        // ecb.AddComponent(jointEntity, deleteMeData);
                         ecb.SetComponent(other, new PhysicsVelocity());
-                        velocity = new PhysicsVelocity();
                         
+                        motionData.enabled = 0;
+                        decayingParticleData.isDecayingParticle = 0;
                         sticky.value = jointEntity;
+                        velocity = new PhysicsVelocity();
                     }
 
                 }).Schedule();

@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Components {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles {
     
     [GenerateAuthoringComponent]
     public struct DecayingParticleData : IComponentData {

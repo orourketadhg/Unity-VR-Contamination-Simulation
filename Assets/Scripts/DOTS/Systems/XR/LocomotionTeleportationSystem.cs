@@ -13,6 +13,7 @@ using RaycastHit = Unity.Physics.RaycastHit;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
+    [DisableAutoCreation]
     [UpdateAfter(typeof(FixedStepSimulationSystemGroup))]
     public class LocomotionTeleportationSystem : SystemBase {
 
