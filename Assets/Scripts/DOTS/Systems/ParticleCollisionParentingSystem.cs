@@ -1,8 +1,6 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
@@ -24,9 +22,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             Entities
                 .WithName("VirusParticleInitialSticking")
                 .WithBurst()
-                .WithAll<VirusParticleData, StickyParticleData>()
+                .WithAll<VirusParticleData>()
                 .WithNone<Parent, LocalToParent>()
-                .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
+                .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, ref StickyParticleData stickyData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     if (collisionBuffer.IsEmpty) {
                         return;
                     }
@@ -54,13 +52,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     
                     motionData.enabled = 0;
                     decayData.isDecayingParticle = 0;
+                    stickyData.hasPosition = 0;
                 }).ScheduleParallel();
 
             Entities
                 .WithName("VirusParticleTransferSticking")
                 .WithBurst()
-                .WithAll<VirusParticleData, StickyParticleData, LocalToParent>()
-                .ForEach((Entity entity, int entityInQueryIndex, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Parent connectedBody) => {
+                .WithAll<VirusParticleData, LocalToParent>()
+                .ForEach((Entity entity, int entityInQueryIndex, ref StickyParticleData stickyData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Parent connectedBody) => {
                     if (collisionBuffer.IsEmpty) {
                         return;
                     }
@@ -83,6 +82,24 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     ecb.RemoveComponent<LocalToParent>(entityInQueryIndex, entity);
                     ecb.AddComponent(entityInQueryIndex, entity, new Parent() {Value = other});
                     ecb.AddComponent(entityInQueryIndex,entity, new LocalToParent());
+                    stickyData.hasPosition = 0;
+
+                }).ScheduleParallel();
+
+            Entities
+                .WithName("VirusParticleStickingPositionUpdate")
+                .WithBurst()
+                .WithAll<VirusParticleData, Parent, LocalToParent>()
+                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref Translation position, ref Rotation rotation, ref StickyParticleData stickyData) => {
+
+                    if (stickyData.hasPosition == 1) {
+                        position.Value = stickyData.position;
+                        rotation.Value = stickyData.rotation;
+                    }
+                    else {
+                        stickyData.position = position.Value;
+                        stickyData.rotation = rotation.Value;
+                    }
                     
                 }).ScheduleParallel();
             
