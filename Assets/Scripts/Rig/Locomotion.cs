@@ -1,4 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Input;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.Rig {
@@ -6,9 +7,10 @@ namespace com.TUDublin.VRContaminationSimulation.Rig {
     public class Locomotion : MonoBehaviour {
         public Transform head;
         public float turnCoolDown;
+        public float movementSpeed;
 
         private InputHandler _input;
-        
+
         private float _nextTurn;
 
         private void Awake() {
@@ -16,12 +18,11 @@ namespace com.TUDublin.VRContaminationSimulation.Rig {
         }
 
         private void Update() {
-            TurnRig(_input.leftJoystick);
-            
+            SnapTurn(_input.leftJoystick);
         }
 
-        private void TurnRig(Vector2 input) {
-            
+        private void SnapTurn(Vector2 input) {
+
             if (input == Vector2.zero || Time.timeSinceLevelLoad < _nextTurn) {
                 return;
             }
@@ -29,10 +30,10 @@ namespace com.TUDublin.VRContaminationSimulation.Rig {
             int direction = ( input.x > 0 ) ? 1 : -1;
 
             transform.RotateAround(head.position, Vector3.up, 45 * direction);
-            
+
             _nextTurn = Time.timeSinceLevelLoad + turnCoolDown;
         }
-
+        
     }
 
 }
