@@ -19,13 +19,13 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
         private XRRig _xrRig;
         private BuildPhysicsWorld _buildPhysicsWorld;
-        private ItemCollectorSystem _itemCollectorSystem;
+        private LocomotionPickupSystem _locomotionPickupSystem;
 
         private EntityQuery _locomotionTeleportationQuery;
 
         protected override void OnCreate() {
             _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
-            _itemCollectorSystem = World.GetOrCreateSystem<ItemCollectorSystem>();
+            _locomotionPickupSystem = World.GetOrCreateSystem<LocomotionPickupSystem>();
 
             _locomotionTeleportationQuery = GetEntityQuery(new EntityQueryDesc() {
                 All = new ComponentType[] {
@@ -42,7 +42,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
         protected override void OnUpdate() {
             
-            Dependency = JobHandle.CombineDependencies(Dependency, _itemCollectorSystem.OutDependency);
+            Dependency = JobHandle.CombineDependencies(Dependency, _locomotionPickupSystem.OutDependency);
 
             if (_locomotionTeleportationQuery.CalculateEntityCount() == 0) {
                 return;

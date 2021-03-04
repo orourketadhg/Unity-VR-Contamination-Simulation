@@ -11,7 +11,7 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
-    public class ItemCollectorSystem : SystemBase {
+    public class LocomotionPickupSystem : SystemBase {
 
         private BuildPhysicsWorld _buildPhysicsWorld;
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
@@ -34,7 +34,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
             
             Entities
             .WithName("ItemPickup")
-            .WithoutBurst()
+            .WithBurst()
             .ForEach((Entity entity, ref LocomotionPickupData collector, in LocalToWorld ltw) => {
                 switch (collector.EnableCollector) {
                     // attempt to pickup item
@@ -96,27 +96,29 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                             ecb.SetComponent(other, new Translation() {Value = pos});
                             ecb.SetComponent(other, new Rotation() {Value = rot});
                             ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
-                            ecb.RemoveComponent(other, new ComponentTypes(typeof(PhysicsMass), typeof(PhysicsVelocity), typeof(PhysicsDamping)));
+                            ecb.RemoveComponent<PhysicsMass>(other);
+                            ecb.RemoveComponent<PhysicsVelocity>(other);
+                            ecb.RemoveComponent<PhysicsDamping>(other);
                         }
 
                         break;
                     }
                     case 0 when collector.collectedItem != Entity.Null:
-                        var heldItem = collector.collectedItem;
-                        var heldItemInteractableData = GetComponent<InteractableItemData>(heldItem);
+                        var item = collector.collectedItem;
+                        var itemData = GetComponent<InteractableItemData>(item);
 
                         // check if this collector is holding the item
-                        if (heldItemInteractableData.collector != entity) {
+                        if (itemData.collector != entity) {
                             break;
                         }
 
                         // release the item and collector 
-                        heldItemInteractableData.collector = Entity.Null;
+                        itemData.collector = Entity.Null;
                         collector.collectedItem = Entity.Null;
 
                         // update collision filter
-                        var heldItemCollider = GetComponent<PhysicsCollider>(heldItem);
-                        var heldItemColliderClone = heldItemCollider.Value.Value.Clone();
+                        var itemCollider = GetComponent<PhysicsCollider>(item);
+                        var itemColliderClone = itemCollider.Value.Value.Clone();
                         var heldFilter = new CollisionFilter() {
                             BelongsTo = ( 1u << 12 ), // belongs to layer 12
                             CollidesWith = 0xffffffff, // collides with everything
@@ -124,12 +126,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         };
 
                         unsafe {
-                            var clonePtr = (ColliderHeader*) heldItemColliderClone.GetUnsafePtr();
+                            var clonePtr = (ColliderHeader*) itemColliderClone.GetUnsafePtr();
                             clonePtr->Filter = heldFilter;
                         }
 
                         // recreate physics mass, velocity, & damping
-                        var mass = PhysicsMass.CreateDynamic(heldItemCollider.MassProperties, heldItemInteractableData.mass);
+                        var mass = PhysicsMass.CreateDynamic(itemCollider.MassProperties, itemData.mass);
                         var velocity = new PhysicsVelocity();
                         var damping = new PhysicsDamping() {
                             Linear = 0.01f,
@@ -137,20 +139,20 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         };
 
                         // set release position 
-                        var heldItemLtw = GetComponent<LocalToWorld>(heldItem);
-                        var position = heldItemLtw.Position;
-                        var rotation = heldItemLtw.Rotation;
+                        var itemLtw = GetComponent<LocalToWorld>(item);
+                        var position = itemLtw.Position;
+                        var rotation = itemLtw.Rotation;
 
                         // set item components
-                        ecb.RemoveComponent(heldItem, typeof(Parent));
-                        ecb.RemoveComponent(heldItem, typeof(LocalToParent));
-                        ecb.SetComponent(heldItem, heldItemInteractableData);
-                        ecb.SetComponent(heldItem, new PhysicsCollider() {Value = heldItemColliderClone});
-                        ecb.SetComponent(heldItem, new Translation() {Value = position});
-                        ecb.SetComponent(heldItem, new Rotation() {Value = rotation});
-                        ecb.AddComponent(heldItem, mass);
-                        ecb.AddComponent(heldItem, velocity);
-                        ecb.AddComponent(heldItem, damping);
+                        ecb.RemoveComponent<Parent>(item);
+                        ecb.RemoveComponent<LocalToParent>(item);
+                        ecb.SetComponent(item, itemData);
+                        ecb.SetComponent(item, new PhysicsCollider() {Value = itemColliderClone});
+                        ecb.SetComponent(item, new Translation() {Value = position});
+                        ecb.SetComponent(item, new Rotation() {Value = rotation});
+                        ecb.AddComponent(item, mass);
+                        ecb.AddComponent(item, velocity);
+                        ecb.AddComponent(item, damping);
                         break;
                 }
             }).Schedule();

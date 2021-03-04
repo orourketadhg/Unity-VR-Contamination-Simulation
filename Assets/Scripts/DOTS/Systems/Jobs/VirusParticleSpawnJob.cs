@@ -101,7 +101,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                             ecb.SetComponent(batchIndex, instance, new VirusParticleData() {spawnTime = time});
                 
                             // remove reference to sub scene
-                            ecb.RemoveComponent(batchIndex, instance, typeof(SceneTag));
+                            ecb.RemoveComponent<SceneTag>(batchIndex, instance);
                 
                             // particle decaying
                             if (spawnerSettings.totalDecayingVirusParticles == 1) {
