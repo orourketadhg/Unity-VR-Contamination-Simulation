@@ -73,6 +73,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
                             // calculate held item position and rotation
                             var pos = collector.collectedItemPositionOffset + otherInteractableData.itemPositionOffset;
+                            pos.x *= collector.CollectorDirection;
                             var rot = quaternion.EulerXYZ(otherInteractableData.itemRotationOffset);
 
                             // update collision filter

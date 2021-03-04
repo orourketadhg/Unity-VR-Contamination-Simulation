@@ -21,81 +21,79 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
 
             var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
 
-            Entities
-                .WithName("VirusParticleInitialSticking")
-                .WithBurst()
-                .WithAll<VirusParticleData, StickyParticleData>()
-                .WithNone<Parent, LocalToParent>()
-                .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
-                    if (collisionBuffer.IsEmpty) {
-                        return;
-                    }
-            
-                    int collisionIndex = -1;
-                    for (int i = 0; i < collisionBuffer.Length; i++) {
-                        if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
-                            collisionIndex = i;
-                            break;
-                        }
-                    }
-            
-                    if (collisionIndex < 0 ) {
-                        return;
-                    }
-                    
-                    var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
-            
-                    ecb.AddComponent(entity, new Parent() {Value = other});
-                    ecb.AddComponent(entity, new LocalToParent());
-                    pv = new PhysicsVelocity();
-                    ecb.RemoveComponent<PhysicsVelocity>(entity);
-                    ecb.RemoveComponent<PhysicsMass>(entity);
-                    ecb.RemoveComponent<PhysicsDamping>(entity);
-                    
-                    motionData.enabled = 0;
-                    decayData.isDecayingParticle = 0;
-                }).ScheduleParallel();
-
             // Entities
-            //     .WithName("stickingTest")
+            //     .WithName("VirusParticleInitialSticking")
             //     .WithBurst()
-            //     .ForEach((Entity entity, int entityInQueryIndex, ref LocalToWorld ltw, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in TestTag test) => {
+            //     .WithAll<VirusParticleData, StickyParticleData>()
+            //     .WithNone<Parent, LocalToParent>()
+            //     .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
             //         if (collisionBuffer.IsEmpty) {
             //             return;
             //         }
-            //         
+            //
+            //         int collisionIndex = -1;
             //         for (int i = 0; i < collisionBuffer.Length; i++) {
             //             if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
-            //                 var other = collisionBuffer[i].GetOtherCollisionEntity(entity);
-            //
-            //                 if (HasComponent<VirusParticleData>(other)) {
-            //
-            //                     if (HasComponent<Parent>(other) && HasComponent<LocalToParent>(other)) {
-            //                         ecb.RemoveComponent<Parent>(other);
-            //                         ecb.RemoveComponent<LocalToParent>(other);
-            //                     }
-            //
-            //                     var decayingData = GetComponent<DecayingParticleData>(other);
-            //                     var motionData = GetComponent<BrownianMotionData>(other);
-            //
-            //                     decayingData.isDecayingParticle = 0;
-            //                     motionData.enabled = 0;
-            //
-            //                     var pos = new float3(1, 1, 1);
-            //
-            //                     ecb.AddComponent(other, new Parent() {Value = entity});
-            //                     ecb.AddComponent(other, new LocalToParent());
-            //                     ecb.AddComponent(other, new Translation() { Value = pos});
-            //                     ecb.SetComponent(other, new PhysicsVelocity {Angular = float3.zero, Linear = float3.zero});
-            //                     ecb.SetComponent(other, decayingData);
-            //                     ecb.SetComponent(other, motionData);
-            //                     // ecb.RemoveComponent<PhysicsVelocity>(other);
-            //                     // ecb.RemoveComponent<PhysicsMass>(other);
-            //                     // ecb.RemoveComponent<PhysicsDamping>(other);
-            //                 }
+            //                 collisionIndex = i;
+            //                 break;
             //             }
             //         }
+            //
+            //         if (collisionIndex < 0 ) {
+            //             return;
+            //         }
+            //         
+            //         var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
+            //
+            //         ecb.AddComponent(entity, new Parent() {Value = other});
+            //         ecb.AddComponent(entity, new LocalToParent());
+            //         pv = new PhysicsVelocity();
+            //         ecb.RemoveComponent<PhysicsVelocity>(entity);
+            //         ecb.RemoveComponent<PhysicsMass>(entity);
+            //         ecb.RemoveComponent<PhysicsDamping>(entity);
+            //         
+            //         motionData.enabled = 0;
+            //         decayData.isDecayingParticle = 0;
             //     }).Schedule();
+
+            Entities
+                .WithName("stickingTest")
+                .WithBurst()
+                .ForEach((Entity entity, int entityInQueryIndex, ref LocalToWorld ltw, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in TestTag test) => {
+                    if (collisionBuffer.IsEmpty) {
+                        return;
+                    }
+                    
+                    for (int i = 0; i < collisionBuffer.Length; i++) {
+                        if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
+                            var other = collisionBuffer[i].GetOtherCollisionEntity(entity);
+            
+                            if (HasComponent<VirusParticleData>(other)) {
+            
+                                if (HasComponent<Parent>(other) && HasComponent<LocalToParent>(other)) {
+                                    ecb.RemoveComponent<Parent>(other);
+                                    ecb.RemoveComponent<LocalToParent>(other);
+                                }
+            
+                                var decayingData = GetComponent<DecayingParticleData>(other);
+                                var motionData = GetComponent<BrownianMotionData>(other);
+            
+                                decayingData.isDecayingParticle = 0;
+                                motionData.enabled = 0;
+            
+                                var pos = new float3(1, 1, 1);
+            
+                                ecb.SetComponent(other, decayingData);
+                                ecb.SetComponent(other, motionData);
+                                ecb.AddComponent(other, new Parent() {Value = entity});
+                                ecb.AddComponent(other, new LocalToParent());
+                                ecb.RemoveComponent<PhysicsVelocity>(other);
+                                ecb.RemoveComponent<PhysicsMass>(other);
+                                ecb.RemoveComponent<PhysicsDamping>(other);
+                            }
+                        }
+                    }
+                }).Schedule();
 
             // Entities
             //     .WithName("VirusParticleTransferSticking")
