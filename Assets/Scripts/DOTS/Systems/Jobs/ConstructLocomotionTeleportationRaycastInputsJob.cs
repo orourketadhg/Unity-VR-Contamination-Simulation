@@ -39,8 +39,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
                         Start = translation.Value,
                         End = translation.Value + math.forward(rotation.Value) * teleport.distance,
                         Filter = new CollisionFilter() {
-                            BelongsTo = 0u,
-                            CollidesWith = 0u,
+                            BelongsTo = ~0u,
+                            CollidesWith = ~0u,
                             GroupIndex = 0
                         }
                     };

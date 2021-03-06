@@ -5,6 +5,7 @@ using com.TUDublin.VRContaminationSimulation.Rig;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
@@ -12,20 +13,21 @@ using UnityEngine;
 using RaycastHit = Unity.Physics.RaycastHit;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
-
-    [DisableAutoCreation]
+    
     [UpdateAfter(typeof(FixedStepSimulationSystemGroup))]
     public class LocomotionTeleportationSystem : SystemBase {
 
         private XRRig _xrRig;
         private BuildPhysicsWorld _buildPhysicsWorld;
         private LocomotionPickupSystem _locomotionPickupSystem;
+        private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
 
         private EntityQuery _locomotionTeleportationQuery;
 
         protected override void OnCreate() {
             _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
             _locomotionPickupSystem = World.GetOrCreateSystem<LocomotionPickupSystem>();
+            _entityCommandBufferSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
 
             _locomotionTeleportationQuery = GetEntityQuery(new EntityQueryDesc() {
                 All = new ComponentType[] {
@@ -49,6 +51,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
             }
             
             var collisionWorld = _buildPhysicsWorld.PhysicsWorld;
+            var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
 
             var translationHandle = GetComponentTypeHandle<Translation>();
             var rotationHandle = GetComponentTypeHandle<Rotation>();
@@ -66,7 +69,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                 teleportHandle = teleportHandle,
                 raycastInputs = raycastInputs
             };
-            raycastInputCreationJob.Schedule(_locomotionTeleportationQuery, Dependency).Complete();
             
             // perform raycasts based on raycastInputs
             var locomotionTeleportRaycastJob = new RaycastJob() {
@@ -74,14 +76,39 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                 inputs = raycastInputs,
                 results = raycastsHits
             };
-            locomotionTeleportRaycastJob.Schedule(raycastInputs.Length, 4, Dependency).Complete();
+            
+            Entities
+                .WithName("LocomotionTeleportIndicator")
+                .WithBurst()
+                .ForEach((in LocomotionTeleportationData teleportData, in LocomotionTeleportationInputData inputData, in Translation translation, in Rotation rotation) => {
 
+                    var indicator = teleportData.indicator;
+
+                    if (inputData.enableTeleport == 1 && HasComponent<Disabled>(indicator)) {
+                        ecb.RemoveComponent<Disabled>(indicator);
+                    }
+                    else if (inputData.enableTeleport == 0 && !HasComponent<Disabled>(indicator)) {
+                        ecb.AddComponent<Disabled>(indicator);
+                    }
+
+                    if (inputData.enableTeleport == 1) {
+                        var position = translation.Value + math.forward(rotation.Value) * teleportData.distance;
+                        ecb.SetComponent(indicator, new Translation() {Value = position});
+                    }
+                    
+                }).Schedule();
+            
+            raycastInputCreationJob.Schedule(_locomotionTeleportationQuery, Dependency).Complete();
+            locomotionTeleportRaycastJob.Schedule(raycastInputs.Length, 4, Dependency).Complete();
+            
             foreach (var t in raycastsHits) {
                 Debug.Log(t.Position);
             }
 
             raycastsHits.Dispose();
             raycastInputs.Dispose();
+            
+            _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
         }
     }
 
