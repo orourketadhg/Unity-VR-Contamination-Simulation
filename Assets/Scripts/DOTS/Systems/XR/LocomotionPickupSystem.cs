@@ -97,9 +97,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                             ecb.SetComponent(other, new Translation() {Value = pos});
                             ecb.SetComponent(other, new Rotation() {Value = rot});
                             ecb.SetComponent(other, new PhysicsCollider() {Value = otherColliderClone});
-                            ecb.RemoveComponent<PhysicsMass>(other);
                             ecb.RemoveComponent<PhysicsVelocity>(other);
-                            ecb.RemoveComponent<PhysicsDamping>(other);
                         }
 
                         break;
@@ -132,12 +130,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         }
 
                         // recreate physics mass, velocity, & damping
-                        var mass = PhysicsMass.CreateDynamic(itemCollider.MassProperties, itemData.mass);
                         var velocity = new PhysicsVelocity();
-                        var damping = new PhysicsDamping() {
-                            Linear = 0.01f,
-                            Angular = 0.05f
-                        };
 
                         // set release position 
                         var itemLtw = GetComponent<LocalToWorld>(item);
@@ -151,9 +144,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         ecb.SetComponent(item, new PhysicsCollider() {Value = itemColliderClone});
                         ecb.SetComponent(item, new Translation() {Value = position});
                         ecb.SetComponent(item, new Rotation() {Value = rotation});
-                        ecb.AddComponent(item, mass);
                         ecb.AddComponent(item, velocity);
-                        ecb.AddComponent(item, damping);
                         break;
                 }
             }).Schedule();

@@ -2,7 +2,6 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.XR;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using com.TUDublin.VRContaminationSimulation.Rig;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -10,7 +9,6 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
-using RaycastHit = Unity.Physics.RaycastHit;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
@@ -45,37 +43,44 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
         protected override void OnUpdate() {
             
             Dependency = JobHandle.CombineDependencies(Dependency, _locomotionPickupSystem.OutDependency);
-
+            
             if (_locomotionTeleportationQuery.CalculateEntityCount() == 0) {
                 return;
             }
             
-            var collisionWorld = _buildPhysicsWorld.PhysicsWorld;
+            var collisionWorld = _buildPhysicsWorld.PhysicsWorld.CollisionWorld;
             var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
-
-            var translationHandle = GetComponentTypeHandle<Translation>();
-            var rotationHandle = GetComponentTypeHandle<Rotation>();
-            var inputHandle = GetComponentTypeHandle<LocomotionTeleportationInputData>();
-            var teleportHandle = GetComponentTypeHandle<LocomotionTeleportationData>();
             
-            var raycastInputs = new NativeList<RaycastInput>(Allocator.TempJob);
-            var raycastsHits = new NativeArray<RaycastHit>(raycastInputs.Length, Allocator.TempJob);
+            Entities
+                .WithName("LocomotionTeleportation")
+                .WithoutBurst()
+                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, in Translation translation, in Rotation rotation, in LocomotionTeleportationInputData input, in LocomotionTeleportationData teleportationData) => {
+                    if (input.enableTeleport == 1) {
 
-            // Get raycastInputs from entities 
-            var raycastInputCreationJob = new ConstructLocomotionTeleportationRaycastInputsJob() {
-                translationHandle = translationHandle,
-                rotationHandle = rotationHandle,
-                inputHandle = inputHandle,
-                teleportHandle = teleportHandle,
-                raycastInputs = raycastInputs
-            };
+                        var startPos = translation.Value;
+                        var endPos = translation.Value + math.forward(rotation.Value) * teleportationData.distance;
+                    
+                        var rayInput = new RaycastInput() {
+                            Start = startPos,
+                            End = endPos,
+                            Filter = new CollisionFilter() {
+                                BelongsTo = ~0u,
+                                CollidesWith = ~0u,
+                                GroupIndex = 0
+                            }
+                        };
             
-            // perform raycasts based on raycastInputs
-            var locomotionTeleportRaycastJob = new RaycastJob() {
-                world = collisionWorld,
-                inputs = raycastInputs,
-                results = raycastsHits
-            };
+                        if (input.engageTeleport == 1) {
+                            bool didCast = collisionWorld.CastRay(rayInput, out var hit);
+
+                            if (!didCast) {
+                                Debug.Log("Failed to cast ray");
+                            }
+
+                            Debug.Log(hit.Entity);
+                        }
+                    }
+                }).Schedule();
             
             Entities
                 .WithName("LocomotionTeleportIndicator")
@@ -97,17 +102,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                     }
                     
                 }).Schedule();
-            
-            raycastInputCreationJob.Schedule(_locomotionTeleportationQuery, Dependency).Complete();
-            locomotionTeleportRaycastJob.Schedule(raycastInputs.Length, 4, Dependency).Complete();
-            
-            foreach (var t in raycastsHits) {
-                Debug.Log(t.Position);
-            }
 
-            raycastsHits.Dispose();
-            raycastInputs.Dispose();
-            
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
         }
     }
