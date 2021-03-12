@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invertCollector: 1
-  collectionOffset: 3
-  collectorRadius: 3
+  collectionOffset: 0.1
+  collectorRadius: 0.25
   collectedItemPositionOffset:
     x: 0
     y: 0
@@ -416,8 +416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invertCollector: 0
-  collectionOffset: 3
-  collectorRadius: 3
+  collectionOffset: 0.1
+  collectorRadius: 0.25
   collectedItemPositionOffset:
     x: 0
     y: 0

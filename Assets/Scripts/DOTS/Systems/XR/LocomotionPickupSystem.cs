@@ -120,7 +120,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         var itemColliderClone = itemCollider.Value.Value.Clone();
                         var heldFilter = new CollisionFilter() {
                             BelongsTo = ( 1u << 12 ), // belongs to layer 12
-                            CollidesWith = 0xffffffff, // collides with everything
+                            CollidesWith = ~0u, // collides with everything
                             GroupIndex = 0
                         };
 
