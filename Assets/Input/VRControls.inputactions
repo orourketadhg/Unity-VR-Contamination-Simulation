@@ -70,6 +70,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "JoystickPress",
+                    "type": "Button",
+                    "id": "8935e9dc-f45b-46ca-bfb9-51c214079a35",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Joystick",
                     "type": "Value",
                     "id": "eacea3c4-fedb-4ccc-9761-08ba6e7a4e53",
@@ -177,6 +185,17 @@
                     "action": "TriggerTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6c882ce-7d70-47e2-bf9d-40f999adceab",
+                    "path": "<XRController>{LeftHand}/thumbstickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JoystickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -244,6 +263,14 @@
                     "name": "JoystickTouch",
                     "type": "Button",
                     "id": "39617e23-7f34-4030-834c-e63bf51215f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "JoystickPress",
+                    "type": "Button",
+                    "id": "2ee1a294-c180-4816-b7c1-1a63fb2ff1da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -354,6 +381,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "JoystickTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b5b60be-ba08-477f-83fc-c71a9b788a1c",
+                    "path": "<XRController>{LeftHand}/thumbstickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JoystickPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

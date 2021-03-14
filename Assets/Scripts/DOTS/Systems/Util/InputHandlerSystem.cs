@@ -26,6 +26,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         private int _rightSecondaryTouch;
         private int _rightSecondaryPress;
         private int _rightJoystickTouch;
+        private int _rightJoystickPress;
         private Vector2 _rightJoystick;
 
         #endregion
@@ -40,8 +41,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         private int _leftSecondaryTouch;
         private int _leftSecondaryPress;
         private int _leftJoystickTouch;
+        private int _leftJoystickPress;
         private Vector2 _leftJoystick;
         
+
         #endregion
         
         protected override void OnCreate() {
@@ -130,6 +133,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                         lp.EnableCollector = _rightGripPress;
                     }
                 }).Run();
+
+            Entities
+                .WithName("FaceMaskInputDistribution")
+                .WithoutBurst()
+                .ForEach((ref FaceMaskInput input) => {
+                    input.isMaskEnabled = _rightJoystickPress;
+                    input.isNoseCoveringEnabled = _leftJoystickPress;
+                }).Run();
         }
         
         protected override void OnStopRunning() => _input.Disable();
@@ -144,6 +155,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         void VRControls.IXRRightActions.OnSecondaryTouch(InputAction.CallbackContext context) => _rightSecondaryTouch = context.performed ? 1 : 0;
         void VRControls.IXRRightActions.OnSecondaryPress(InputAction.CallbackContext context) => _rightSecondaryPress = context.performed ? 1 : 0;
         void VRControls.IXRRightActions.OnJoystickTouch(InputAction.CallbackContext context) => _rightJoystickTouch = context.performed ? 1 : 0;
+        void VRControls.IXRRightActions.OnJoystickPress(InputAction.CallbackContext context) => _rightJoystickPress = context.performed ? 1 : 0;
         void VRControls.IXRRightActions.OnJoystick(InputAction.CallbackContext context) => _rightJoystick = context.ReadValue<Vector2>();
 
         #endregion
@@ -158,6 +170,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         void VRControls.IXRLeftActions.OnSecondaryTouch(InputAction.CallbackContext context) => _leftSecondaryTouch = context.performed ? 1 : 0;
         void VRControls.IXRLeftActions.OnSecondaryPress(InputAction.CallbackContext context) => _leftSecondaryPress = context.performed ? 1 : 0;
         void VRControls.IXRLeftActions.OnJoystickTouch(InputAction.CallbackContext context) => _leftJoystickTouch = context.performed ? 1 : 0;
+        void VRControls.IXRLeftActions.OnJoystickPress(InputAction.CallbackContext context) => _leftJoystickPress = context.performed ? 1 : 0;
         void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => _leftJoystick = context.ReadValue<Vector2>();
         
         #endregion

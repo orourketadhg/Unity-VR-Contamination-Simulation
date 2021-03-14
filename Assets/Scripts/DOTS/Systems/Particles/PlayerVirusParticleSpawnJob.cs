@@ -44,7 +44,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 var spawnerInput = spawnerInputData[i];
 
                 // input
-                if (( spawnerInput.Value == 1 ) && time > spawnerInternalSettings.timeOfLastInput + 0.5f) {
+                if (( spawnerInput.Value == 1 ) && time > spawnerInternalSettings.timeOfLastInput + spawnerInternalSettings.inputCooldown) {
                     spawnerInternalSettings.timeOfLastInput = time;
                     spawnerInternalSettings.isSpawnerActive = (spawnerInternalSettings.isSpawnerActive == 1) ? 0 : 1;
                     

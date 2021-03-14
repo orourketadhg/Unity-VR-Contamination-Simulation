@@ -20,6 +20,7 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public bool rightSecondaryTouch;
         public bool rightSecondaryPress;
         public bool rightJoystickTouch;
+        public bool rightJoystickPress;
         public Vector2 rightJoystick;
         
         [Header("Left XR Controller")]
@@ -31,8 +32,9 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public bool leftSecondaryTouch;
         public bool leftSecondaryPress;
         public bool leftJoystickTouch;
+        public bool leftJoystickPress;
         public Vector2 leftJoystick;
-
+        
         private void Awake() { 
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
@@ -60,6 +62,12 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         void VRControls.IXRRightActions.OnSecondaryTouch(InputAction.CallbackContext context) => rightSecondaryTouch = context.performed;
         void VRControls.IXRRightActions.OnSecondaryPress(InputAction.CallbackContext context) => rightSecondaryPress = context.performed;
         void VRControls.IXRRightActions.OnJoystickTouch(InputAction.CallbackContext context) => rightJoystickTouch = context.performed;
+        
+
+        void VRControls.IXRRightActions.OnJoystickPress(InputAction.CallbackContext context) {
+            throw new NotImplementedException();
+        }
+
         void VRControls.IXRRightActions.OnJoystick(InputAction.CallbackContext context) => rightJoystick = context.ReadValue<Vector2>();
 
         #endregion
@@ -74,6 +82,7 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         void VRControls.IXRLeftActions.OnSecondaryTouch(InputAction.CallbackContext context) => leftSecondaryTouch = context.performed;
         void VRControls.IXRLeftActions.OnSecondaryPress(InputAction.CallbackContext context) => leftSecondaryPress = context.performed;
         void VRControls.IXRLeftActions.OnJoystickTouch(InputAction.CallbackContext context) => leftJoystickTouch = context.performed;
+        void VRControls.IXRLeftActions.OnJoystickPress(InputAction.CallbackContext context) => leftJoystickPress = context.performed;
         void VRControls.IXRLeftActions.OnJoystick(InputAction.CallbackContext context) => leftJoystick = context.ReadValue<Vector2>();
 
         #endregion

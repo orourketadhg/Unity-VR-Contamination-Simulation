@@ -83,6 +83,14 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""JoystickPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""8935e9dc-f45b-46ca-bfb9-51c214079a35"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Joystick"",
                     ""type"": ""Value"",
                     ""id"": ""eacea3c4-fedb-4ccc-9761-08ba6e7a4e53"",
@@ -190,6 +198,17 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""TriggerTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6c882ce-7d70-47e2-bf9d-40f999adceab"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JoystickPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -257,6 +276,14 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""name"": ""JoystickTouch"",
                     ""type"": ""Button"",
                     ""id"": ""39617e23-7f34-4030-834c-e63bf51215f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""JoystickPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ee1a294-c180-4816-b7c1-1a63fb2ff1da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -369,6 +396,17 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""action"": ""JoystickTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b5b60be-ba08-477f-83fc-c71a9b788a1c"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JoystickPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -385,6 +423,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRRight_SecondaryTouch = m_XRRight.FindAction("SecondaryTouch", throwIfNotFound: true);
         m_XRRight_SecondaryPress = m_XRRight.FindAction("SecondaryPress", throwIfNotFound: true);
         m_XRRight_JoystickTouch = m_XRRight.FindAction("JoystickTouch", throwIfNotFound: true);
+        m_XRRight_JoystickPress = m_XRRight.FindAction("JoystickPress", throwIfNotFound: true);
         m_XRRight_Joystick = m_XRRight.FindAction("Joystick", throwIfNotFound: true);
         // XRLeft
         m_XRLeft = asset.FindActionMap("XRLeft", throwIfNotFound: true);
@@ -396,6 +435,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         m_XRLeft_SecondaryTouch = m_XRLeft.FindAction("SecondaryTouch", throwIfNotFound: true);
         m_XRLeft_SecondaryPress = m_XRLeft.FindAction("SecondaryPress", throwIfNotFound: true);
         m_XRLeft_JoystickTouch = m_XRLeft.FindAction("JoystickTouch", throwIfNotFound: true);
+        m_XRLeft_JoystickPress = m_XRLeft.FindAction("JoystickPress", throwIfNotFound: true);
         m_XRLeft_Joystick = m_XRLeft.FindAction("Joystick", throwIfNotFound: true);
     }
 
@@ -454,6 +494,7 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputAction m_XRRight_SecondaryTouch;
     private readonly InputAction m_XRRight_SecondaryPress;
     private readonly InputAction m_XRRight_JoystickTouch;
+    private readonly InputAction m_XRRight_JoystickPress;
     private readonly InputAction m_XRRight_Joystick;
     public struct XRRightActions
     {
@@ -467,6 +508,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryTouch => m_Wrapper.m_XRRight_SecondaryTouch;
         public InputAction @SecondaryPress => m_Wrapper.m_XRRight_SecondaryPress;
         public InputAction @JoystickTouch => m_Wrapper.m_XRRight_JoystickTouch;
+        public InputAction @JoystickPress => m_Wrapper.m_XRRight_JoystickPress;
         public InputAction @Joystick => m_Wrapper.m_XRRight_Joystick;
         public InputActionMap Get() { return m_Wrapper.m_XRRight; }
         public void Enable() { Get().Enable(); }
@@ -501,6 +543,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @JoystickTouch.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickTouch;
                 @JoystickTouch.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickTouch;
                 @JoystickTouch.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickTouch;
+                @JoystickPress.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystickPress;
                 @Joystick.started -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRRightActionsCallbackInterface.OnJoystick;
@@ -532,6 +577,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @JoystickTouch.started += instance.OnJoystickTouch;
                 @JoystickTouch.performed += instance.OnJoystickTouch;
                 @JoystickTouch.canceled += instance.OnJoystickTouch;
+                @JoystickPress.started += instance.OnJoystickPress;
+                @JoystickPress.performed += instance.OnJoystickPress;
+                @JoystickPress.canceled += instance.OnJoystickPress;
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
@@ -551,6 +599,7 @@ public class @VRControls : IInputActionCollection, IDisposable
     private readonly InputAction m_XRLeft_SecondaryTouch;
     private readonly InputAction m_XRLeft_SecondaryPress;
     private readonly InputAction m_XRLeft_JoystickTouch;
+    private readonly InputAction m_XRLeft_JoystickPress;
     private readonly InputAction m_XRLeft_Joystick;
     public struct XRLeftActions
     {
@@ -564,6 +613,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryTouch => m_Wrapper.m_XRLeft_SecondaryTouch;
         public InputAction @SecondaryPress => m_Wrapper.m_XRLeft_SecondaryPress;
         public InputAction @JoystickTouch => m_Wrapper.m_XRLeft_JoystickTouch;
+        public InputAction @JoystickPress => m_Wrapper.m_XRLeft_JoystickPress;
         public InputAction @Joystick => m_Wrapper.m_XRLeft_Joystick;
         public InputActionMap Get() { return m_Wrapper.m_XRLeft; }
         public void Enable() { Get().Enable(); }
@@ -598,6 +648,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @JoystickTouch.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickTouch;
                 @JoystickTouch.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickTouch;
                 @JoystickTouch.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickTouch;
+                @JoystickPress.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.performed -=  m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.canceled -=  m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
                 @Joystick.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
@@ -629,6 +682,9 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @JoystickTouch.started += instance.OnJoystickTouch;
                 @JoystickTouch.performed += instance.OnJoystickTouch;
                 @JoystickTouch.canceled += instance.OnJoystickTouch;
+                @JoystickPress.started += instance.OnJoystickPress;
+                @JoystickPress.performed += instance.OnJoystickPress;
+                @JoystickPress.canceled += instance.OnJoystickPress;
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
@@ -646,6 +702,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         void OnSecondaryTouch(InputAction.CallbackContext context);
         void OnSecondaryPress(InputAction.CallbackContext context);
         void OnJoystickTouch(InputAction.CallbackContext context);
+        void OnJoystickPress(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
     }
     public interface IXRLeftActions
@@ -658,6 +715,7 @@ public class @VRControls : IInputActionCollection, IDisposable
         void OnSecondaryTouch(InputAction.CallbackContext context);
         void OnSecondaryPress(InputAction.CallbackContext context);
         void OnJoystickTouch(InputAction.CallbackContext context);
+        void OnJoystickPress(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
     }
 }

@@ -20,6 +20,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
         [SerializeField] private bool isSpawnerActive;
+        [SerializeField] private float inputCooldown = 0.5f;
 
         [Header("Particle Decaying")]
         [SerializeField] private bool totalDecayingParticles;
@@ -45,7 +46,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 isSpawnerActive = isSpawnerActive ? 1 : 0,
                 spawnerDuration = isSpawnerActive ? Random.Range(spawnerDurationRange.x, spawnerDurationRange.y) : 0,
                 spawnerStartTime = 0,
+                inputCooldown = inputCooldown,
                 timeOfLastInput = 0
+                
             });
 
             var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElement>(entity);
@@ -82,6 +85,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         public float spawnerDuration;
         public float spawnerStartTime;
         public int isSpawnerActive;
+        public float inputCooldown;
         public float timeOfLastInput;
     }
 
