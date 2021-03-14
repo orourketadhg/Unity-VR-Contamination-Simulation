@@ -46,9 +46,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
                     
                     pv = new PhysicsVelocity();
-                    ecb.RemoveComponent<PhysicsVelocity>(entity);
-                    ecb.AddComponent(entity, new Parent() {Value = other});
-                    ecb.AddComponent(entity, new LocalToParent() );
+                    
+                    // ecb.RemoveComponent<PhysicsVelocity>(entity);
+                    // ecb.AddComponent(entity, new Parent() {Value = other});
+                    // ecb.AddComponent(entity, new LocalToParent() );
                     
                     motionData.enabled = 0;
                     decayData.isDecayingParticle = 0;

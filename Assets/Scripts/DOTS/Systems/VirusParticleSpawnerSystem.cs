@@ -1,6 +1,7 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
+using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util;
 using Unity.Entities;
@@ -15,14 +16,16 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
     public class VirusParticleSpawnerSystem: SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBuffer;
-        private EntityQuery _spawnerQuery;
+        
+        private EntityQuery _playerSpawnerQuery;
+        private EntityQuery _npcSpawnerQuery;
 
         public JobHandle OutDependency => Dependency;
         
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
 
-            var queryDesc = new EntityQueryDesc() {
+            var playerQueryDesc = new EntityQueryDesc() {
                 All = new [] {
                     ComponentType.ReadOnly<LocalToWorld>(),
                     ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
@@ -31,7 +34,19 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                     ComponentType.ReadOnly<BreathingMechanicInputData>(), 
                 }
             };
-            _spawnerQuery = GetEntityQuery(queryDesc);
+
+            var npcQueryDesc = new EntityQueryDesc() {
+                All = new [] {
+                    ComponentType.ReadOnly<LocalToWorld>(),
+                    ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
+                    typeof(ParticleSpawnerInternalSettingsData),
+                    ComponentType.ReadOnly<VirusParticleElement>(),
+                    ComponentType.ReadOnly<NPCActorTag>(),
+                }
+            };
+            
+            _playerSpawnerQuery = GetEntityQuery(playerQueryDesc);
+            _npcSpawnerQuery = GetEntityQuery(npcQueryDesc);
         }
         
         protected override void OnUpdate() {
@@ -45,7 +60,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
             var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>(true);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
-            var particleSpawnJobHandle = new VirusParticleSpawnJob() {
+            var playerParticleSpawnJob = new PlayerVirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
                 time = time,
@@ -55,10 +70,23 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
                 spawnerInputHandle = spawnerInputHandle,
                 virusParticleBufferHandle = virusParticleBufferHandle
             };
+
+            var npcParticleSpawnJob = new NpcVirusParticleSpawnerJob() {
+                randomArray = randomArray,
+                ecb = ecb,
+                time = time,
+                spawnerLocalToWorldHandle = spawnerLocalToWorldHandle,
+                spawnerSettingsHandle = spawnerSettingsHandle,
+                spawnerInternalSettingsHandle = spawnerInternalSettingsHandle,
+                virusParticleBufferHandle = virusParticleBufferHandle
+            };
             
-            var particleSpawnJobHandleDependency = particleSpawnJobHandle.ScheduleParallel(_spawnerQuery, 1, Dependency);
+            var playerParticleSpawnJobHandle = playerParticleSpawnJob.ScheduleParallel(_playerSpawnerQuery, 1, Dependency);
             
-            Dependency = JobHandle.CombineDependencies(Dependency, particleSpawnJobHandleDependency);
+            var npcParticleSpawnJobHandle = npcParticleSpawnJob.ScheduleParallel(_npcSpawnerQuery, 1, playerParticleSpawnJobHandle);
+            
+            Dependency = JobHandle.CombineDependencies(Dependency, playerParticleSpawnJobHandle);
+            Dependency = JobHandle.CombineDependencies(Dependency, npcParticleSpawnJobHandle);
             
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
         }

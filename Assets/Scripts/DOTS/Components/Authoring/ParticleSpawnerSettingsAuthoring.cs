@@ -8,6 +8,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 using AnimationCurve = UnityEngine.AnimationCurve;
+using Random = UnityEngine.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
     
@@ -18,6 +19,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         [SerializeField] private float spawnerRadius;
         [SerializeField] private AnimationCurve spawnRangeCurve =AnimationCurve.Constant(0, 1, 1);
         [SerializeField] private bool looping;
+        [SerializeField] private bool isSpawnerActive;
 
         [Header("Particle Decaying")]
         [SerializeField] private bool totalDecayingParticles;
@@ -39,7 +41,12 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 randomDecayChance = randomDecayChance
             });
 
-            dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData());
+            dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData() {
+                isSpawnerActive = isSpawnerActive ? 1 : 0,
+                spawnerDuration = isSpawnerActive ? Random.Range(spawnerDurationRange.x, spawnerDurationRange.y) : 0,
+                spawnerStartTime = 0,
+                timeOfLastInput = 0
+            });
 
             var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElement>(entity);
             

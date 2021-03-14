@@ -14,7 +14,7 @@ using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
     
-    public struct VirusParticleSpawnJob : IJobEntityBatch {
+    public struct PlayerVirusParticleSpawnJob : IJobEntityBatch {
 
         [NativeSetThreadIndex] private int _nativeThreadIndex;
         [NativeDisableParallelForRestriction] public NativeArray<Random> randomArray;
