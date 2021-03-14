@@ -239,6 +239,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6647182199330635227, guid: e791714a972ffff41828e9802ad566b7, type: 3}
+      propertyPath: m_MotionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647182199330635227, guid: e791714a972ffff41828e9802ad566b7, type: 3}
+      propertyPath: m_GravityFactor
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7436603787980560727, guid: e791714a972ffff41828e9802ad566b7, type: 3}
       propertyPath: m_Name
       value: Moving NPC
@@ -747,6 +755,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1880510722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7436603787980560727, guid: e791714a972ffff41828e9802ad566b7, type: 3}
+  m_PrefabInstance: {fileID: 483006278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880510727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880510722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c805085227e4ebc81110bebffc29f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  movementSpeed: 1
+  stopThreshold: 0.005
+  waypoints:
+  - {x: -3.5, y: 0.05, z: -4}
+  - {x: -3.5, y: 0.05, z: 4}
 --- !u!1 &1894894990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1044,14 @@ PrefabInstance:
     - target: {fileID: 5823988095611633454, guid: e791714a972ffff41828e9802ad566b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647182199330635227, guid: e791714a972ffff41828e9802ad566b7, type: 3}
+      propertyPath: m_MotionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647182199330635227, guid: e791714a972ffff41828e9802ad566b7, type: 3}
+      propertyPath: m_GravityFactor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7436603787980560727, guid: e791714a972ffff41828e9802ad566b7, type: 3}
       propertyPath: m_Name
