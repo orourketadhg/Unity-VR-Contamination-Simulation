@@ -1,5 +1,4 @@
-﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
+﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.Util;
@@ -12,7 +11,7 @@ using Unity.Physics;
 using Unity.Transforms;
 using Random = Unity.Mathematics.Random;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     
     public struct PlayerVirusParticleSpawnJob : IJobEntityBatch {
 

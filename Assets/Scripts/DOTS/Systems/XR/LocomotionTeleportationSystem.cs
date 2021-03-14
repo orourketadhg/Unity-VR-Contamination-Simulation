@@ -1,6 +1,5 @@
 ﻿using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.XR;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using com.TUDublin.VRContaminationSimulation.Rig;
 using Unity.Entities;
 using Unity.Jobs;

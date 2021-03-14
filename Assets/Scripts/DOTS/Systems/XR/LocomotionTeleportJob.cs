@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Jobs;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
     public struct LocomotionTeleportJob : IJobParallelForTransform {
 

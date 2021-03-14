@@ -2,14 +2,13 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Input;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
-using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs;
 using com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]

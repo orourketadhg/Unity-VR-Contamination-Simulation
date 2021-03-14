@@ -3,7 +3,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Physics;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
     [BurstCompile]
     public struct RaycastJob : IJobParallelFor {

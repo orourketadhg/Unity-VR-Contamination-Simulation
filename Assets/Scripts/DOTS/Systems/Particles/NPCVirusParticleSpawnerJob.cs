@@ -9,7 +9,7 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Jobs {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
     public struct NpcVirusParticleSpawnerJob : IJobEntityBatch {
         

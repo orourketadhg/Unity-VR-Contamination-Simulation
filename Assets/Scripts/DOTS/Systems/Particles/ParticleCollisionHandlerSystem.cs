@@ -1,5 +1,4 @@
 ﻿using com.TUDublin.VRContaminationSimulation.Common.Enums;
-using com.TUDublin.VRContaminationSimulation.DOTS.Components;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Tags;
@@ -11,7 +10,7 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     
     [DisableAutoCreation]
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]

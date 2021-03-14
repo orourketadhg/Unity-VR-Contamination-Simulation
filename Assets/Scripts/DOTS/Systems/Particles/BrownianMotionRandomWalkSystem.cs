@@ -8,7 +8,7 @@ using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems {
+namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
