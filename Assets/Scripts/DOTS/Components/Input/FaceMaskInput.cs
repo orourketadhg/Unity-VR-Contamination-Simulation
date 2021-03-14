@@ -5,10 +5,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
 
     [GenerateAuthoringComponent]
     public struct FaceMaskInput : IComponentData {
-        public int isMaskEnabled;
-        public int isNoseCoveringEnabled;
-        public float inputCooldown;
-        public float lastInputTime;
+        public int enableMask;
+        public int enableNose;
     }
 
 }

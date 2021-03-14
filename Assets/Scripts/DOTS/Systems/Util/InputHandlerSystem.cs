@@ -138,8 +138,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 .WithName("FaceMaskInputDistribution")
                 .WithoutBurst()
                 .ForEach((ref FaceMaskInput input) => {
-                    input.isMaskEnabled = _rightJoystickPress;
-                    input.isNoseCoveringEnabled = _leftJoystickPress;
+                    input.enableMask = _rightJoystickPress;
+                    input.enableNose = _leftJoystickPress;
                 }).Run();
         }
         
