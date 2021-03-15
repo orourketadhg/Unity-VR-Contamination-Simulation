@@ -207,9 +207,9 @@ MonoBehaviour:
     y: 0
     z: 0
   itemRotationOffset:
-    x: 180
+    x: 0
     y: 0
-    z: 180
+    z: 0
   mass: 1000
 --- !u!114 &43227262
 MonoBehaviour:
@@ -230,7 +230,7 @@ MonoBehaviour:
     z: -0.29035783
   m_PrimitiveSize:
     x: 0.5766119
-    y: 0.12434916
+    y: 0.19357033
     z: 3.3721094
   m_PrimitiveOrientation:
     Value:
@@ -939,7 +939,7 @@ MonoBehaviour:
   itemRotationOffset:
     x: 0
     y: 0
-    z: 90
+    z: 0
   mass: 1000
 --- !u!114 &469088413
 MonoBehaviour:
@@ -1851,7 +1851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84382d79f96bc3449806233960e627d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.05
+      value: 1.081
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84382d79f96bc3449806233960e627d3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1867,11 +1867,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84382d79f96bc3449806233960e627d3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84382d79f96bc3449806233960e627d3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84382d79f96bc3449806233960e627d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2370,13 +2370,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collector: {fileID: 0}
   itemPositionOffset:
-    x: 0
+    x: 0.028
     y: 0
     z: 0
   itemRotationOffset:
     x: 0
     y: 0
-    z: 0
+    z: 90
   mass: 1000
 --- !u!114 &1588704971
 MonoBehaviour:
@@ -3024,9 +3024,9 @@ MonoBehaviour:
     y: 0
     z: 0
   itemRotationOffset:
-    x: 0
+    x: 130
     y: 0
-    z: 180
+    z: 120
   mass: 1000
 --- !u!114 &1881868029
 MonoBehaviour:
@@ -3299,7 +3299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2e2a853635ce0541a57bf54bb3b3249, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0605
+      value: 1.094
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2e2a853635ce0541a57bf54bb3b3249, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3368,15 +3368,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d8c8787ffb0f3b5468fd65d51731b7de, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d8c8787ffb0f3b5468fd65d51731b7de, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d8c8787ffb0f3b5468fd65d51731b7de, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d8c8787ffb0f3b5468fd65d51731b7de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3452,9 +3452,9 @@ GameObject:
   - component: {fileID: 4640998220438143289}
   - component: {fileID: 4640998220436848923}
   - component: {fileID: 4640998220435719131}
+  - component: {fileID: 4640998220437658907}
   - component: {fileID: 4640998220437658906}
   - component: {fileID: 4640998220437658908}
-  - component: {fileID: 4640998220437658907}
   m_Layer: 0
   m_Name: china-plate1
   m_TagString: Untagged
@@ -3730,9 +3730,9 @@ GameObject:
   - component: {fileID: 6178294325139554384}
   - component: {fileID: 6178294325142945904}
   - component: {fileID: 6178294325141848752}
+  - component: {fileID: 6178294325139922037}
   - component: {fileID: 6178294325139922033}
   - component: {fileID: 6178294325139922035}
-  - component: {fileID: 6178294325139922037}
   m_Layer: 0
   m_Name: coffee-cup2
   m_TagString: Untagged
@@ -3894,9 +3894,9 @@ GameObject:
   - component: {fileID: 6178294325139554386}
   - component: {fileID: 6178294325142945906}
   - component: {fileID: 6178294325141848754}
+  - component: {fileID: 6178294325139922038}
   - component: {fileID: 6178294325139922036}
   - component: {fileID: 6178294325139922039}
-  - component: {fileID: 6178294325139922038}
   m_Layer: 0
   m_Name: coffee-cup1
   m_TagString: Untagged
