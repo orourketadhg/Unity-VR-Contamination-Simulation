@@ -35,7 +35,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                         ecb.DestroyEntity(entity);
                     }
                 }).Schedule();
-
+            
+            // Remove long lived particles
+            Entities
+                .WithName("RemoveLongLivedParticles")
+                .WithBurst()
+                .ForEach((Entity entity, ref VirusParticleData particle) => {
+                    float aliveTime = timeSinceLoad - particle.spawnTime;
+                    if (aliveTime >= 60f) {
+                        ecb.DestroyEntity(entity);
+                    }
+                }).Schedule();
+            
             // Remove stuck particles
             Entities
                 .WithName("RemovingStuckParticles")
@@ -48,7 +59,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                         ecb.RemoveComponent<LocalToParent>(entity);
                         decayData.isDecayingParticle = 1;
                     }
-                    
                 }).Schedule();
             
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
