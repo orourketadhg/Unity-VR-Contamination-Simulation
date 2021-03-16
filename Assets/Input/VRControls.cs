@@ -202,7 +202,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f6c882ce-7d70-47e2-bf9d-40f999adceab"",
-                    ""path"": ""<XRController>{LeftHand}/thumbstickClicked"",
+                    ""path"": ""<XRController>{RightHand}/thumbstickClicked"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -649,8 +649,8 @@ public class @VRControls : IInputActionCollection, IDisposable
                 @JoystickTouch.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickTouch;
                 @JoystickTouch.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickTouch;
                 @JoystickPress.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
-                @JoystickPress.performed -=  m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
-                @JoystickPress.canceled -=  m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
+                @JoystickPress.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystickPress;
                 @Joystick.started -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_XRLeftActionsCallbackInterface.OnJoystick;

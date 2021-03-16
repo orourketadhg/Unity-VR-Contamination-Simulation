@@ -62,12 +62,7 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         void VRControls.IXRRightActions.OnSecondaryTouch(InputAction.CallbackContext context) => rightSecondaryTouch = context.performed;
         void VRControls.IXRRightActions.OnSecondaryPress(InputAction.CallbackContext context) => rightSecondaryPress = context.performed;
         void VRControls.IXRRightActions.OnJoystickTouch(InputAction.CallbackContext context) => rightJoystickTouch = context.performed;
-        
-
-        void VRControls.IXRRightActions.OnJoystickPress(InputAction.CallbackContext context) {
-            throw new NotImplementedException();
-        }
-
+        void VRControls.IXRRightActions.OnJoystickPress(InputAction.CallbackContext context) => rightJoystickPress = context.performed;
         void VRControls.IXRRightActions.OnJoystick(InputAction.CallbackContext context) => rightJoystick = context.ReadValue<Vector2>();
 
         #endregion

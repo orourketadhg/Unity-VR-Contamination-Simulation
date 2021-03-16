@@ -13,6 +13,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
         public int RightSecondaryTouch;
         public int RightSecondaryPress;
         public int RightJoystickTouch;
+        public int RightJoystickPress;
         public float2 RightJoystick;
         
         public int LeftGripTouch;
@@ -24,6 +25,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
         public int LeftSecondaryTouch;
         public int LeftSecondaryPress;
         public int LeftJoystickTouch;
+        public int LeftJoystickPress;
         public float2 LeftJoystick;
         
     }

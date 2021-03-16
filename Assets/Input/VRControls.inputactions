@@ -189,7 +189,7 @@
                 {
                     "name": "",
                     "id": "f6c882ce-7d70-47e2-bf9d-40f999adceab",
-                    "path": "<XRController>{LeftHand}/thumbstickClicked",
+                    "path": "<XRController>{RightHand}/thumbstickClicked",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

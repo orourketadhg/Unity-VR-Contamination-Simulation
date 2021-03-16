@@ -76,6 +76,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 RightSecondaryTouch = _rightSecondaryTouch,
                 RightSecondaryPress = _rightSecondaryPress,
                 RightJoystickTouch = _rightJoystickTouch,
+                RightJoystickPress = _rightJoystickPress,
                 RightJoystick = _rightJoystick,
                 
                 // left Controller Input
@@ -87,6 +88,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 LeftSecondaryTouch = _leftSecondaryTouch,
                 LeftSecondaryPress = _leftSecondaryPress,
                 LeftJoystickTouch = _leftJoystickTouch,
+                LeftJoystickPress = _leftJoystickPress,
                 LeftJoystick = _leftJoystick
             });
 
@@ -137,7 +139,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
             Entities
                 .WithName("FaceMaskInputDistribution")
                 .WithoutBurst()
-                .ForEach((ref FaceMaskInput input) => {
+                .ForEach((Entity entity, ref FaceMaskInput input) => {
                     input.enableMask = _rightJoystickPress;
                     input.enableNose = _leftJoystickPress;
                 }).Run();
