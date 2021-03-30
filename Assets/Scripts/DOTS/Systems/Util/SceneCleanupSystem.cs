@@ -17,7 +17,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         }
 
         protected override void OnUpdate() {
-            var ecb = _entityCommandBufferSystem.CreateCommandBuffer();
+            var ecb = _entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             float timeSinceLoad = (float) Time.ElapsedTime;
             
             // Remove free decaying particles
@@ -25,41 +25,42 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 .WithName("RemoveDecayingParticles")
                 .WithBurst()
                 .WithNone<Parent, LocalToParent>()
-                .ForEach((Entity entity, ref VirusParticleData particle, in DecayingParticleData decayData) => {
+                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particle, in DecayingParticleData decayData) => {
                     if (decayData.isDecayingParticle == 0) {
                         return;
                     }
                     
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= decayData.lifetime) {
-                        ecb.DestroyEntity(entity);
+                        ecb.DestroyEntity(entityInQueryIndex, entity);
                     }
-                }).Schedule();
+                }).ScheduleParallel();
             
             // Remove long lived particles
             Entities
                 .WithName("RemoveLongLivedParticles")
                 .WithBurst()
-                .ForEach((Entity entity, ref VirusParticleData particle) => {
+                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particle) => {
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime >= 60f) {
-                        ecb.DestroyEntity(entity);
+                        ecb.DestroyEntity(entityInQueryIndex, entity);
                     }
-                }).Schedule();
+                }).ScheduleParallel();
             
             // Remove stuck particles
             Entities
                 .WithName("RemovingStuckParticles")
                 .WithAll<Parent, LocalToParent, DecayingParticleData>()
-                .ForEach((Entity entity, ref VirusParticleData particle, ref DecayingParticleData decayData) => {
+                .WithBurst()
+                .ForEach((Entity entity, int entityInQueryIndex, ref VirusParticleData particle, ref DecayingParticleData decayData) => {
                     
                     float aliveTime = timeSinceLoad - particle.spawnTime;
                     if (aliveTime > 20f) {
-                        ecb.RemoveComponent<Parent>(entity);
-                        ecb.RemoveComponent<LocalToParent>(entity);
+                        ecb.RemoveComponent<Parent>(entityInQueryIndex, entity);
+                        ecb.RemoveComponent<LocalToParent>(entityInQueryIndex, entity);
                         decayData.isDecayingParticle = 1;
                     }
-                }).Schedule();
+                }).ScheduleParallel();
             
             _entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
 

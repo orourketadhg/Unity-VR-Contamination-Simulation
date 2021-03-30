@@ -6,10 +6,12 @@ using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.Input {
 
+    /**
+     * Input Handler for MonoBehaviour Scripts and GameObjects
+     */
     public class InputHandler : MonoBehaviour, VRControls.IXRRightActions, VRControls.IXRLeftActions {
-
+     
         private VRControls _input;
-        public static InputHandler Instance;
 
         [Header("Right XR Controller")]
         public bool rightGripPress;
@@ -36,24 +38,26 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         public Vector2 leftJoystick;
         
         private void Awake() { 
+            // set input callback to this
             _input = new VRControls();
             _input.XRLeft.SetCallbacks(this);
             _input.XRRight.SetCallbacks(this);
         }
         
+        /**
+         * Enable Inputs
+         */
         private void OnEnable() => _input.Enable();
+        /**
+         * Disable Inputs
+         */
         private void OnDisable() => _input.Disable();
-        private void OnApplicationPause(bool pauseStatus) {
-            if (pauseStatus) {
-                _input.Disable();
-            }
-            else {
-                _input.Enable();
-            }
-        }
 
         #region Right XR Controller
         
+        /**
+         * Capture Right XR controller inputs 
+         */
         void VRControls.IXRRightActions.OnGripPress(InputAction.CallbackContext context) => rightGripPress = context.performed;
         void VRControls.IXRRightActions.OnTriggerTouch(InputAction.CallbackContext context) => rightTriggerTouch = context.performed;
         void VRControls.IXRRightActions.OnTriggerPress(InputAction.CallbackContext context) => rightTriggerPress = context.performed;
@@ -69,6 +73,9 @@ namespace com.TUDublin.VRContaminationSimulation.Input {
         
         #region Left XR Controller
         
+        /**
+         * Capture Left XR controller inputs 
+         */
         void VRControls.IXRLeftActions.OnGripPress(InputAction.CallbackContext context) => leftGripPress = context.performed;
         void VRControls.IXRLeftActions.OnTriggerTouch(InputAction.CallbackContext context) => leftTriggerTouch = context.performed;
         void VRControls.IXRLeftActions.OnTriggerPress(InputAction.CallbackContext context) => leftTriggerPress = context.performed;

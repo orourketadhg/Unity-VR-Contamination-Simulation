@@ -7,21 +7,22 @@ namespace com.TUDublin.VRContaminationSimulation.Rig {
 
     public class Locomotion : MonoBehaviour {
         
-        [Header("Snap Turning")]
-        public Transform hmd;
-        public float turnAngle = 45;
-        public float cooldown = 0.5f;
+        [Header("Setup")]
+        public Transform HMDCamera;
         
-        private float _nextTurn;
-
-        [Header("continuous Movement")] 
-        public Transform referencePoint;
+        [Header("Snap Turning")]
+        public float turnAngle = 45;
+        public float rotationInputCooldown = 0.5f;
+        
+        [Header("Continuous Movement")]
         public float movementSpeed;
 
+        private float _nextTurn;
         private InputHandler _input;
         private CharacterController _characterController;
 
         private void Awake() {
+            // get components from scene 
             _input = FindObjectOfType<InputHandler>();
             _characterController = GetComponent<CharacterController>();
         }
@@ -31,37 +32,53 @@ namespace com.TUDublin.VRContaminationSimulation.Rig {
             ContinuousMovement(_input.rightJoystick);
         }
         
+        /**
+         * Apply snap rotation to XR rig
+         */
         private void SnapRotation(Vector2 input) {
-            if (input == Vector2.zero || Time.timeSinceLevelLoad < _nextTurn) {
-                return;
-            }
-            
+            // check if able to rotate
+            if (input == Vector2.zero || Time.timeSinceLevelLoad < _nextTurn) return;
+
+            // get direction of rotation
             int direction = ( input.x > 0 ) ? 1 : -1;
-            transform.RotateAround(hmd.position, Vector3.up, turnAngle * direction);
             
-            _nextTurn = Time.timeSinceLevelLoad + cooldown;
+            // apply snap rotation
+            transform.RotateAround(HMDCamera.position, Vector3.up, turnAngle * direction);
+            
+            // update cooldown
+            _nextTurn = Time.timeSinceLevelLoad + rotationInputCooldown;
         }
 
+        /**
+         * Apply continuous movement to XR rig 
+         */
         private void ContinuousMovement(Vector2 input) {
 
-            if (input == Vector2.zero) {
-                return;
-            }
+            // check if able to move
+            if (input == Vector2.zero) return;
 
+            // get orientation of movement 
             var orientation = CalculateMovementOrientation(input);
 
+            // calculate movement 
             var movement = Vector3.zero;
             movement += orientation * ( movementSpeed * Vector3.forward );
 
+            // apply movement
             _characterController.Move(movement * Time.deltaTime);
 
         }
 
+        /**
+         * Normalize input to orientation of HMDCamera 
+         */
         private Quaternion CalculateMovementOrientation(Vector2 input) {
+            // calculate desired direction based on input
             float rotation = math.atan2(input.x, input.y);
             rotation *= Mathf.Rad2Deg;
             
-            var orientationEuler = new Vector3(0, referencePoint.eulerAngles.y + rotation, 0);
+            // add desired direction to Y rotation of HMDCamera
+            var orientationEuler = new Vector3(0, HMDCamera.eulerAngles.y + rotation, 0);
             return Quaternion.Euler(orientationEuler);
         }
         

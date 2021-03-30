@@ -52,7 +52,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                     
                     motionData.enabled = 0;
                     decayData.isDecayingParticle = 0;
-                }).Schedule();
+                }).ScheduleParallel();
 
             // Entities
             //     .WithName("stickingTest")

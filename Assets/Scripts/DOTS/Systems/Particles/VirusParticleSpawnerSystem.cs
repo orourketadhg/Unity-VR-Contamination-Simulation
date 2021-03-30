@@ -59,7 +59,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>(true);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
-            var playerParticleSpawnJob = new PlayerVirusParticleSpawnJob() {
+            var playerParticleSpawnJob = new UserVirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
                 time = time,

@@ -16,18 +16,18 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     public class BrownianMotionRandomWalkSystem : SystemBase {
 
         protected override void OnUpdate() {
-            var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-
             // Add dependency on VirusParticleSpawnerSystem due to random being used 
             var spawnerDependency = World.GetExistingSystem<VirusParticleSpawnerSystem>().OutDependency;
             Dependency = JobHandle.CombineDependencies(Dependency, spawnerDependency);
+            
+            var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
             
             Entities
                 .WithName("ApplyParticleBrownianMotion")
                 .WithBurst()
                 .WithAll<VirusParticleData>()
                 .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref PhysicsVelocity pv, ref PhysicsMass pm, ref BrownianMotionData motionData, in Translation pos) => {
-                    var random = randomArray[0];
+                    var random = randomArray[nativeThreadIndex];
 
                     if (motionData.enabled == 1) {
                         float randomMotionChance = random.NextFloat();
@@ -39,7 +39,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                         }
                     }
 
-                    randomArray[0] = random;
+                    randomArray[nativeThreadIndex] = random;
                 }).Schedule();
 
         }

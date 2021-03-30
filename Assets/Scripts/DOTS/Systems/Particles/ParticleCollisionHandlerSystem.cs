@@ -102,7 +102,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                         velocity = new PhysicsVelocity();
                     // }
 
-                }).Schedule();
+                }).ScheduleParallel();
             
             _entityCommandBuffer.AddJobHandleForProducer(Dependency);
         }

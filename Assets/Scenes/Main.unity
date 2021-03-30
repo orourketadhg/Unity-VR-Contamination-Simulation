@@ -562,10 +562,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b317fafb4be54ad1928b66c0176b09aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hmd: {fileID: 1894894991}
+  HMDCamera: {fileID: 1894894991}
   turnAngle: 45
-  cooldown: 0.5
-  referencePoint: {fileID: 1894894991}
+  rotationInputCooldown: 0.5
   movementSpeed: 1
 --- !u!143 &585682917
 CharacterController:

@@ -19,7 +19,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
             }
 
             RandomArray = new NativeArray<Random>(random, Allocator.Persistent);
-
         }
 
         protected override void OnUpdate() {

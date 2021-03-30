@@ -33,7 +33,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.NPC {
                     // rotation.Value= quaternion.Euler(dirToTarget);
                     rotation.Value = quaternion.LookRotation(position.Value + locomotionData.velocity * 10, ltw.Up);
 
-                }).Schedule();
+                }).ScheduleParallel();
             
         }
         

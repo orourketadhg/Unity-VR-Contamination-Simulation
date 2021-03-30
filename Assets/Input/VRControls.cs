@@ -95,7 +95,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""eacea3c4-fedb-4ccc-9761-08ba6e7a4e53"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """"
                 }
             ],
@@ -293,7 +293,7 @@ public class @VRControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""42601efe-ee76-4997-ad97-878c546c53ae"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """"
                 }
             ],

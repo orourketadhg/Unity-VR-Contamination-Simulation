@@ -1,9 +1,7 @@
-﻿using UnityEditor;
-
-namespace com.TUDublin.VRContaminationSimulation.Common.Enums {
+﻿namespace com.TUDublin.VRContaminationSimulation.Common.Enums {
 
     /**
-     * States a Entity can have when colliding with another entity
+     * States an entity can have during collision
      */
     public enum CollisionEventState {
         Enter,

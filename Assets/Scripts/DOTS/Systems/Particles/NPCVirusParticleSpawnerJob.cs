@@ -2,6 +2,7 @@
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
 using com.TUDublin.VRContaminationSimulation.Util;
 using Unity.Animation;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
@@ -11,6 +12,7 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
+    [BurstCompile]
     public struct NpcVirusParticleSpawnerJob : IJobEntityBatch {
         
         [NativeSetThreadIndex] private int _nativeThreadIndex;
