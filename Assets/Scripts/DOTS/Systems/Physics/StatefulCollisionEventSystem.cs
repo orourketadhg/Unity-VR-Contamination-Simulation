@@ -36,7 +36,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             // query to find any entity with a CollisionEventBuffer
             var queryDesc = new EntityQueryDesc() {
                 All = new ComponentType[] {
-                    typeof(StatefulCollisionEventBuffer)
+                    typeof(StatefulCollisionEventBufferTag)
                 }
             };
             _collisionBufferQuery = GetEntityQuery(queryDesc);
@@ -55,7 +55,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             Entities
                 .WithName("CleanCollisionEventBuffers")
                 .WithBurst()
-                .WithAny<StatefulCollisionEventBuffer>()
+                .WithAny<StatefulCollisionEventBufferTag>()
                 .ForEach((Entity entity, ref DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     collisionBuffer.Clear();
                 }).ScheduleParallel();
@@ -66,14 +66,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             var currentFrameCollisionEvents = _currentFrameCollisionEvents;
 
             var collisionEventBuffer = GetBufferFromEntity<StatefulCollisionEvent>();
-            var collisionEventBufferTag = GetComponentDataFromEntity<StatefulCollisionEventBuffer>();
+            var collisionEventBufferTag = GetComponentDataFromEntity<StatefulCollisionEventBufferTag>();
 
             var entitiesWithBufferSet = new NativeHashSet<Entity>(0, Allocator.TempJob);
             
             Entities
                 .WithName("GetEntitiesWithCollisionBuffer")
                 .WithBurst()
-                .WithAll<StatefulCollisionEventBuffer>()
+                .WithAll<StatefulCollisionEventBufferTag>()
                 .ForEach((Entity entity, ref DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     entitiesWithBufferSet.Add(entity);
                 }).Schedule();

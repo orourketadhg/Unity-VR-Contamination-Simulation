@@ -24,7 +24,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
         public ColliderKey ColliderKeyB => _colliderKeys.ColliderKeyB;
         public float3 Normal;
         public CollisionEventState CollisionState;
-        internal CollisionDetails collisionDetails;
 
         public StatefulCollisionEvent(Entity entityA, Entity entityB, int bodyIndexA, int bodyIndexB, ColliderKey colliderKeyA, ColliderKey colliderKeyB, float3 normal) : this() {
             _entityPair = new EntityPair() {EntityA = entityA, EntityB = entityB};
@@ -32,25 +31,20 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
             _colliderKeys = new ColliderKeyPair() {ColliderKeyA = colliderKeyA, ColliderKeyB = colliderKeyB};
             Normal = normal;
             CollisionState = default;
-            collisionDetails = default;
         }
         
+        /**
+         * Get the other entity in the collision event
+         */
         public Entity GetOtherCollisionEntity(Entity entity) {
             Assert.IsTrue((entity == EntityA) || (entity == EntityB));
             var indexAndVersion = math.select(new int2(EntityB.Index, EntityB.Version), new int2(EntityA.Index, EntityA.Version), entity == EntityB);
             return new Entity { Index = indexAndVersion[0], Version = indexAndVersion[1] };
         }
         
-        public float3 GetNormalFromEntity(Entity entity) {
-            Assert.IsTrue((entity == EntityA) || (entity == EntityB));
-            return math.select(-Normal, Normal, entity == EntityB);
-        }
-
-        public bool TryGetDetails(out CollisionDetails details) {
-            details = collisionDetails;
-            return collisionDetails.hasDetails != 0;
-        }
-        
+        /**
+         * Compare this collision event to another
+         */
         public int CompareTo(StatefulCollisionEvent other) {
             int resultA = EntityA.CompareTo(other.EntityA);
             int resultB = EntityB.CompareTo(other.EntityB);
@@ -72,27 +66,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Physics {
             return 0;
         }
         
-        /**
-         * Additional Details about the collision (Costly to calculate)
-         */
-        public struct CollisionDetails {
-            
-            public int hasDetails;
-            // number of points the collision has:
-            //      1 - vertex collision
-            //      2 - edge collision
-            //      3+ - face collision
-            public int NumContactPoints;
-            public float3 collisionImpulse;
-            public float3 averageContactPointPosition;
-
-            public CollisionDetails(int numContactPoints, float3 collisionImpulse, float3 averageContactPointPosition) : this() {
-                hasDetails = 1;
-                NumContactPoints = numContactPoints;
-                this.collisionImpulse = collisionImpulse;
-                this.averageContactPointPosition = averageContactPointPosition;
-            }
-        }
     }
 
 }

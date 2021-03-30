@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles;
-using Unity.Animation;
 using Unity.Animation.Hybrid;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -12,6 +11,9 @@ using Random = UnityEngine.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
     
+    /**
+     * Authoring Component for virus particle spawners
+     */
     public class ParticleSpawnerSettingsAuthoring: MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs {
 
         [Header("Spawner Settings")]
@@ -31,7 +33,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             
-            // add spawner settings
+            // add spawner settings to entity
             dstManager.AddComponentData(entity, new ParticleSpawnerSettingsData() {
                 spawnerDurationRange = spawnerDurationRange,
                 spawnerRadius = spawnerRadius,
@@ -42,6 +44,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 randomDecayChance = randomDecayChance
             });
 
+            // add spawner internal settings to entity 
             dstManager.AddComponentData(entity, new ParticleSpawnerInternalSettingsData() {
                 isSpawnerActive = isSpawnerActive ? 1 : 0,
                 spawnerDuration = isSpawnerActive ? Random.Range(spawnerDurationRange.x, spawnerDurationRange.y) : 0,
@@ -50,10 +53,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 timeOfLastInput = 0
                 
             });
-
-            var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElement>(entity);
             
-            // add prefabs
+            // add prefabs to Dynamic buffer on entity
+            var virusParticleBuffer = dstManager.AddBuffer<VirusParticleElement>(entity);
             foreach (var virusParticle in particles) {
                 virusParticleBuffer.Add(new VirusParticleElement() {
                     prefab = conversionSystem.GetPrimaryEntity(virusParticle.prefab),
@@ -66,29 +68,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
                 });
             }
         }
-
+        
         public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => referencedPrefabs.AddRange(particles.Select(particle => particle.prefab));
-
+        
     }
-
-    public struct ParticleSpawnerSettingsData : IComponentData {
-        public float2 spawnerDurationRange;
-        public float spawnerRadius;
-        public BlobAssetReference<AnimationCurveBlob> spawnRadiusCurve;
-        public int breathingMechanicLooping;
-        public int totalDecayingVirusParticles;
-        public int randomDecayingVirusParticles;
-        public float randomDecayChance;
-    }
-
-    public struct ParticleSpawnerInternalSettingsData : IComponentData {
-        public float spawnerDuration;
-        public float spawnerStartTime;
-        public int isSpawnerActive;
-        public float inputCooldown;
-        public float timeOfLastInput;
-    }
-
+    
+    /**
+     * Spawning data about a Virus Particle
+     */
     [Serializable]
     public class VirusParticle {
         public GameObject prefab;

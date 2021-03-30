@@ -26,7 +26,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
         public ComponentTypeHandle<ParticleSpawnerInternalSettingsData> spawnerInternalSettingsHandle;
         [ReadOnly] public ComponentTypeHandle<LocalToWorld> spawnerLocalToWorldHandle;
         [ReadOnly] public ComponentTypeHandle<ParticleSpawnerSettingsData> spawnerSettingsHandle;
-        [ReadOnly] public ComponentTypeHandle<BreathingMechanicInputData> spawnerInputHandle;
+        [ReadOnly] public ComponentTypeHandle<RespiratoryMechanicInputData> spawnerInputHandle;
         [ReadOnly] public BufferTypeHandle<VirusParticleElement> virusParticleBufferHandle;
 
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {

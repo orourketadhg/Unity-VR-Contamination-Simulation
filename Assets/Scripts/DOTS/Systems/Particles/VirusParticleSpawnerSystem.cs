@@ -30,7 +30,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                     ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
                     typeof(ParticleSpawnerInternalSettingsData),
                     ComponentType.ReadOnly<VirusParticleElement>(),
-                    ComponentType.ReadOnly<BreathingMechanicInputData>(), 
+                    ComponentType.ReadOnly<RespiratoryMechanicInputData>(), 
                 }
             };
 
@@ -40,7 +40,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                     ComponentType.ReadOnly<ParticleSpawnerSettingsData>(),
                     typeof(ParticleSpawnerInternalSettingsData),
                     ComponentType.ReadOnly<VirusParticleElement>(),
-                    ComponentType.ReadOnly<NPCActorTag>(),
+                    ComponentType.ReadOnly<NPCTag>(),
                 }
             };
             
@@ -56,7 +56,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>();
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>(true);
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(true);
-            var spawnerInputHandle = GetComponentTypeHandle<BreathingMechanicInputData>(true);
+            var spawnerInputHandle = GetComponentTypeHandle<RespiratoryMechanicInputData>(true);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
             var playerParticleSpawnJob = new UserVirusParticleSpawnJob() {

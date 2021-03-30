@@ -2,6 +2,9 @@
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Particles {
 
+    /**
+     * Component Data for face mask 
+     */
     [GenerateAuthoringComponent]
     public struct FaceMaskData : IComponentData {
         public Entity faceMask;

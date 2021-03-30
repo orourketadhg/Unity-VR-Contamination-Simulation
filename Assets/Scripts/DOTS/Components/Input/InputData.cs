@@ -3,6 +3,9 @@ using Unity.Mathematics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Input {
     
+    /**
+     * Debug Component for displaying XR Controller input 
+     */
     public struct InputData : IComponentData {
         public int RightGripTouch;
         public int RightGripPress;

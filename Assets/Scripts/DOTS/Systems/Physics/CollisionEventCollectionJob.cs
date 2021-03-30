@@ -13,7 +13,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
     public struct CollisionEventCollectionJob : ICollisionEventsJob {
 
         public NativeList<StatefulCollisionEvent> statefulCollisionEvents;
-        public ComponentDataFromEntity<StatefulCollisionEventBuffer> collisionEventBuffers;
+        public ComponentDataFromEntity<StatefulCollisionEventBufferTag> collisionEventBuffers;
 
         [ReadOnly] public NativeHashSet<Entity> entitiesWithCollisionBuffers;
         [ReadOnly] public PhysicsWorld physicsWorld;
@@ -25,29 +25,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
                 collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, 
                 collisionEvent.ColliderKeyA, collisionEvent.ColliderKeyB, 
                 collisionEvent.Normal);
-
-            bool calculateDetails = false;
-
-            if (entitiesWithCollisionBuffers.Contains(collisionEvent.EntityA)) {
-                if (collisionEventBuffers[collisionEvent.EntityA].calculateCollisionDetails != 0) {
-                    calculateDetails = true;
-                }
-            }
-            
-            if (entitiesWithCollisionBuffers.Contains(collisionEvent.EntityB)) {
-                if (collisionEventBuffers[collisionEvent.EntityB].calculateCollisionDetails != 0) {
-                    calculateDetails = true;
-                }
-            }
-
-            if (calculateDetails) {
-                var details = collisionEvent.CalculateDetails(ref physicsWorld);
-                statefulCollisionEvent.collisionDetails = new StatefulCollisionEvent.CollisionDetails(
-                    details.EstimatedContactPointPositions.Length,
-                    details.EstimatedImpulse,
-                    details.AverageContactPointPosition
-                );
-            }
             
             statefulCollisionEvents.Add(statefulCollisionEvent);
 
