@@ -55,7 +55,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             Entities
                 .WithBurst()
                 .WithAll<VirusParticleData>()
-                .ForEach((Entity entity, ref PhysicsVelocity velocity, ref StickyParticleTag sticky, ref BrownianMotionData motionData, ref DecayingParticleData decayingParticleData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
+                .WithAll<ActiveTag>()
+                .ForEach((Entity entity, ref PhysicsVelocity velocity, ref BrownianMotionData motionData, ref DecayingParticleData decayingParticleData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer,  in Translation translation, in Rotation rotation) => {
 
                     // if (sticky.value == Entity.Null) {
 

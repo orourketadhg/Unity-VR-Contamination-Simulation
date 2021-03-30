@@ -23,7 +23,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             Entities
                 .WithName("VirusParticleInitialSticking")
                 .WithBurst()
-                .WithAll<VirusParticleData, StickyParticleTag>()
+                .WithAll<VirusParticleData, ActiveTag>()
                 .WithNone<Parent, LocalToParent>()
                 .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
                     if (collisionBuffer.IsEmpty) {
@@ -94,8 +94,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             // Entities
             //     .WithName("VirusParticleTransferSticking")
             //     .WithBurst()
-            //     .WithAll<VirusParticleData, LocalToParent>()
-            //     .ForEach((Entity entity, int entityInQueryIndex, ref StickyParticleData stickyData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Parent connectedBody) => {
+            //     .WithAll<VirusParticleData, LocalToParent, ActiveTag>()
+            //     .ForEach((Entity entity, int entityInQueryIndex, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer, in Parent connectedBody) => {
             //         if (collisionBuffer.IsEmpty) {
             //             return;
             //         }

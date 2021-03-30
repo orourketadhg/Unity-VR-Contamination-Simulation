@@ -18,10 +18,6 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
             dstManager.AddComponent(entity, typeof(DecayingParticleData));
             // Add VirusParticleData component to entity
             dstManager.AddComponent(entity, typeof(VirusParticleData));
-
-            if (isStickyParticle) {
-                dstManager.AddComponent(entity, typeof(StickyParticleTag));
-            }
             
         }
     }

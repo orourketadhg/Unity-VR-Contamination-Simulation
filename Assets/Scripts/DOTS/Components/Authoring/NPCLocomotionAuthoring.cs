@@ -18,7 +18,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
 
-            // add NPCLocomotionData component to entity
+            // add NPCLocomotionData component with data to entity
             dstManager.AddComponentData(entity, new NPCLocomotionData() {
                 velocity = float3.zero,
                 mass = mass,
