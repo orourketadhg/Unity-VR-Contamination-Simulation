@@ -9,6 +9,9 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
+    /**
+     * Job to construct Raycast inputs for Locomotion teleportation
+     */
     [BurstCompile]
     public struct ConstructLocomotionTeleportationRaycastInputsJob : IJobEntityBatch {
 
@@ -21,6 +24,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
 
+            // get NativeArrays of components from component handlers
             var translations = batchInChunk.GetNativeArray(translationHandle);
             var rotations = batchInChunk.GetNativeArray(rotationHandle);
             var inputs = batchInChunk.GetNativeArray(inputHandle);
@@ -33,6 +37,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                 var input = inputs[i];
                 var teleport = teleportationData[i];
 
+                // create raycast inputs based on user inputs
                 if (input.enableTeleport == 1) {
                     
                     var rayInput = new RaycastInput() {

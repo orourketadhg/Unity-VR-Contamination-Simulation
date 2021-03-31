@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
 
+    /**
+     * System for handling user input for DOTS systems
+     */
     [AlwaysUpdateSystem]
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public class InputHandlerSystem : SystemBase, VRControls.IXRRightActions, VRControls.IXRLeftActions {
@@ -65,6 +68,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 // EntityManager.SetName(inputManager, "Input Manager");
             }
             
+            // Debug component
             _inputDataQuery.SetSingleton(new InputData() {
                 
                 // Right Controller Input
@@ -92,6 +96,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                 LeftJoystick = _leftJoystick
             });
 
+            // Distribute inputs to respiratory mechanics 
             Entities
                 .WithName("BreathingMechanicInputDistribution")
                 .WithoutBurst()
@@ -110,6 +115,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                     }
                 }).Run();
 
+            // Distribute inputs to locomotion teleportation
             Entities
                 .WithName("LocomotionTeleportInputDistribution")
                 .WithoutBurst()
@@ -124,6 +130,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                     }
                 }).Run();
             
+            // Distribute inputs to locomotion pickup
             Entities
                 .WithName("LocomotionPickupInputDistribution")
                 .WithoutBurst()
@@ -136,6 +143,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
                     }
                 }).Run();
 
+            // Distribute inputs to breathing mechanics
             Entities
                 .WithName("FaceMaskInputDistribution")
                 .WithoutBurst()
@@ -148,6 +156,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         protected override void OnStopRunning() => _input.Disable();
 
         #region Right XR Controller
+        
+        /**
+         * Capture Right XR controller inputs 
+         */
         
         void VRControls.IXRRightActions.OnGripPress(InputAction.CallbackContext context) => _rightGripPress = context.performed ? 1 : 0;
         void VRControls.IXRRightActions.OnTriggerTouch(InputAction.CallbackContext context) => _rightTriggerTouch = context.performed ? 1 : 0;
@@ -163,6 +175,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
         #endregion
         
         #region Left XR Controller
+        
+        /**
+         * Capture Left XR controller inputs 
+         */
         
         void VRControls.IXRLeftActions.OnGripPress(InputAction.CallbackContext context) => _leftGripPress = context.performed ? 1 : 0;
         void VRControls.IXRLeftActions.OnTriggerTouch(InputAction.CallbackContext context) => _leftTriggerTouch = context.performed ? 1 : 0;

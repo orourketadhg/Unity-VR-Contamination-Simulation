@@ -8,6 +8,9 @@ using Unity.Physics.Systems;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
+    /**
+     * System to handle the collection and distribution of Stateful collision events
+     */
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateAfter(typeof(StepPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
@@ -62,6 +65,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
             SwapCollisionEventStates();
 
+            // get collision event arrays
             var previousFrameCollisionEvents = _previousFrameCollisionEvents;
             var currentFrameCollisionEvents = _currentFrameCollisionEvents;
 
@@ -70,6 +74,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
             var entitiesWithBufferSet = new NativeHashSet<Entity>(0, Allocator.TempJob);
             
+            // get entities with stateful stateful collision event dynamic buffers
             Entities
                 .WithName("GetEntitiesWithCollisionBuffer")
                 .WithBurst()
@@ -78,15 +83,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
                     entitiesWithBufferSet.Add(entity);
                 }).Schedule();
 
+            // collect collision events
             var collisionEventCollectionJob = new CollisionEventCollectionJob() {
                 statefulCollisionEvents = currentFrameCollisionEvents,
-                collisionEventBuffers = collisionEventBufferTag,
-                entitiesWithCollisionBuffers = entitiesWithBufferSet,
-                physicsWorld = _buildPhysicsWorld.PhysicsWorld
+                collisionEventBuffers = collisionEventBufferTag
             };
 
             Dependency = collisionEventCollectionJob.Schedule(_stepPhysicsWorld.Simulation, ref _buildPhysicsWorld.PhysicsWorld, Dependency);
 
+            // distribute stateful collision events to entities
             Job
                 .WithName("DistributeStatefulCollisionEventsToEntities")
                 .WithBurst()
@@ -107,6 +112,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             _currentFrameCollisionEvents.Dispose();
         }
         
+        /**
+         * Update frame collision event arrays
+         */
         private void SwapCollisionEventStates() {
             var _ = _previousFrameCollisionEvents;
             _previousFrameCollisionEvents = _currentFrameCollisionEvents;
@@ -114,6 +122,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             _currentFrameCollisionEvents.Clear();
         }
 
+        /**
+         * Distribute stateful collision events to entities with stateful collision event dynamic buffers
+         */
         private static void DistributeCollisionEventsToBuffers(ref BufferFromEntity<StatefulCollisionEvent> collisionEventBuffer, NativeHashSet<Entity> entitiesWithBufferSet, NativeList<StatefulCollisionEvent> collisionEventStates) {
             for (int i = 0; i < collisionEventStates.Length; i++) {
                 var statefulCollisionEvent = collisionEventStates[i];
@@ -126,10 +137,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
             }
         }
 
+        /**
+         * Update the state of collision events based on the previous frames collision states
+         */
         private static void UpdateCollisionEventStates(NativeList<StatefulCollisionEvent> previousFrameCollisionEvents, NativeList<StatefulCollisionEvent> currentFrameCollisionEvents, NativeList<StatefulCollisionEvent> resultingStates) {
             int i = 0;
             int j = 0;
-
+            
+            // update collision event states
             while (i < currentFrameCollisionEvents.Length && j < previousFrameCollisionEvents.Length) {
                 var currentFrameCollisionEvent = currentFrameCollisionEvents[i];
                 var previousFrameCollisionEvent = previousFrameCollisionEvents[j];
@@ -154,6 +169,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
                 }
             }
 
+            // clean up excess states to exit
             if (i == currentFrameCollisionEvents.Length) {
                 while (j < previousFrameCollisionEvents.Length) {
                     var collisionEvent = previousFrameCollisionEvents[j++];

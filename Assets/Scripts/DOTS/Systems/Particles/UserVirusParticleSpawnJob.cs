@@ -14,6 +14,9 @@ using Random = Unity.Mathematics.Random;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     
+    /**
+     * Job for spawning user virus particles
+     */
     [BurstCompile]
     public struct UserVirusParticleSpawnJob : IJobEntityBatch {
 
@@ -31,6 +34,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
         public void Execute(ArchetypeChunk batchInChunk, int batchIndex) {
             
+            // get NativeArrays of components from component handlers
             var spawnerLocalToWorldData = batchInChunk.GetNativeArray(spawnerLocalToWorldHandle);
             var spawnerSettingsData = batchInChunk.GetNativeArray(spawnerSettingsHandle);
             var spawnerInternalSettingsData = batchInChunk.GetNativeArray(spawnerInternalSettingsHandle);
@@ -45,7 +49,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 var spawnerInternalSettings = spawnerInternalSettingsData[i];
                 var spawnerInput = spawnerInputData[i];
 
-                // input
+                // input handling to activate/deactivate spawning
                 if (( spawnerInput.Value == 1 ) && time > spawnerInternalSettings.timeOfLastInput + spawnerInternalSettings.inputCooldown) {
                     spawnerInternalSettings.timeOfLastInput = time;
                     spawnerInternalSettings.isSpawnerActive = (spawnerInternalSettings.isSpawnerActive == 1) ? 0 : 1;
@@ -55,6 +59,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                     }
                 }
                 
+                // update spawner active state based on time
                 if (time > spawnerInternalSettings.spawnerStartTime + spawnerInternalSettings.spawnerDuration) {
                 
                     if (spawnerInternalSettings.isSpawnerActive == 1 && spawnerSettings.breathingMechanicLooping == 1) {
@@ -124,16 +129,25 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             randomArray[_nativeThreadIndex] = random;
         }
         
+        /**
+         * Calculate current spawning interval in spawning cycle
+         */
         private static void CalculateSpawningTime(ref Random random, ref ParticleSpawnerInternalSettingsData internalSpawnerSettings, in ParticleSpawnerSettingsData spawnerSettings, float deltaTime) {
             internalSpawnerSettings.spawnerStartTime = deltaTime;
             internalSpawnerSettings.spawnerDuration = random.NextFloat(spawnerSettings.spawnerDurationRange.x, spawnerSettings.spawnerDurationRange.y);
         }
         
+        /**
+         * Calculate size of new virus particle entity
+         */
         private static float3 CalculateScale(ref Random random, float2 particleScale) {
             float randomScale = random.NextFloat(particleScale.x, particleScale.y);
             return new float3(randomScale);
         }
 
+        /**
+         * Calculate initial velocity of new virus particle entity
+         */
         private static float3 CalculateLinearVelocity(ref Random random, in VirusParticleElement particleSettings, float3 direction, float time) {
             float velocity = random.NextFloat(particleSettings.emissionForce.x, particleSettings.emissionForce.y);
             float adjustedVelocity = AnimationCurveEvaluator.Evaluate(time, particleSettings.emissionForceCurve) * velocity;
@@ -141,6 +155,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             return direction * adjustedVelocity;
         }
 
+        /**
+         * Calculate to spawn position of the new virus particle entity
+         */
         private static float3 CalculateTranslation(ref Random random, in ParticleSpawnerSettingsData spawnerSettingsData, float time) {
             float adjustedRadius = AnimationCurveEvaluator.Evaluate(time, spawnerSettingsData.spawnRadiusCurve) * spawnerSettingsData.spawnerRadius;
             var randomPosition = MathUtil.PointInsideRadiusCircle(ref random, adjustedRadius);

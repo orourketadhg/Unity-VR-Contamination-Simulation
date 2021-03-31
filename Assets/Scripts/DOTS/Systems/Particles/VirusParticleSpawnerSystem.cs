@@ -10,6 +10,9 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
 
+    /**
+     * System to control Virus particle spawning
+     */
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
     public class VirusParticleSpawnerSystem: SystemBase {
@@ -24,6 +27,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
         protected override void OnCreate() {
             _entityCommandBuffer = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
 
+            // Query for user particle spawners
             var playerQueryDesc = new EntityQueryDesc() {
                 All = new [] {
                     ComponentType.ReadOnly<LocalToWorld>(),
@@ -34,6 +38,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 }
             };
 
+            // Query for NPC particle spawners
             var npcQueryDesc = new EntityQueryDesc() {
                 All = new [] {
                     ComponentType.ReadOnly<LocalToWorld>(),
@@ -53,12 +58,14 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
             float time = (float) Time.ElapsedTime;
 
+            // define component handles
             var spawnerInternalSettingsHandle = GetComponentTypeHandle<ParticleSpawnerInternalSettingsData>();
             var spawnerLocalToWorldHandle = GetComponentTypeHandle<LocalToWorld>(true);
             var spawnerSettingsHandle = GetComponentTypeHandle<ParticleSpawnerSettingsData>(true);
             var spawnerInputHandle = GetComponentTypeHandle<RespiratoryMechanicInputData>(true);
             var virusParticleBufferHandle = GetBufferTypeHandle<VirusParticleElement>(true);
 
+            // define user virus particle spawning job
             var playerParticleSpawnJob = new UserVirusParticleSpawnJob() {
                 randomArray = randomArray,
                 ecb = ecb,
@@ -70,6 +77,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 virusParticleBufferHandle = virusParticleBufferHandle
             };
 
+            // define NPC virus particle spawning job
             var npcParticleSpawnJob = new NpcVirusParticleSpawnerJob() {
                 randomArray = randomArray,
                 ecb = ecb,
@@ -80,8 +88,8 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 virusParticleBufferHandle = virusParticleBufferHandle
             };
             
+            // schedule virus particle spawning
             var playerParticleSpawnJobHandle = playerParticleSpawnJob.ScheduleParallel(_playerSpawnerQuery, 1, Dependency);
-            
             var npcParticleSpawnJobHandle = npcParticleSpawnJob.ScheduleParallel(_npcSpawnerQuery, 1, playerParticleSpawnJobHandle);
             
             Dependency = JobHandle.CombineDependencies(Dependency, playerParticleSpawnJobHandle);

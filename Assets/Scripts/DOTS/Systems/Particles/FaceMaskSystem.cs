@@ -4,6 +4,9 @@ using Unity.Entities;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     
+    /**
+     * System to control user face masks
+     */
     public class FaceMaskSystem : SystemBase {
 
         private EndSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
@@ -22,9 +25,11 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 .WithBurst()
                 .ForEach((Entity entity, int entityInQueryIndex, ref FaceMaskData maskData, in FaceMaskInput maskInput) => {
                     
+                    // get nose and mask entities
                     var mask = maskData.faceMask;
                     var nose = maskData.maskNose;
 
+                    // check mask and nose input + input cooldown
                     if (maskInput.enableMask == 1 && time >= maskData.lastInputTime + maskData.inputCooldown) {
                         maskData.isMaskEnabled = ( maskData.isMaskEnabled == 0 ) ? 1 : 0;
                         maskData.lastInputTime = time;

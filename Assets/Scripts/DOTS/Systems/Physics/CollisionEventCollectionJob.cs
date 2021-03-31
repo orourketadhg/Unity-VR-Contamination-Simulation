@@ -14,12 +14,10 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
         public NativeList<StatefulCollisionEvent> statefulCollisionEvents;
         public ComponentDataFromEntity<StatefulCollisionEventBufferTag> collisionEventBuffers;
-
-        [ReadOnly] public NativeHashSet<Entity> entitiesWithCollisionBuffers;
-        [ReadOnly] public PhysicsWorld physicsWorld;
-
+        
         public void Execute(CollisionEvent collisionEvent) {
 
+            // save new collision events
             var statefulCollisionEvent = new StatefulCollisionEvent(
                 collisionEvent.EntityA, collisionEvent.EntityB, 
                 collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, 

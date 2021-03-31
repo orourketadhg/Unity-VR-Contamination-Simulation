@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Util {
     
+    /**
+     * System to cleanup virus particles in the scene
+     */
     [UpdateAfter(typeof(ParticleCollisionParentingSystem))]
     public class SceneCleanupSystem : SystemBase {
 

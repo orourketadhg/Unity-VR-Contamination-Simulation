@@ -11,6 +11,9 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
+    /**
+     * System to perform locomotion teleportation - Unfinished
+     */
     [UpdateAfter(typeof(FixedStepSimulationSystemGroup))]
     public class LocomotionTeleportationSystem : SystemBase {
 
@@ -59,6 +62,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                         var startPos = translation.Value;
                         var endPos = translation.Value + math.forward(rotation.Value) * teleportationData.distance;
                     
+                        // construct raycast input 
                         var rayInput = new RaycastInput() {
                             Start = startPos,
                             End = endPos,
@@ -69,6 +73,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                             }
                         };
             
+                        // debug test for teleport raycast 
                         if (input.engageTeleport == 1) {
                             bool didCast = collisionWorld.CastRay(rayInput, out var hit);
 
@@ -81,6 +86,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                     }
                 }).Schedule();
             
+            // Display debug indicator for teleport
             Entities
                 .WithName("LocomotionTeleportIndicator")
                 .WithBurst()

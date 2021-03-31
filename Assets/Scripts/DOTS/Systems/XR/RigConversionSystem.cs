@@ -9,6 +9,9 @@ using UnityEngine;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
 
+    /**
+     * System to perform GameObject to ECS XR rig Link
+     */
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(BuildPhysicsWorld))]
     public class RigConversionSystem : SystemBase {
@@ -16,6 +19,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
         private RigType[] _rig;
         
         protected override void OnCreate() {
+            // Find GameObject XR rig 
             _rig = Object.FindObjectsOfType<RigType>();
         }
 
@@ -30,11 +34,15 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                             continue;
                         }
 
+                        // get position and rotation
                         float3 nodePosition = node.transform.position;
                         quaternion nodeRotation = node.transform.rotation;
 
+                        // apply position and rotation
                         translation = new Translation() {Value = nodePosition};
                         rotation = new Rotation() {Value = nodeRotation};
+                        
+                        // reset physics velocity on ECS rig 
                         velocity = new PhysicsVelocity();
                     }
                 }).Run();

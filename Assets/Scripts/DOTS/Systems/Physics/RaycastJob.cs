@@ -5,6 +5,9 @@ using Unity.Physics;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Physics {
 
+    /**
+     * Job to perform ray casts
+     */
     [BurstCompile]
     public struct RaycastJob : IJobParallelFor {
 

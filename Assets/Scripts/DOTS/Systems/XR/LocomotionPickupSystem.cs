@@ -11,6 +11,9 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
     
+    /**
+     * System to perform XR Locomotion pickup
+     */
     public class LocomotionPickupSystem : SystemBase {
 
         private BuildPhysicsWorld _buildPhysicsWorld;
@@ -48,6 +51,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                             GroupIndex = 0
                         };
 
+                        // find objects in sphere area 
                         if (physicsWorld.OverlapSphere(overlapSpherePosition, overlapSphereRadius, ref overlapSphereHits, overlapSphereFilter)) {
                             // get the index of the closest entity
                             int otherIndex = 0;
@@ -83,7 +87,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.XR {
                                 CollidesWith = ~( 1u << 11 ), // collides with not layer 11
                                 GroupIndex = 0
                             };
-
+                            
                             unsafe {
                                 var clonePtr = (ColliderHeader*) otherColliderClone.GetUnsafePtr();
                                 clonePtr->Filter = otherFilter;

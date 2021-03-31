@@ -8,6 +8,9 @@ using Unity.Transforms;
 
 namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
     
+    /**
+     * Attempt 2 at particle sticking
+     */
     public class ParticleCollisionParentingSystem : SystemBase {
 
         private EndFixedStepSimulationEntityCommandBufferSystem _entityCommandBufferSystem;
@@ -26,10 +29,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                 .WithAll<VirusParticleData, ActiveTag>()
                 .WithNone<Parent, LocalToParent>()
                 .ForEach((Entity entity, int entityInQueryIndex, ref PhysicsVelocity pv, ref DecayingParticleData decayData, ref BrownianMotionData motionData, in DynamicBuffer<StatefulCollisionEvent> collisionBuffer) => {
-                    if (collisionBuffer.IsEmpty) {
-                        return;
-                    }
-            
+                    if (collisionBuffer.IsEmpty) return;
+
+                    // get index of first enter state collision
                     int collisionIndex = -1;
                     for (int i = 0; i < collisionBuffer.Length; i++) {
                         if (collisionBuffer[i].CollisionState == CollisionEventState.Enter) {
@@ -38,11 +40,9 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.Particles {
                         }
                     }
             
-                    if (collisionIndex < 0 ) {
-                        return;
-                    }
+                    if (collisionIndex < 0 ) return;
                     
-                    var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
+                    // var other = collisionBuffer[collisionIndex].GetOtherCollisionEntity(entity);
                     
                     pv = new PhysicsVelocity();
                     
