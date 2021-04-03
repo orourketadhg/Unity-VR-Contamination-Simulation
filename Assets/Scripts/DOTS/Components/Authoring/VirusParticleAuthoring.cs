@@ -9,9 +9,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Components.Authoring {
      * Authoring Component for a Virus Particle 
      */
     public class VirusParticleAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
-
-        [SerializeField] private bool isStickyParticle;
-
+        
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
 
             // Add DecayingParticleData component to entity
