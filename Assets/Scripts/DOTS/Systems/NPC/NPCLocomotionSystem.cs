@@ -19,7 +19,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.NPC {
                 .WithName("NPCLocomotion")
                 .WithBurst()
                 .ForEach((Entity entity, ref Translation position, ref Rotation rotation, ref NPCLocomotionData locomotionData, in DynamicBuffer<WaypointPositionElement> waypoints, in LocalToWorld ltw) => {
-
+                    
                     // check distance to target
                     if (Vector3.SqrMagnitude(waypoints[locomotionData.waypointIndex].value - position.Value) <= locomotionData.stopThreshold) {
                         // update target index
@@ -38,7 +38,7 @@ namespace com.TUDublin.VRContaminationSimulation.DOTS.Systems.NPC {
                     position.Value += locomotionData.velocity * dt;
                     
                     // rotate NPC towards target
-                    rotation.Value = quaternion.LookRotation(position.Value + locomotionData.velocity * 10, ltw.Up);
+                    rotation.Value = quaternion.LookRotation(position.Value + locomotionData.velocity * 15, ltw.Up);
 
                 }).ScheduleParallel();
             
