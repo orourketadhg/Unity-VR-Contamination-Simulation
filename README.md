@@ -18,4 +18,4 @@ create simulations for education. However, with the current level of XR hardware
 development suites, using performance first programming practices should be taken into
 consideration for projects development.
 
-[![VR Contamination Simulation ]](https://youtu.be/uyY6Cnt6ye8)
+[VR Contamination Simulation ](https://youtu.be/uyY6Cnt6ye8)
